@@ -1,7 +1,7 @@
 # Personal Portfolio
 
 ## Purpose
-To showcase a professional collection of photography, creative projects, and professional experience in a cohesive, high-performance web environment. The goal is to serve as a primary digital hub for my work, balancing artistic expression with technical clarity.
+To showcase a professional collection of photography, creative projects, and professional experience in a cohesive website portfolio. The goal is to serve as a primary digital hub for my work, balancing artistic expression with technical clarity.
 
 ## Details
 - Host on GitHub pages, under a custom domain *toddbuch.com*
