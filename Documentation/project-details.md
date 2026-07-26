@@ -8,6 +8,8 @@ To display photography, projects, experience.
 - Create in HTML, CSS, & Javascript
 - React for front end frame work
 - Using Vite and Node.js
+- **Deployment:** Automatic deployment on push to `main` branch.
+- **Socials:** Links to GitHub, LinkedIn, and Instagram.
 
 ## Branch structure
 ```
@@ -25,3 +27,18 @@ Videography: coming soon!
 Projects: showcase different github projects with creative/dynamic cards
 About: Info/bio left, picture within a mask/shape on right
 ```
+
+## Design System
+- **Themes:** Light (Studio Minimalist) and Dark (Midnight Gallery) with a toggle.
+- **Color Palette (Light):** Primary: `#FFFFFF`, Secondary: `#F5F5F7`, Accent: `#6366F1` (Electric Indigo)
+- **Color Palette (Dark):** Primary: `#0F172A`, Secondary: `#1E293B`, Accent: `#6366F1` (Electric Indigo)
+- **Typography:** 
+    - Headings: *Playfair Display* (Serif)
+    - Body: *Inter* (Sans-serif)
+
+## Performance & Optimization
+- Manual downsizing of high-resolution images to ensure fast load times without sacrificing visual quality.
+
+## SEO & Accessibility
+- Primary goal is visibility on Resume and GitHub.
+- Accessibility: Inclusion of `alt` tags for all images.
