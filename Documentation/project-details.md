@@ -7,7 +7,7 @@ To display photography, projects, experience.
 - Host on GitHub pages, under a custom domain *toddbuch.com*
 - Create in HTML, CSS, & Javascript
 - React for front end frame work
-- Vite / Node? lts version of node 
+- Using Vite and Node.js
 
 ## Branch structure
 ```
@@ -18,5 +18,10 @@ feature/: each new feature/page/change should have it's own branch and PR into d
 
 ## Page structure
 ```
-
+Nav bar: Left side
+Home: Brief 1 sentence intro, some sort of design element/logo, possible scrollable cards on the right for portfolio
+Photography: Either 1 page with selection of best work or multiple galleries (or a hybrid of both?)
+Videography: coming soon!
+Projects: showcase different github projects with creative/dynamic cards
+About: Info/bio left, picture within a mask/shape on right
 ```
