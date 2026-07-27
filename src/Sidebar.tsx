@@ -1,11 +1,12 @@
 import "./Sidebar.css";
+import sideLogo from '/src/assets/LogoBLK.png';
 
 export default function Sidebar() {
   return (
     <aside className="sidebar">
       {/* Top Logo Space */}
       <div className="sidebar-logo">
-        <img src="/src/assets/LogoBLK.png" alt="Todd Buch" className="logo-img" />
+        <img src={sideLogo} alt="Todd Buch" className="logo-img" />
       </div>
 
       {/* Navigation Links */}
