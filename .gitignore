@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Logo files
+Logo.af
+Logo Icon.af
+Logo Icon.af~lock~
+Logo.af~lock~
