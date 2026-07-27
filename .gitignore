@@ -22,5 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-src/assets/Logo Icon.af~lock~
-src/assets/Logo.af~lock~
+
+# Logo files
+Logo.af
+Logo Icon.af
+Logo Icon.af~lock~
+Logo.af~lock~
