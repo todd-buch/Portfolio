@@ -1,0 +1,29 @@
+/* Light Theme */
+:root {
+  --bg-primary: #f0f9ff; /* blue or alternatively cream #fffbeb */
+  --bg-secondary: #ffffff;
+  --text-primary: #052131;
+  --text-secondary: #4b5563;
+  --accent: #0369a1;
+  --border-color: #e5e7eb;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --accent: #3b82f6;
+  --border-color: #334155;
+}
+
+/* Apply CSS Variables to Base Elements */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  /* Smooth transition when toggling modes */
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
