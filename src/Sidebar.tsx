@@ -11,9 +11,10 @@ export default function Sidebar() {
 
       {/* Navigation Links */}
       <nav className="sidebar-nav">
-        <a href="#dashboard" className="nav-item active">Page1</a>
-        <a href="#projects" className="nav-item">Page2</a>
-        <a href="#settings" className="nav-item">Page3</a>
+        <a href="#" className="nav-item active">Home</a>
+        <a href="#" className="nav-item">Photography</a>
+        <a href="#" className="nav-item">Projects</a>
+        <a href="#" className="nav-item">About</a>
       </nav>
     </aside>
   );

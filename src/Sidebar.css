@@ -1,51 +1,40 @@
 /* src/Sidebar.css */
 
 .sidebar {
-  width: 240px;
-  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  
-  background-color: var(--bg-primary);
+  height: 100px;
+  width: 100%;
   color: var(--text-primary);
-  
+  justify-content: space-between;
   display: flex;
-  flex-direction: column;
   box-sizing: border-box;
+  align-items: center;
 }
 
 .sidebar-logo {
-  height: 100px;
+  height: 100%;
   display: flex;
   align-items: center;
   gap: 0.75rem;
   padding: 0 1.5rem;
-  border-bottom: 1px solid var(--border-color);
 }
 
 .logo-img {
-  max-width: 100%;
-  height: auto;
-}
-
-.logo-text {
-  font-weight: 700;
-  font-size: 1.1rem;
+  height: 100%;
 }
 
 /* Navigation List */
 .sidebar-nav {
   display: flex;
-  flex-direction: column;
-  padding: 1rem 0.75rem;
-  gap: 0.25rem;
+  gap: 4rem;
+  align-items: middle;
+  padding: 0 4rem;
 }
 
 .nav-item {
   display: flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
