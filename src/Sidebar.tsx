@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-import sideLogo from '/src/assets/LogoBLK.png';
+import sideLogo from '/src/assets/LogoWHT.png';
 
 export default function Sidebar() {
   return (
