@@ -1,5 +1,5 @@
 .main-content {
-    margin-left: 240px; /* Same width as .sidebar */
+    margin-top: 100px; /* Same height as .sidebar */
     padding: 2rem;
     min-height: 100vh;
     background-color: var(--bg-primary);

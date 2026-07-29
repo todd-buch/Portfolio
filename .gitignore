@@ -24,7 +24,4 @@ dist-ssr
 *.sw?
 
 # Logo files
-Logo.af
-Logo Icon.af
-Logo Icon.af~lock~
-Logo.af~lock~
+*.af*
