@@ -33,7 +33,7 @@
     display: flex;
 }
 .hero-left-text {
-    color: var(--bg-secondary);
+    color: #FFFFFF;
     align-items: left;
     height: 100%;
     width: 60%;
@@ -43,9 +43,35 @@
 }
 .hero-left-text h1 {
     font-size: 6rem;
-    margin-bottom: 1rem;
 }
-.hero-left-text p {
+.hero-left-text h2 {
     font-size: 1.5rem;
     margin-bottom: 2rem;
+}
+.hero-left-button {
+    color: var(--accent);
+    background-color: var(--bg-primary);
+    height: auto;
+    width: 60%;
+    padding: 1rem 2rem;
+    border-radius: 3rem;
+    justify-content: space-between;
+    display: flex;
+
+}
+.hero-left-button a {
+    height: 100%;
+    width: auto;
+    display: flex;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+.hero-left-button:hover {
+    background-color: var(--accent);
+    color: var(--bg-primary);
+}
+
+.btn-icon {
+    stroke-width: 3px;
+    size: 2rem;
 }

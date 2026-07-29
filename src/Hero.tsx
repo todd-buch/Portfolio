@@ -2,6 +2,8 @@ import './Hero.css'
 import HeroBack from '/src/assets/HeroBack.png';
 import MiddleImg from '/src/assets/Todd-Middle.png';
 
+import { ArrowUpRight } from 'lucide-react';
+
 function Hero() {
   return (
     <>
@@ -9,7 +11,11 @@ function Hero() {
         <div className="hero-panel-l">
             <div className="hero-left-text">
             <h1>INNOVATE</h1>
-            <p>Through smart software design, powerful media, and strong execution.</p>
+            <h2>Through smart software design, powerful media, and strong execution.</h2>
+            <div className="hero-left-button">
+              <a>View Projects</a>
+              <ArrowUpRight className="btn-icon" size={28}/>
+            </div>
             </div>
         </div>
         <div className="hero-panel-r">

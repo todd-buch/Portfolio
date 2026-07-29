@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
 /* Light Theme */
 :root {
   --bg-primary: #f0f0ee; /* blue #f0f9ff or alternatively cream #fffbeb */
   --bg-secondary: #ffffff;
   --text-primary: #052131;
   --text-secondary: #4b5563;
-  --accent: #0369a1;
+  --accent: #9B491A;
   --border-color: #e5e7eb;
 }
 
@@ -14,7 +16,7 @@
   --bg-secondary: #1e293b;
   --text-primary: #f9fafb;
   --text-secondary: #9ca3af;
-  --accent: #3b82f6;
+  --accent: #FA9C30;
   --border-color: #334155;
 }
 
@@ -22,8 +24,16 @@
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   margin: 0;
   /* Smooth transition when toggling modes */
   transition: background-color 0.25s ease, color 0.25s ease;
+}
+h1 {
+  font-family: 'Bebas Neue', -apple-system, sans-serif;
+  font-weight: 800;
+}
+h2 {
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-weight: 500;
 }
