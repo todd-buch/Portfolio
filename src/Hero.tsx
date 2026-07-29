@@ -7,7 +7,10 @@ function Hero() {
     <>
       <div style={{ backgroundImage: `url(${HeroBack})` }} className="hero-container">
         <div className="hero-panel-l">
-            
+            <div className="hero-left-text">
+            <h1>INNOVATE</h1>
+            <p>Through smart software design, powerful media, and strong execution.</p>
+            </div>
         </div>
         <div className="hero-panel-r">
             
