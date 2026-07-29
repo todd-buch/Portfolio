@@ -1,90 +1,93 @@
 .hero-container {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: space-between;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: space-between;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* cut off bottom overflow */
+  position: relative;
+  overflow: hidden;
+}
 
 .hero-panel-l {
-    height: calc(100% - 2rem);
-    width: 50%;
-    display: flex;
-    margin: 1rem;
-    justify-content: left;
-    padding: 5%;
+  height: calc(100% - 2rem);
+  width: 50%;
+  display: flex;
+  margin: 1rem;
+  justify-content: left;
+  padding: 5%;
 }
 .hero-panel-r {
-    height: calc(100% - 2rem);
-    width: 50%;
-    display: flex;
-    background-color: var(--bg-primary);
-    border-radius: 2rem;
-    margin: 1rem;
+  height: calc(100% - 2rem);
+  width: 50%;
+  display: flex;
+  background-color: var(--bg-primary);
+  border-radius: 2rem;
+  margin: 1rem;
 }
 .hero-middle {
-    position: absolute;
-    top: 0;
-    left: 25%;
-    height: 100vh;
-    width: 50%;
-    display: flex;
+  position: absolute;
+  top: 0;
+  left: 25%;
+  height: 100vh;
+  width: 50%;
+  display: flex;
 }
 .hero-left-text {
-    color: #FFFFFF;
-    align-items: left;
-    height: 100%;
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  color: #ffffff;
+  align-items: left;
+  height: 100%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .hero-left-text h1 {
-    font-size: 8rem;
+  font-size: 8rem;
 }
 .hero-left-text h2 {
-    font-size: 1.5rem;
-    margin-bottom: 6rem;
+  font-size: 1.5rem;
+  margin-bottom: 6rem;
 }
 .hero-left-button {
-    color: var(--accent);
-    background-color: var(--bg-primary);
-    height: auto;
-    width: 60%;
-    padding: 1rem 2rem;
-    border-radius: 3rem;
-    justify-content: space-between;
-    display: flex;
-
+  color: var(--accent);
+  background-color: var(--bg-primary);
+  height: auto;
+  width: 60%;
+  padding: 1rem 2rem;
+  border-radius: 3rem;
+  justify-content: space-between;
+  display: flex;
 }
 .hero-left-button a {
-    height: 100%;
-    width: auto;
-    display: flex;
-    font-weight: 600;
-    font-size: 1.25rem;
+  height: 100%;
+  width: auto;
+  display: flex;
+  font-weight: 600;
+  font-size: 1.25rem;
 }
 .hero-left-button:hover {
-    background-color: var(--accent);
-    color: var(--bg-primary);
+  background-color: var(--accent);
+  color: var(--bg-primary);
 }
 .btn-icon {
-    stroke-width: 3px;
-    size: 2rem;
+  stroke-width: 3px;
+  size: 2rem;
 }
 .hero-right-text {
-    align-items: left;
-    height: 100%;
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 30%;
+  align-items: left;
+  height: 100%;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 30%;
+  gap: 2rem;
 }
 .hero-right-bullet {
-    margin-right: 1rem;
-    color: var(--accent);
-    stroke-width: 4px;
-}   
+  margin-right: 1rem;
+  color: var(--accent);
+  stroke-width: 4px;
+}
