@@ -2,7 +2,7 @@ import './Hero.css'
 import HeroBack from '/src/assets/HeroBack.png';
 import MiddleImg from '/src/assets/Todd-Middle.png';
 
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, CircleSmall } from 'lucide-react';
 
 function Hero() {
   return (
@@ -19,7 +19,12 @@ function Hero() {
             </div>
         </div>
         <div className="hero-panel-r">
-            
+        <div className="hero-right-text">
+            <h1><CircleSmall className="hero-right-bullet"/>Software Engineering</h1>
+            <h1><CircleSmall className="hero-right-bullet"/>Visual Media</h1>
+            <h1><CircleSmall className="hero-right-bullet"/>Leadership & Strategy</h1>
+            <h1><CircleSmall className="hero-right-bullet"/>Design & UX</h1>
+            </div>
         </div>
       </div>
       <div className="hero-middle">
