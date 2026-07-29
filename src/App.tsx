@@ -1,16 +1,15 @@
 import './App.css'
 /* import Example from './example' */
 import Sidebar from "./Sidebar";
+import Hero from "./Hero"
 
 function App() {
-  
-
   return (
     <>
+      <Hero />
       <Sidebar />
       <main className="main-content">
-        <h1>Home</h1>
-        <p>Some home content</p>
+        
       </main>
     </>
   )
