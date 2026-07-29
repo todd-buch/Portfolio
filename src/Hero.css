@@ -34,6 +34,13 @@
   height: 100vh;
   width: 50%;
   display: flex;
+  justify-content: center;
+}
+.hero-middle img {
+  height: 100%;
+  width: auto;
+  object-fit: fit;
+  border-radius: 2rem;
 }
 .hero-left-text {
   color: #ffffff;
