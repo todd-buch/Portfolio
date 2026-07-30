@@ -1,8 +1,8 @@
 import "./Sidebar.css";
 import sideLogoWht from "/src/assets/LogoWHT.png";
 import sideLogoBlk from "/src/assets/LogoBLK.png";
-import { FaGithub, FaLinkedin, FaInstagram, FaG, FaGit } from "react-icons/fa6";
-import { FiInstagram } from "react-icons/fi";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa6";
+
 
 interface SidebarProps {
   isScrolled: boolean;
@@ -42,7 +42,7 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
             <FaLinkedin size={20} />
           </a>
           <a href="https://www.instagram.com/toddbmedia/" target="_blank" rel="noreferrer" className="nav-item">
-            <FiInstagram size={20} />
+            <FaInstagram size={20} />
           </a>
         </nav>
       </aside>
