@@ -1,18 +1,30 @@
-import './App.css'
-/* import Example from './example' */
+import { useState, useEffect } from "react";
+import "./App.css";
 import Sidebar from "./Sidebar";
-import Hero from "./Hero"
+import Hero from "./Hero";
 
 function App() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
       <Hero />
-      <Sidebar />
-      <main className="main-content">
-        
-      </main>
+      <Sidebar isScrolled={isScrolled}/>
+      <main className="main-content"></main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
