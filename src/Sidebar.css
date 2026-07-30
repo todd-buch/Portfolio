@@ -1,7 +1,23 @@
-.sidebar {
+.top-sidebar {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: transparent;
+  border-radius: 0 0 1rem 1rem;
+  
+  /* Smooth transition when scrolling starts */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Fills in background color once scrolled past 50px */
+.top-sidebar.scrolled {
+  background-color: var(--bg-primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar {
   height: 120px;
   width: 100%;
   color: var(--text-primary);
