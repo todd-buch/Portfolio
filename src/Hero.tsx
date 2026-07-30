@@ -50,6 +50,11 @@ function Hero() {
               Design & UX
             </h1>
           </div>
+          <div className="hero-right-inprogress">
+              <h3>Currently Working On</h3>
+              <p>Creating a portfolio website.</p>
+              <a>View<ArrowUpRight size={28} /></a>
+          </div>
         </motion.div>
       </div>
       <motion.div style={{ y: yMiddle, opacity: opacityMiddle }} className="hero-middle">
