@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Sidebar from "./Sidebar";
 import Hero from "./Hero";
+import Main_Projects from "./Main_Projects";
 
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,7 +23,7 @@ function App() {
     <>
       <Hero />
       <Sidebar isScrolled={isScrolled}/>
-      <main className="main-content"></main>
+      <Main_Projects />
     </>
   );
 }

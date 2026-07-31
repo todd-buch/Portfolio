@@ -1,0 +1,20 @@
+.projects {
+    color: var(--text-primary);
+    padding: 6rem;
+}
+.bio {
+    display: flex;
+    flex-direction: column;
+}
+.bio h1 {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+}
+.projects-traits {
+    display: flex;
+    color: var(--accent);
+    font-weight: 500;
+}
+.projects-traits-dot {
+    margin: 0 1rem;
+}
