@@ -16,9 +16,16 @@ export default function Main_Projects() {
             <p>Analytical</p>
             <Dot />
             <p>Solution-Oriented</p>
-            <Dot />
           </div>
-          <p>I'm a computer science student studying software development & design. I love digital media including photography and graphic design.</p>
+          <p>
+            My background in photography and graphic design shaped my
+            understanding of how we experience the visual world. This
+            fascination with digital aesthetics led me to Computer Science,
+            where I discovered the power of building functional worlds from the
+            ground up. Now, as a software development student, I focus on
+            merging technical precision with creative intuition, transforming
+            abstract ideas into impactful, user-centric digital solutions.
+          </p>
         </div>
       </div>
     </>
