@@ -1,3 +1,4 @@
+import "./Main_Projects.css";
 import { Dot } from "lucide-react";
 
 export default function Main_Projects() {
@@ -8,13 +9,13 @@ export default function Main_Projects() {
           <h1>Todd Buch</h1>
           <div className="projects-traits">
             <p>Creative</p>
-            <Dot />
+            <Dot className="projects-traits-dot"/>
             <p>Observant</p>
-            <Dot />
+            <Dot className="projects-traits-dot"/>
             <p>Curious</p>
-            <Dot />
+            <Dot className="projects-traits-dot"/>
             <p>Analytical</p>
-            <Dot />
+            <Dot className="projects-traits-dot"/>
             <p>Solution-Oriented</p>
           </div>
           <p>
