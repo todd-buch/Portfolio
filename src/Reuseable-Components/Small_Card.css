@@ -1,0 +1,23 @@
+.small-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 3rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  background: var(--bg-secondary);
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease;
+  width: 50%;
+  margin: 0.25rem;
+}
+.small-card-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.small-card-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
