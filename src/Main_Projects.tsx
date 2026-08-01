@@ -6,11 +6,11 @@ import Magnetic_Timeline from "./Reuseable-Components/Magnetic_Timeline";
 import Tech_Dropdown from "./Reuseable-Components/Tech_Dropdown";
 import Tech_Pill from "./Reuseable-Components/Tech_Pill";
 import Small_Card from "./Reuseable-Components/Small_Card";
+import Current from "./Reuseable-Components/Current";
 
 import { SiPython, SiDavinciresolve } from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
-
 
 export default function Main_Projects() {
   return (
@@ -112,23 +112,49 @@ export default function Main_Projects() {
         <div id="projects" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">Projects</h2>
           <div className="projects-section-block">
-            <Small_Card title="Quant-Engine" date="July 2026 — ongoing">
+            <Small_Card
+              title="Quant-Engine"
+              date={
+                <>
+                  July 2026 — <Current />
+                </>
+              }
+            >
               <p>Placeholder</p>
               <Tech_Pill name="Python" icon={<SiPython color="default" />} />
             </Small_Card>
-            <Small_Card title="Fire Prevention at the Edge" date="August 2025 — May 2026">
+            <Small_Card
+              title="Fire Prevention at the Edge"
+              date="August 2025 — May 2026"
+            >
               <p>Placeholder</p>
             </Small_Card>
-            <Small_Card title="Portfolio Website" date="July 2026 — ongoing">
+            <Small_Card
+              title="Portfolio Website"
+              date={
+                <>
+                  July 2026 — <Current />
+                </>
+              }
+            >
               <p>This website</p>
             </Small_Card>
           </div>
         </div>
         <hr className="divider" />
         <div id="contact" className="main-regular-text-block">
-        <h2 className="main-regular-text-block-title">Got an Idea? Let's Talk.</h2>
-        <p className="main-regular-text-block-body">Have a project in mind, looking to get images of your cool car, or just want to chat? Drop me a message!</p>
-        <Action_Button text="Get in touch" icon={<Mail />} link="mailto:todd@example.com" />
+          <h2 className="main-regular-text-block-title">
+            Got an Idea? Let's Talk.
+          </h2>
+          <p className="main-regular-text-block-body">
+            Have a project in mind, looking to get images of your cool car, or
+            just want to chat? Drop me a message!
+          </p>
+          <Action_Button
+            text="Get in touch"
+            icon={<Mail />}
+            link="mailto:todd@example.com"
+          />
         </div>
       </div>
     </>

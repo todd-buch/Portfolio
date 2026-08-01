@@ -1,4 +1,4 @@
-import { type MouseEvent, useRef } from "react";
+import { type MouseEvent, useEffect, useRef, useState } from "react";
 import {
   animate,
   motion,
@@ -13,8 +13,17 @@ import MiddleImg from "/src/assets/Todd-Middle.png";
 import { ArrowDown, CircleSmall } from "lucide-react";
 
 function Hero() {
+  const [isMobile, setIsMobile] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollAnim = useRef<AnimationPlaybackControls | null>(null);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 1225px)");
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   // Progress 0 → 1 as the hero scrolls from filling the viewport to fully off-screen
   const { scrollYProgress } = useScroll({
@@ -69,7 +78,10 @@ function Hero() {
       className="hero-container"
     >
       <div className="hero-panel-l">
-        <motion.div style={{ y: yLeft }} className="hero-left-text">
+        <motion.div
+          style={isMobile ? undefined : { y: yLeft }}
+          className="hero-left-text"
+        >
           <h1>INNOVATE</h1>
           <h2>
             Through smart software design, powerful media, and strong
@@ -81,17 +93,26 @@ function Hero() {
           </a>
         </motion.div>
       </div>
+
       <motion.div
-        style={{
-          y: yMiddle,
-          opacity: opacityMiddle,
-          visibility: visibilityMiddle,
-        }}
+        style={
+          isMobile
+            ? undefined
+            : {
+                y: yMiddle,
+                opacity: opacityMiddle,
+                visibility: visibilityMiddle,
+              }
+        }
         className="hero-middle"
       >
-        <img src={MiddleImg} className="hero-middle-img" alt="" />
+        <img src={MiddleImg} className="hero-middle-img" alt="Todd Buch" />
       </motion.div>
-      <motion.div style={{ y: yRight }} className="hero-panel-r">
+
+      <motion.div
+        style={isMobile ? undefined : { y: yRight }}
+        className="hero-panel-r"
+      >
         <div className="hero-right-text">
           <h3>
             <CircleSmall className="hero-right-bullet" />

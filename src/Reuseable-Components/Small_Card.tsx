@@ -3,7 +3,7 @@ import "./Small_Card.css";
 
 interface SmallCardProps {
   title: string;
-  date:string;
+  date: ReactNode;
   children: ReactNode;
 }
 
