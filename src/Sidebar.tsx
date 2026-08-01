@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 import sideLogoWht from "/src/assets/LogoWHT.png";
 import sideLogoBlk from "/src/assets/LogoBLK.png";
@@ -10,10 +10,55 @@ interface SidebarProps {
   isScrolled: boolean;
 }
 
+function useIsDarkTheme() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    const update = () => {
+      const attr = root.getAttribute("data-theme");
+      if (attr === "dark") {
+        setIsDark(true);
+        return;
+      }
+      if (attr === "light") {
+        setIsDark(false);
+        return;
+      }
+      // No explicit theme attribute — follow system preference
+      setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    };
+
+    update();
+
+    const observer = new MutationObserver(update);
+    observer.observe(root, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    media.addEventListener("change", update);
+
+    return () => {
+      observer.disconnect();
+      media.removeEventListener("change", update);
+    };
+  }, []);
+
+  return isDark;
+}
+
 export default function Sidebar({ isScrolled }: SidebarProps) {
+  const location = useLocation();
+  const isDark = useIsDarkTheme();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Close mobile menu on resize up to desktop, and lock body scroll while open
+  const isHome =
+    location.pathname === "/" || location.pathname === "";
+
+  // Close mobile menu on resize up to desktop
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth > 1225) setMenuOpen(false);
@@ -38,16 +83,26 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
     };
   }, [menuOpen]);
 
+  // Close menu when navigating between pages
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
   const closeMenu = () => setMenuOpen(false);
   const toggleMenu = () => setMenuOpen((open) => !open);
 
-  // Solid bar when scrolled or when the mobile menu is open
+  // Solid bar (bg + shadow) only after scroll, or while the mobile menu is open.
   const showSolidBar = isScrolled || menuOpen;
-  const logoSrc = showSolidBar ? sideLogoBlk : sideLogoWht;
+
+  // White logo only when floating over the dark home hero.
+  // Everywhere else (other pages, or home after scroll): theme-aware logo.
+  const overHero = isHome && !isScrolled && !menuOpen;
+  const themeLogo = isDark ? sideLogoWht : sideLogoBlk;
+  const logoSrc = overHero ? sideLogoWht : themeLogo;
 
   return (
     <header
-      className={`top-sidebar ${showSolidBar ? "scrolled" : ""} ${menuOpen ? "menu-open" : ""}`}
+      className={`top-sidebar ${showSolidBar ? "scrolled" : ""} ${overHero ? "over-hero" : ""} ${menuOpen ? "menu-open" : ""}`}
     >
       <aside className="sidebar">
         <div className="sidebar-logo">
@@ -75,13 +130,25 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
           id="primary-nav"
           className={`sidebar-nav ${menuOpen ? "open" : ""}`}
         >
-          <Link to="/" className="nav-item active" onClick={closeMenu}>
+          <Link
+            to="/"
+            className={`nav-item ${isHome ? "active" : ""}`}
+            onClick={closeMenu}
+          >
             Home
           </Link>
-          <Link to="/resume" className="nav-item" onClick={closeMenu}>
+          <Link
+            to="/resume"
+            className={`nav-item ${location.pathname.startsWith("/resume") ? "active" : ""}`}
+            onClick={closeMenu}
+          >
             Resume
           </Link>
-          <Link to="/photography" className="nav-item" onClick={closeMenu}>
+          <Link
+            to="/photography"
+            className={`nav-item ${location.pathname.startsWith("/photography") ? "active" : ""}`}
+            onClick={closeMenu}
+          >
             Photography
           </Link>
 
