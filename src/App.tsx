@@ -3,6 +3,7 @@ import "./App.css";
 import Sidebar from "./Sidebar";
 import Hero from "./Hero";
 import Main_Projects from "./Main_Projects";
+import Footer from "./Footer";
 
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,8 +23,9 @@ function App() {
   return (
     <>
       <Hero />
-      <Sidebar isScrolled={isScrolled}/>
+      <Sidebar isScrolled={isScrolled} />
       <Main_Projects />
+      <Footer />
     </>
   );
 }
