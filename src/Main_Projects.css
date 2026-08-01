@@ -14,7 +14,8 @@
 .bio {
   display: flex;
   flex-direction: column;
-  padding-bottom: 10rem;
+  /* Use margin so scrollIntoView centers the content, not empty padding */
+  margin-bottom: 10rem;
 }
 .bio h1 {
   font-size: 6rem;
