@@ -24,10 +24,41 @@ export default function Resume() {
             title="University of Connecticut"
             subtitle="Bachelor of Science — Computer Science"
             location="Storrs, Connecticut"
-            num_details={1}
+            num_details={5}
           >
-            <p><i>Concentration: Software Development & Design</i></p>
-            <p>Graduation: December 2026</p>
+            <p>
+              <i>Concentration: Software Development & Design</i> | Graduation:
+              December 2026
+            </p>
+            <p>Relevant Courses:</p>
+
+            <p>
+              <b>Data Structures and Object-Oriented Design:</b> Introduction to
+              fundamental data structures and algorithms.
+            </p>
+
+            <p>
+              <b>Introduction to Discrete Systems:</b> Introduction to formal
+              mathematical thinking including discrete systems and proofs.
+            </p>
+
+            <p>
+              <b>Business Software Development:</b> Development of computer
+              software for business information processing, using the C#
+              language.
+            </p>
+
+            <p>
+              <b>Intro to Software Engineering:</b> Software engineering
+              concepts including the software life cycle and other
+              software-development process models.
+            </p>
+
+            <p>
+              <b>Programming Languages:</b> The study of programming language
+              features and programming paradigms. Simply Typed Lambda Calculus,
+              OCaml, Prolog, & Smalltalk.
+            </p>
           </Resume_Card_Template>
         </div>
       </div>
