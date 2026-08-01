@@ -27,7 +27,7 @@ export default function Resume() {
             num_details={5}
           >
             <p>
-              <i>Concentration: Software Development & Design</i> | Graduation:
+              <i>Dean's List Student | Concentration: Software Development & Design</i> | Graduation:
               December 2026
             </p>
             <p>Relevant Courses:</p>
