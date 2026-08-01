@@ -6,42 +6,30 @@ interface SectionInfo {
   offsetTop: number;
 }
 
+interface Vertex {
+  x: number;
+  y: number;
+}
+
 export default function Magnetic_Timeline() {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
-  const trackPathRef = useRef<SVGPathElement>(null);
   const activePathRef = useRef<SVGPathElement>(null);
-  const dotsRef = useRef<{ [key: string]: SVGGElement | null }>({});
 
   const [sections, setSections] = useState<SectionInfo[]>([]);
   const [timelineHeight, setTimelineHeight] = useState(0);
+  const [pathD, setPathD] = useState("");
+  const [vertices, setVertices] = useState<Vertex[]>([]);
+  const [activeIndex, setActiveIndex] = useState(-1);
 
-  // References for mouse coordinates relative to the SVG container
-  const mouseXRef = useRef(0);
-  const mouseYRef = useRef(0);
-  const isMouseNearRef = useRef(false);
-
-  const N = 60; // Number of points on the line
-  const xDisplacements = useRef<number[]>(new Array(N).fill(0));
-  const velocities = useRef<number[]>(new Array(N).fill(0));
-  const yPoints = useRef<number[]>(new Array(N).fill(0));
-
-  // Measure sections and container height
+  // Measure sections and height
   useEffect(() => {
     const updateSize = () => {
       if (!svgRef.current) return;
       const height = svgRef.current.clientHeight;
       setTimelineHeight(height);
 
-      // Generate y coordinates for each point along the line
-      const points = [];
-      const segmentHeight = height / (N - 1);
-      for (let i = 0; i < N; i++) {
-        points.push(i * segmentHeight);
-      }
-      yPoints.current = points;
-
-      // Measure offsetTop of section elements relative to parent container
+      // Measure sections
       const sectionIds = ["bio", "about", "role", "projects", "contact"];
       const measured = sectionIds.map((id) => {
         const el = document.getElementById(id);
@@ -51,9 +39,38 @@ export default function Magnetic_Timeline() {
         };
       });
       setSections(measured);
+
+      // Generate circuit path vertices
+      const verts: Vertex[] = [{ x: 50, y: 0 }];
+      for (let i = 0; i < measured.length; i++) {
+        const currY = measured[i].offsetTop;
+        if (i === 0) {
+          verts.push({ x: 50, y: currY });
+        } else {
+          const prevY = measured[i - 1].offsetTop;
+          // Only bend if there's sufficient vertical space (120px) to prevent squeezing
+          if (currY - prevY > 120) {
+            const offset = i % 2 === 1 ? 20 : 80; // Winding left and right traces
+            verts.push({ x: 50, y: prevY + 30 });
+            verts.push({ x: offset, y: prevY + 60 });
+            verts.push({ x: offset, y: currY - 60 });
+            verts.push({ x: 50, y: currY - 30 });
+          }
+          verts.push({ x: 50, y: currY });
+        }
+      }
+      verts.push({ x: 50, y: height });
+
+      setVertices(verts);
+
+      // Build path D string
+      let d = `M ${verts[0].x} ${verts[0].y}`;
+      for (let i = 1; i < verts.length; i++) {
+        d += ` L ${verts[i].x} ${verts[i].y}`;
+      }
+      setPathD(d);
     };
 
-    // Initial measurement delay to ensure layout rendering is completed
     const timer = setTimeout(updateSize, 100);
 
     const resizeObserver = new ResizeObserver(updateSize);
@@ -74,169 +91,70 @@ export default function Magnetic_Timeline() {
     };
   }, []);
 
-  // Track global mouse position and check proximity to the vertical line
+  // Sync scroll fill line and active nodes
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!svgRef.current) return;
-      const rect = svgRef.current.getBoundingClientRect();
-      
-      // Calculate mouse x/y relative to the SVG container
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+    if (vertices.length === 0) return;
 
-      // check if mouse is within 350px horizontally of the vertical line (center is at 50px)
-      const distToLine = Math.abs(e.clientX - (rect.left + 50));
-      if (distToLine < 350) {
-        mouseXRef.current = x;
-        mouseYRef.current = y;
-        isMouseNearRef.current = true;
-      } else {
-        isMouseNearRef.current = false;
-      }
-    };
+    const handleScroll = () => {
+      if (!containerRef.current || !activePathRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const viewportThreshold = window.innerHeight * 0.5; // Fill up to eye-level
+      const progressPixels = viewportThreshold - rect.top;
+      const totalH = rect.height;
+      const filledHeight = Math.max(0, Math.min(1, progressPixels / totalH)) * totalH;
 
-    const handleMouseLeave = () => {
-      isMouseNearRef.current = false;
-    };
+      // 1. Build and set active path D attribute directly via ref (performance optimization)
+      let activeD = `M ${vertices[0].x} ${vertices[0].y}`;
+      for (let i = 1; i < vertices.length; i++) {
+        const prev = vertices[i - 1];
+        const curr = vertices[i];
 
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
-
-  // Physics animation loop using Hooke's Law and Neighbor String Tension
-  useEffect(() => {
-    let animId: number;
-
-    const k = 0.04;      // Spring stiffness coefficient
-    const damping = 0.86; // Velocity damping coefficient to control oscillation decay
-    const tension = 0.14; // Structural tension pulling points towards their immediate neighbors
-    const R = 240;        // Magnetic attraction radius (pixels)
-
-    const tick = () => {
-      if (!trackPathRef.current || !activePathRef.current || yPoints.current.length === 0) {
-        animId = requestAnimationFrame(tick);
-        return;
-      }
-
-      const totalH = timelineHeight || svgRef.current?.clientHeight || 0;
-      if (totalH === 0) {
-        animId = requestAnimationFrame(tick);
-        return;
-      }
-
-      // Calculate scroll fill progress relative to eye level (middle of the viewport)
-      let filledHeight = 0;
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const viewportThreshold = window.innerHeight * 0.5;
-        const progressPixels = viewportThreshold - rect.top;
-        const progress = Math.max(0, Math.min(1, progressPixels / rect.height));
-        filledHeight = progress * totalH;
-      }
-
-      const mX = mouseXRef.current;
-      const mY = mouseYRef.current;
-      const near = isMouseNearRef.current;
-
-      const currentX = xDisplacements.current;
-      const currentV = velocities.current;
-      const yPts = yPoints.current;
-
-      // Update positions for each internal node along the string
-      for (let i = 0; i < N; i++) {
-        // Anchor top and bottom nodes securely at 0 displacement
-        if (i === 0 || i === N - 1) {
-          currentX[i] = 0;
-          currentV[i] = 0;
-          continue;
-        }
-
-        let target = 0;
-        if (near) {
-          const dx = mX - 50;
-          const dy = mY - yPts[i];
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < R) {
-            // Strength of pull decays exponentially with radial distance
-            const factor = Math.pow(1 - dist / R, 2);
-            target = dx * factor * 0.45;
-            // Clamp displacement to prevent visual clipping
-            target = Math.max(-40, Math.min(40, target));
-          }
-        }
-
-        // Spring restoring force
-        const forceSpring = -k * (currentX[i] - target);
-
-        // String tension from immediate neighbor nodes
-        const forceTension = tension * (currentX[i - 1] + currentX[i + 2 <= N ? i + 1 : i] - 2 * currentX[i]);
-
-        const acc = forceSpring + forceTension;
-        currentV[i] = (currentV[i] + acc) * damping;
-        currentX[i] += currentV[i];
-      }
-
-      // Build background track SVG path
-      let d = `M ${50 + currentX[0]} ${yPts[0]}`;
-      for (let i = 1; i < N; i++) {
-        d += ` L ${50 + currentX[i]} ${yPts[i]}`;
-      }
-      trackPathRef.current.setAttribute("d", d);
-
-      // Build active/filled SVG path (interpolated up to filledHeight)
-      let activeD = `M ${50 + currentX[0]} ${yPts[0]}`;
-      for (let i = 1; i < N; i++) {
-        if (yPts[i] <= filledHeight) {
-          activeD += ` L ${50 + currentX[i]} ${yPts[i]}`;
+        if (curr.y <= filledHeight) {
+          activeD += ` L ${curr.x} ${curr.y}`;
         } else {
-          const prevY = yPts[i - 1];
-          const currY = yPts[i];
-          const t = currY - prevY > 0 ? (filledHeight - prevY) / (currY - prevY) : 0;
-          const interpX = currentX[i - 1] + t * (currentX[i] - currentX[i - 1]);
-          activeD += ` L ${50 + interpX} ${filledHeight}`;
+          const t = curr.y - prev.y > 0 ? (filledHeight - prev.y) / (curr.y - prev.y) : 0;
+          const interpX = prev.x + t * (curr.x - prev.x);
+          activeD += ` L ${interpX} ${filledHeight}`;
           break;
         }
       }
       activePathRef.current.setAttribute("d", activeD);
 
-      // Dynamically position section "bead" dots and update visual active state
-      const segmentH = totalH / (N - 1);
-      sections.forEach((sec) => {
-        const dotEl = dotsRef.current[sec.id];
-        if (!dotEl) return;
-
-        // Interpolate exact horizontal displacement at dot's y position
-        const yVal = sec.offsetTop;
-        const idx = segmentH > 0 ? Math.max(0, Math.min(N - 2, Math.floor(yVal / segmentH))) : 0;
-        const t = segmentH > 0 ? (yVal % segmentH) / segmentH : 0;
-        const x0 = currentX[idx] || 0;
-        const x1 = currentX[idx + 1] !== undefined ? currentX[idx + 1] : x0;
-        const disp = x0 + t * (x1 - x0);
-
-        dotEl.setAttribute("transform", `translate(${50 + disp}, ${yVal})`);
-
-        if (filledHeight >= yVal) {
-          dotEl.classList.add("active");
-        } else {
-          dotEl.classList.remove("active");
+      // 2. Determine which section nodes should be activated (power up)
+      let newIndex = -1;
+      for (let i = 0; i < sections.length; i++) {
+        if (filledHeight >= sections[i].offsetTop) {
+          newIndex = i;
         }
-      });
+      }
 
-      animId = requestAnimationFrame(tick);
+      if (newIndex !== activeIndex) {
+        setActiveIndex(newIndex);
+      }
     };
 
-    animId = requestAnimationFrame(tick);
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
 
     return () => {
-      cancelAnimationFrame(animId);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
-  }, [timelineHeight, sections]);
+  }, [vertices, sections, activeIndex]);
+
+  // Find dynamic x coordinate at each node offset for placing the node on the line
+  const getNodeX = (offsetTop: number, index: number): number => {
+    if (vertices.length === 0) return 50;
+    // Map index to left or right bent x coordinates, or default to center
+    // We bend if distance between this section and previous section is large
+    if (index === 0) return 50;
+    const prevY = sections[index - 1]?.offsetTop || 0;
+    if (offsetTop - prevY > 120) {
+      return 50; // The node itself is always back at center x=50
+    }
+    return 50;
+  };
 
   return (
     <div ref={containerRef} className="timeline-container">
@@ -247,46 +165,119 @@ export default function Magnetic_Timeline() {
         className="timeline-svg"
         style={{ overflow: "visible" }}
       >
-        {/* Unfilled track path */}
-        <path
-          ref={trackPathRef}
-          fill="none"
-          stroke="var(--border-color)"
-          strokeWidth="2"
-          strokeLinecap="round"
-          opacity="0.3"
-        />
-        {/* Active progress-fill path */}
+        <defs>
+          {/* High-tech glow effect filter for active lines and signals */}
+          <filter id="circuit-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* 1. Ground/Track Circuit Line (Offline state) */}
+        {pathD && (
+          <path
+            d={pathD}
+            fill="none"
+            stroke="var(--border-color)"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            opacity="0.75"
+          />
+        )}
+
+        {/* 2. Active Power-Fill Circuit Line (Online state) */}
         <path
           ref={activePathRef}
           fill="none"
           stroke="var(--accent)"
-          strokeWidth="3.5"
+          strokeWidth="3"
           strokeLinecap="round"
+          filter="url(#circuit-glow)"
+          style={{ transition: "stroke 0.3s ease" }}
         />
-        {/* Section marker beads */}
-        {sections.map((sec) => (
-          <g
-            key={sec.id}
-            ref={(el) => {
-              dotsRef.current[sec.id] = el;
-            }}
-            className="timeline-dot-group"
-          >
-            <circle
-              r="12"
-              className="timeline-dot-ring"
-              fill="none"
-              stroke="var(--accent)"
-              strokeWidth="1.5"
-            />
-            <circle
-              r="5"
-              className="timeline-dot-core"
-              strokeWidth="2"
-            />
-          </g>
-        ))}
+
+
+
+        {/* 4. SMD Microchip Section Nodes */}
+        {sections.map((sec, idx) => {
+          const isActive = idx <= activeIndex;
+          const x = getNodeX(sec.offsetTop, idx);
+
+          return (
+            <g
+              key={sec.id}
+              transform={`translate(${x}, ${sec.offsetTop})`}
+              className={`timeline-node-group ${isActive ? "active" : ""}`}
+            >
+              {/* Microchip pins/circuit connections */}
+              <line
+                x1="-10"
+                y1="-10"
+                x2="10"
+                y2="10"
+                stroke={isActive ? "var(--accent)" : "var(--border-color)"}
+                strokeWidth="1"
+                opacity={isActive ? 0.8 : 0.4}
+                className="chip-pin"
+              />
+              <line
+                x1="-10"
+                y1="10"
+                x2="10"
+                y2="-10"
+                stroke={isActive ? "var(--accent)" : "var(--border-color)"}
+                strokeWidth="1"
+                opacity={isActive ? 0.8 : 0.4}
+                className="chip-pin"
+              />
+              <line
+                x1="-12"
+                y1="0"
+                x2="12"
+                y2="0"
+                stroke={isActive ? "var(--accent)" : "var(--border-color)"}
+                strokeWidth="1.2"
+                opacity={isActive ? 0.8 : 0.4}
+                className="chip-pin"
+              />
+              <line
+                x1="0"
+                y1="-12"
+                x2="0"
+                y2="12"
+                stroke={isActive ? "var(--accent)" : "var(--border-color)"}
+                strokeWidth="1.2"
+                opacity={isActive ? 0.8 : 0.4}
+                className="chip-pin"
+              />
+
+              {/* Square SMD Base Pad */}
+              <rect
+                x="-6"
+                y="-6"
+                width="12"
+                height="12"
+                rx="1.5"
+                fill="var(--bg-primary)"
+                stroke={isActive ? "var(--accent)" : "var(--text-secondary)"}
+                strokeWidth="2"
+                className="chip-base"
+              />
+
+              {/* Silicon Core Center Dot */}
+              <circle
+                r="3"
+                className="chip-core"
+                fill={isActive ? "var(--accent)" : "var(--text-secondary)"}
+              />
+
+
+            </g>
+          );
+        })}
       </svg>
     </div>
   );
