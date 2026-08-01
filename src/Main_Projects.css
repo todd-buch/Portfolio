@@ -1,20 +1,31 @@
 .projects {
     color: var(--text-primary);
-    padding: 6rem;
+    padding: 4rem 1rem;
+    max-width: 750px;
+    margin: 0 auto;
+    align-items: left;
+    justify-content: left;
+    width: 100%;
 }
 .bio {
     display: flex;
     flex-direction: column;
+    padding-bottom: 6rem;
 }
 .bio h1 {
     font-size: 6rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 .projects-traits {
     display: flex;
     color: var(--accent);
     font-weight: 500;
+    padding-bottom: 1rem;
 }
 .projects-traits-dot {
-    margin: 0 1rem;
+    margin: 0 0.5rem;
+}
+
+.main-regular-text-block-title {
+    font-weight: 800;
 }

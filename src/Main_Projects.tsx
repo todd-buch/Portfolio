@@ -8,26 +8,42 @@ export default function Main_Projects() {
         <div className="bio">
           <h1>Todd Buch</h1>
           <div className="projects-traits">
-            <p>Creative</p>
-            <Dot className="projects-traits-dot"/>
-            <p>Observant</p>
-            <Dot className="projects-traits-dot"/>
-            <p>Curious</p>
-            <Dot className="projects-traits-dot"/>
-            <p>Analytical</p>
-            <Dot className="projects-traits-dot"/>
-            <p>Solution-Oriented</p>
+            <p>Computer Science Student</p>
+            <Dot className="projects-traits-dot" />
+            <p>Software Development & Design</p>
+            <Dot className="projects-traits-dot" />
+            <p>Studio Manager</p>
           </div>
           <p>
-            My background in photography and graphic design shaped my
-            understanding of how we experience the visual world. This
-            fascination with digital aesthetics led me to Computer Science,
-            where I discovered the power of building functional worlds from the
-            ground up. Now, as a software development student, I focus on
-            merging technical precision with creative intuition, transforming
-            abstract ideas into impactful, user-centric digital solutions.
+            As a software development student with a foundation in photography
+            and design, I build digital worlds that balance technical logic with
+            visual impact. I focus on creating high-quality, user-centric
+            solutions through a blend of creative intuition and engineering
+            precision.
           </p>
         </div>
+        <div className="main-regular-text-block">
+          <h2 className="main-regular-text-block-title">About Me</h2>
+          <p className="main-regular-text-block-subtitle"></p>
+          <p className="main-regular-text-block-body">
+            My interest in how we experience the visual world started through
+            photography and design. Moving into Computer Science allowed me to
+            take that fascination a step further: instead of just capturing
+            digital environments, I can now build them from the ground up.
+          </p>
+          <p className="main-regular-text-block-body">
+            I enjoy working at the intersection of UI/UX and full-stack
+            development. I aim to combine intuitive design with robust
+            engineering, exploring how AI and cloud technologies can create more
+            intelligent, seamless digital solutions.
+          </p>
+          <p className="main-regular-text-block-body">
+            When I’m not coding, I am usually capturing the world through car
+            photography or videography. I also enjoy exploring finance and
+            markets, hiking, and am currently working on improving my golf game.
+          </p>
+        </div>
+        
       </div>
     </>
   );
