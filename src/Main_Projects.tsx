@@ -1,18 +1,23 @@
 import "./Main_Projects.css";
-import { Dot } from "lucide-react";
+import { Dot, Mail } from "lucide-react";
 import Info_Button from "./Reuseable-Components/Info_Button";
+import Action_Button from "./Reuseable-Components/Action_Button";
+import Magnetic_Timeline from "./Reuseable-Components/Magnetic_Timeline";
 import Tech_Dropdown from "./Reuseable-Components/Tech_Dropdown";
 import Tech_Pill from "./Reuseable-Components/Tech_Pill";
+import Small_Card from "./Reuseable-Components/Small_Card";
 
 import { SiPython, SiDavinciresolve } from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
 
+
 export default function Main_Projects() {
   return (
     <>
       <div className="projects">
-        <div className="bio">
+        <Magnetic_Timeline />
+        <div id="bio" className="bio">
           <h1>Todd Buch</h1>
           <div className="projects-traits">
             <p>
@@ -31,7 +36,7 @@ export default function Main_Projects() {
             precision.
           </p>
         </div>
-        <div className="main-regular-text-block">
+        <div id="about" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">About Me</h2>
           <p className="main-regular-text-block-body">
             My interest in how we experience the visual world started through
@@ -51,7 +56,7 @@ export default function Main_Projects() {
             markets, hiking, and am currently working on improving my golf game.
           </p>
         </div>
-        <div className="main-regular-text-block">
+        <div id="role" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">Current Role</h2>
           <p className="main-regular-text-block-subtitle">
             Studio Manager, Charleen's Portrait Studio
@@ -103,6 +108,27 @@ export default function Main_Projects() {
             </div>
           </Tech_Dropdown>
           <Info_Button text="View more info" link="https://www.example.com" />
+        </div>
+        <div id="projects" className="main-regular-text-block">
+          <h2 className="main-regular-text-block-title">Projects</h2>
+          <div className="projects-section-block">
+            <Small_Card title="Quant-Engine" date="July 2026 — ongoing">
+              <p>Placeholder</p>
+              <Tech_Pill name="Python" icon={<SiPython color="default" />} />
+            </Small_Card>
+            <Small_Card title="Fire Prevention at the Edge" date="August 2025 — May 2026">
+              <p>Placeholder</p>
+            </Small_Card>
+            <Small_Card title="Portfolio Website" date="July 2026 — ongoing">
+              <p>This website</p>
+            </Small_Card>
+          </div>
+        </div>
+        <hr className="divider" />
+        <div id="contact" className="main-regular-text-block">
+        <h2 className="main-regular-text-block-title">Got an Idea? Let's Talk.</h2>
+        <p className="main-regular-text-block-body">Have a project in mind, looking to get images of your cool car, or just want to chat? Drop me a message!</p>
+        <Action_Button text="Get in touch" icon={<Mail />} link="mailto:todd@example.com" />
         </div>
       </div>
     </>

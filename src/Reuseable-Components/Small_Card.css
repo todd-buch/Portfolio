@@ -1,0 +1,35 @@
+.small-card {
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  background: var(--bg-secondary);
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease;
+  margin: 0.25rem;
+}
+.small-card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.small-card-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.small-card-date {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-primary);
+  }
+.small-card-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.small-card:hover {
+  border-color: var(--text-primary);
+}
