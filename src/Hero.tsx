@@ -18,7 +18,7 @@ function Hero() {
   const scrollAnim = useRef<AnimationPlaybackControls | null>(null);
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 900px)");
+    const media = window.matchMedia("(max-width: 1225px)");
     const update = () => setIsMobile(media.matches);
     update();
     media.addEventListener("change", update);

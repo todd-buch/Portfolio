@@ -121,7 +121,7 @@
 }
 
 /* ── Mobile ────────────────────────────────────────────────── */
-@media (max-width: 900px) {
+@media (max-width: 1225px) {
   .sidebar {
     height: 72px;
   }

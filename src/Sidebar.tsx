@@ -16,7 +16,7 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
   // Close mobile menu on resize up to desktop, and lock body scroll while open
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth > 900) setMenuOpen(false);
+      if (window.innerWidth > 1225) setMenuOpen(false);
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
