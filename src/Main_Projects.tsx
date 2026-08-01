@@ -1,6 +1,12 @@
 import "./Main_Projects.css";
 import { Dot } from "lucide-react";
-import Info_Button from "./Reuseable-Components/Info_Button"
+import Info_Button from "./Reuseable-Components/Info_Button";
+import Tech_Dropdown from "./Reuseable-Components/Tech_Dropdown";
+import Tech_Pill from "./Reuseable-Components/Tech_Pill";
+
+import { SiPython, SiDavinciresolve } from "@icons-pack/react-simple-icons";
+import { DiPhotoshop } from "react-icons/di";
+import { SiGooglegemini } from "react-icons/si";
 
 export default function Main_Projects() {
   return (
@@ -9,7 +15,9 @@ export default function Main_Projects() {
         <div className="bio">
           <h1>Todd Buch</h1>
           <div className="projects-traits">
-            <p>Computer Science Student<i></i></p>
+            <p>
+              Computer Science Student<i></i>
+            </p>
             <Dot className="projects-traits-dot" />
             <p>Software Development & Design</p>
             <Dot className="projects-traits-dot" />
@@ -45,10 +53,55 @@ export default function Main_Projects() {
         </div>
         <div className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">Current Role</h2>
-          <p className="main-regular-text-block-subtitle">Studio Manager, Charleen's Portrait Studio</p>
-          <p className="main-regular-text-block-body">
-            As the Studio Manager, my main roles include directing daily studio operations and managing staff scheduling, as well as resource allocation to ensure seamless service delivery for our clients. I also serve as the main point of contact for key clients, assist with customer service when escalation is needed, and manage our project and timelines.
+          <p className="main-regular-text-block-subtitle">
+            Studio Manager, Charleen's Portrait Studio
           </p>
+          <p className="main-regular-text-block-body">
+            As the Studio Manager, my main roles include directing daily studio
+            operations and managing staff scheduling, as well as resource
+            allocation to ensure seamless service delivery for our clients. I
+            also serve as the main point of contact for key clients, assist with
+            customer service when escalation is needed, and manage our project
+            and timelines.
+          </p>
+          <p className="main-regular-text-block-body">
+            In addition to managing studio operations and leading the team, I
+            developed automated workflows, reducing repetive administrative
+            tasks, which significantly increased operational efficiency and
+            staff productivity. One major project I completed was automating
+            bulk image resizing, adding watermarks, and creating print release
+            contracts for clients.
+          </p>
+          <Tech_Dropdown title="View the stack behind it">
+            <div className="current-role-dropdown">
+              <p>
+                Used specialized photography & videography software, and used
+                Python for automation scripts.
+              </p>
+              <p>
+                For the automated image resizing and watermarking, a simple
+                python script was made which is able to process images in batch,
+                and change the color of the watermark to ensure it remains
+                visible on the image regardless of the background color. This
+                saves time when preparing images to be sent to clients.
+              </p>
+              <div className="current-role-dropdown-stack">
+                <Tech_Pill name="Python" icon={<SiPython color="default" />} />
+                <Tech_Pill
+                  name="Photoshop"
+                  icon={<DiPhotoshop color="default" />}
+                />
+                <Tech_Pill
+                  name="DaVinci Resolve"
+                  icon={<SiDavinciresolve color="default" />}
+                />
+                <Tech_Pill
+                  name="Google Gemini"
+                  icon={<SiGooglegemini color="default" />}
+                />
+              </div>
+            </div>
+          </Tech_Dropdown>
           <Info_Button text="View more info" link="https://www.example.com" />
         </div>
       </div>
