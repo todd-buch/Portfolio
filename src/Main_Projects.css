@@ -1,4 +1,5 @@
 .projects {
+  position: relative;
   color: var(--text-primary);
   padding: 4rem 1rem;
   max-width: 750px;
