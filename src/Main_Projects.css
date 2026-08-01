@@ -8,6 +8,8 @@
   justify-content: left;
   width: 100%;
   margin-top: 10rem;
+  /* Timeline SVG hangs 24px above/below; don't clip its stroke caps */
+  overflow: visible;
 }
 .bio {
   display: flex;

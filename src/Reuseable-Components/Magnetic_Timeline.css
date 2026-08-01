@@ -7,12 +7,25 @@
   pointer-events: none;
   user-select: none;
   z-index: 10;
+  overflow: visible;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .timeline-svg {
   display: block;
   width: 100%;
-  height: 100%;
+  /* Height is set in px from JS (content + 2*PAD). Shift up by PAD so content y=0
+     lines up with the container top while stroke/glow have room above. */
+  margin-top: -24px;
+  overflow: visible;
+}
+
+.timeline-track {
+  opacity: 0.75;
+}
+
+.timeline-active {
+  transition: stroke 0.3s ease;
 }
 
 /* SMD Microchip Node Transitions */
@@ -34,9 +47,18 @@
 
 .timeline-node-group.active .chip-core {
   r: 3.5px;
+  filter: drop-shadow(0 0 3px var(--accent));
 }
 
-@media (max-width: 950px) {
+/* Intermediate screen size: shift timeline closer to text. JS will straighten it */
+@media (max-width: 1100px) {
+  .timeline-container {
+    left: -50px;
+  }
+}
+
+/* Small screens: hide completely once margins are completely gone */
+@media (max-width: 820px) {
   .timeline-container {
     display: none;
   }
