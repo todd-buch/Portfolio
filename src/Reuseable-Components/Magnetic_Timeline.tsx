@@ -12,10 +12,6 @@ interface Vertex {
   y: number;
 }
 
-/**
- * Padding in SVG user units above/below the content so stroke caps + glow
- * are never clipped by the SVG viewport. Content y=0 maps to SVG y=PAD.
- */
 const PAD = 24;
 
 const SECTION_IDS = ["bio", "about", "role", "projects", "contact"] as const;
@@ -150,7 +146,6 @@ export default function Magnetic_Timeline() {
     };
   }, [isCompact]);
 
-  // Scroll-driven fill (direct DOM write — no React re-render per frame)
   useEffect(() => {
     if (vertices.length === 0) return;
 

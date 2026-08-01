@@ -14,8 +14,6 @@
 .timeline-svg {
   display: block;
   width: 100%;
-  /* Height is set in px from JS (content + 2*PAD). Shift up by PAD so content y=0
-     lines up with the container top while stroke/glow have room above. */
   margin-top: -24px;
   overflow: visible;
 }
@@ -28,7 +26,6 @@
   transition: stroke 0.3s ease;
 }
 
-/* SMD Microchip Node Transitions */
 .timeline-node-group {
   transition: transform 0.3s ease;
 }
@@ -50,7 +47,6 @@
   filter: drop-shadow(0 0 3px var(--accent));
 }
 
-/* Intermediate screen size: shift timeline closer to text. JS will straighten it */
 @media (max-width: 1100px) {
   .timeline-container {
     left: -50px;

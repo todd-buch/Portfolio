@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import sideLogoWht from "/src/assets/LogoWHT.png";
 import sideLogoBlk from "/src/assets/LogoBLK.png";
@@ -23,18 +24,15 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
 
         {/* Navigation Links */}
         <nav className="sidebar-nav">
-          <a href="#" className="nav-item active">
+          <Link to="/" className="nav-item active">
             Home
-          </a>
-          <a href="#" className="nav-item">
+          </Link>
+          <Link to="/resume" className="nav-item">
+            Resume
+          </Link>
+          <Link to="/photography" className="nav-item">
             Photography
-          </a>
-          <a href="#" className="nav-item">
-            Projects
-          </a>
-          <a href="#" className="nav-item">
-            About
-          </a>
+          </Link>
           <a href="https://github.com/todd-buch" target="_blank" rel="noreferrer" className="nav-item">
             <FaGithub size={20} />
           </a>

@@ -107,7 +107,7 @@ export default function Main_Projects() {
               </div>
             </div>
           </Tech_Dropdown>
-          <Info_Button text="View more info" link="https://www.example.com" />
+          <Info_Button text="View more info" link="/resume" />
         </div>
         <div id="projects" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">Projects</h2>

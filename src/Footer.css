@@ -1,0 +1,59 @@
+.site-footer {
+  position: relative;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: 3rem 1.5rem 0;
+  overflow: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.footer-content {
+  max-width: 750px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-copyright {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-social a {
+  color: var(--text-secondary);
+  display: flex;
+  transition: color 0.2s ease;
+}
+
+.footer-social a:hover {
+  color: var(--accent);
+}
+
+.footer-name {
+  margin: 2.5rem 0 0;
+  padding: 0;
+  text-align: center;
+  font-family: "Bebas Neue", -apple-system, sans-serif;
+  font-weight: 600;
+  font-size: clamp(4.5rem, 18vw, 12rem);
+  line-height: 0.85;
+  letter-spacing: 0.02em;
+  user-select: none;
+  pointer-events: none;
+  color: color-mix(in srgb, var(--text-primary) 10%, var(--bg-secondary));
+  transform: translateY(18%);
+}
