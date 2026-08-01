@@ -6,15 +6,22 @@
   z-index: 1000;
   background-color: transparent;
   border-radius: 0 0 1rem 1rem;
-  
-  /* Smooth transition when scrolling starts */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-/* Fills in background color once scrolled past 50px */
+/* Fills in background once scrolled (or menu open on mobile) */
 .top-sidebar.scrolled {
   background-color: var(--bg-primary);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* When the mobile menu is open, drop top-bar bottom radius so it
+   joins the dropdown as one continuous panel (no curved gap). */
+.top-sidebar.menu-open {
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .sidebar {
@@ -25,6 +32,8 @@
   display: flex;
   box-sizing: border-box;
   align-items: center;
+  position: relative;
+  z-index: 1002;
 }
 
 .sidebar-logo {
@@ -35,24 +44,60 @@
   padding: 0 1.5rem;
 }
 
+.sidebar-logo a {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
 .logo-img {
   height: 100%;
+  width: auto;
+  display: block;
+}
+
+/* Hamburger — hidden on desktop */
+.sidebar-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.top-sidebar.scrolled .sidebar-menu-toggle {
+  color: var(--text-primary);
+}
+
+.sidebar-menu-toggle:hover {
+  background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 
 /* Navigation List */
 .sidebar-nav {
   display: flex;
   gap: 4rem;
-  align-items: middle;
+  align-items: center;
   padding: 0 4rem;
 }
 
 .nav-item {
   display: flex;
+  align-items: center;
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .nav-item:hover {
@@ -60,6 +105,128 @@
 }
 
 .nav-item.active {
-  
   color: var(--accent);
+}
+
+/* Socials sit inline with links on desktop */
+.nav-socials {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Backdrop only used on mobile */
+.sidebar-backdrop {
+  display: none;
+}
+
+/* ── Mobile ────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .sidebar {
+    height: 72px;
+  }
+
+  .sidebar-logo {
+    padding: 0.5rem 0.75rem;
+    height: 100%;
+  }
+
+  .logo-img {
+    height: 100%;
+    max-height: 56px;
+    width: auto;
+  }
+
+  .sidebar-menu-toggle {
+    display: flex;
+    z-index: 1003;
+  }
+
+  .sidebar-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.25rem 1.25rem 1.5rem;
+    background-color: var(--bg-primary);
+    /* Only round the bottom — top is flush with the bar */
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    /* Closed state */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem);
+    pointer-events: none;
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease,
+      visibility 0.22s ease;
+  }
+
+  .sidebar-nav.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Keep the bar + panel reading as one piece */
+  .top-sidebar.menu-open .sidebar {
+    background-color: var(--bg-primary);
+  }
+
+
+  .sidebar-nav .nav-item {
+    padding: 0.95rem 0.25rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .sidebar-nav .nav-item:last-of-type {
+    border-bottom: none;
+  }
+
+  .nav-socials {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.25rem;
+    margin-top: 1rem;
+    padding-top: 0.25rem;
+  }
+
+  .nav-socials .nav-item {
+    padding: 0.5rem;
+    border-bottom: none;
+    font-size: inherit;
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1001;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    height: 64px;
+  }
+
+  .logo-img {
+    max-height: 48px;
+  }
+
+  .sidebar-menu-toggle {
+    margin-right: 0.5rem;
+  }
 }
