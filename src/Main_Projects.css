@@ -6,11 +6,12 @@
     align-items: left;
     justify-content: left;
     width: 100%;
+    margin-top: 10rem;
 }
 .bio {
     display: flex;
     flex-direction: column;
-    padding-bottom: 6rem;
+    padding-bottom: 10rem;
 }
 .bio h1 {
     font-size: 6rem;
@@ -22,10 +23,17 @@
     font-weight: 500;
     padding-bottom: 1rem;
 }
-.projects-traits-dot {
-    margin: 0 0.5rem;
-}
 
+.main-regular-text-block {
+    margin-bottom: 10rem;
+}
 .main-regular-text-block-title {
     font-weight: 800;
+    margin-bottom: 2rem;
+}
+.main-regular-text-block-subtitle {
+    font-weight: 500;
+    margin-bottom: 2rem;
+    margin-top: -1.5rem;
+    color: var(--text-secondary);
 }

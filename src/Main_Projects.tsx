@@ -1,5 +1,6 @@
 import "./Main_Projects.css";
 import { Dot } from "lucide-react";
+import Info_Button from "./Reuseable-Components/Info_Button"
 
 export default function Main_Projects() {
   return (
@@ -8,7 +9,7 @@ export default function Main_Projects() {
         <div className="bio">
           <h1>Todd Buch</h1>
           <div className="projects-traits">
-            <p>Computer Science Student</p>
+            <p>Computer Science Student<i></i></p>
             <Dot className="projects-traits-dot" />
             <p>Software Development & Design</p>
             <Dot className="projects-traits-dot" />
@@ -24,7 +25,6 @@ export default function Main_Projects() {
         </div>
         <div className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">About Me</h2>
-          <p className="main-regular-text-block-subtitle"></p>
           <p className="main-regular-text-block-body">
             My interest in how we experience the visual world started through
             photography and design. Moving into Computer Science allowed me to
@@ -43,7 +43,14 @@ export default function Main_Projects() {
             markets, hiking, and am currently working on improving my golf game.
           </p>
         </div>
-        
+        <div className="main-regular-text-block">
+          <h2 className="main-regular-text-block-title">Current Role</h2>
+          <p className="main-regular-text-block-subtitle">Studio Manager, Charleen's Portrait Studio</p>
+          <p className="main-regular-text-block-body">
+            As the Studio Manager, my main roles include directing daily studio operations and managing staff scheduling, as well as resource allocation to ensure seamless service delivery for our clients. I also serve as the main point of contact for key clients, assist with customer service when escalation is needed, and manage our project and timelines.
+          </p>
+          <Info_Button text="View more info" link="https://www.example.com" />
+        </div>
       </div>
     </>
   );
