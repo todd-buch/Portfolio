@@ -4,7 +4,7 @@
 :root {
   --bg-primary: #f0f0ee; /* blue #f0f9ff or alternatively cream #fffbeb */
   --bg-secondary: #ffffff;
-  --text-primary: #052131;
+  --text-primary: #3f3f46;
   --text-secondary: #4b5563;
   --accent: #9B491A;
   --border-color: #e5e7eb;
@@ -25,6 +25,7 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 1.1rem;
   margin: 0;
   /* Smooth transition when toggling modes */
   transition: background-color 0.25s ease, color 0.25s ease;
@@ -32,8 +33,10 @@ body {
 h1 {
   font-family: 'Bebas Neue', -apple-system, sans-serif;
   font-weight: 600;
+  font-size: 5rem;
 }
 h2 {
   font-family: 'Montserrat', -apple-system, sans-serif;
   font-weight: 500;
+  font-size: 3rem;
 }

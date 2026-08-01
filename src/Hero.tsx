@@ -33,22 +33,22 @@ function Hero() {
         </div>
         <motion.div style={{ y: yRight }} className="hero-panel-r">
           <div className="hero-right-text">
-            <h1>
+            <h3>
               <CircleSmall className="hero-right-bullet" />
               Software Engineering
-            </h1>
-            <h1>
+            </h3>
+            <h3>
               <CircleSmall className="hero-right-bullet" />
               Visual Media
-            </h1>
-            <h1>
+            </h3>
+            <h3>
               <CircleSmall className="hero-right-bullet" />
               Leadership & Strategy
-            </h1>
-            <h1>
+            </h3>
+            <h3>
               <CircleSmall className="hero-right-bullet" />
               Design & UX
-            </h1>
+            </h3>
           </div>
         </motion.div>
       </div>

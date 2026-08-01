@@ -1,0 +1,26 @@
+.view-more-btn {
+    padding: 0.75rem 2.5rem;
+    color: var(--text-secondary);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none;
+    border: 1px solid var(--text-secondary);
+    width: fit-content;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+  }
+.view-more-arrow {
+    margin-left: 0.5rem;
+    height: 1.4rem;
+    width: 1.4rem;
+    stroke-width: 1.5;
+}
+
+.view-more-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
