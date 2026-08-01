@@ -1,0 +1,107 @@
+.resume-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--bg-primary);
+  transition: border-color 0.25s ease;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.resume-card.has-details {
+  cursor: pointer;
+}
+
+.resume-card.has-details:hover {
+  border-color: var(--text-primary);
+}
+
+.resume-card-date {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.resume-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.35rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.resume-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.resume-card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.resume-card-subtitle {
+  margin: 0 0 0.35rem;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.resume-card-location {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.resume-card-details-toggle {
+  margin: 0.75rem 0 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.resume-card-details-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  width: 100%;
+}
+
+.resume-card.expanded .resume-card-details-wrapper {
+  grid-template-rows: 1fr;
+}
+
+.resume-card-details {
+  min-height: 0;
+  opacity: 0;
+  color: var(--text-secondary);
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+}
+
+.resume-card.expanded .resume-card-details {
+  opacity: 1;
+  padding-top: 0.75rem;
+}
+
+.resume-card-details > *:first-child {
+  margin-top: 0;
+}
+
+.resume-card-details > *:last-child {
+  margin-bottom: 0;
+}
