@@ -33,6 +33,11 @@ import {
   SiLatex,
   SiGit,
   SiGithub,
+  SiVite,
+  SiReactrouter,
+  SiFramer,
+  SiCss,
+  SiHtml5,
 } from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
@@ -468,7 +473,36 @@ export default function Main_Projects() {
                 </>
               }
             >
-              <p>This website</p>
+              <p>
+                This site! A personal portfolio for projects, experience,
+                photography, and an expanded version of my resume with all the
+                stuff that couldn't fit on my actual resume.
+              </p>
+              <Tech_Dropdown title="View the stack behind it">
+                <div className="tech-pill-group">
+                  <Tech_Pill name="React" icon={<SiReact color="default" />} />
+                  <Tech_Pill
+                    name="TypeScript"
+                    icon={<SiTypescript color="default" />}
+                  />
+                  <Tech_Pill name="Vite" icon={<SiVite color="default" />} />
+                  <Tech_Pill
+                    name="React Router"
+                    icon={<SiReactrouter color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Framer Motion"
+                    icon={<SiFramer color="default" />}
+                  />
+                  <Tech_Pill name="HTML" icon={<SiHtml5 color="default" />} />
+                  <Tech_Pill name="CSS" icon={<SiCss color="default" />} />
+                  <Tech_Pill name="Git" icon={<SiGit color="default" />} />
+                  <Tech_Pill
+                    name="GitHub"
+                    icon={<SiGithub color="default" />}
+                  />
+                </div>
+              </Tech_Dropdown>
             </Small_Card>
           </div>
         </div>

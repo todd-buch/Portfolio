@@ -22,6 +22,7 @@ import {
   SiOcaml,
   SiMarkdown,
   SiReact,
+  SiFlask,
 } from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
@@ -44,6 +45,7 @@ const skillCategories: SkillCategory[] = [
     title: "Languages",
     skills: [
       { name: "Python", icon: <SiPython color="default" /> },
+      { name: "Flask", icon: <SiFlask color="default" /> },
       { name: "C#", icon: <TbBrandCSharp /> },
       { name: "TypeScript", icon: <SiTypescript color="default" /> },
       { name: "React", icon: <SiReact color="default" /> },
