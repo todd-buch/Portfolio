@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import "./Resume.css";
 import Resume_Card_Template from "./Reuseable-Components/Resume_Card_Template";
 import Current from "../../Reuseable-Components/Current";
@@ -14,11 +15,91 @@ import {
   SiGooglecloud,
   SiGithub,
   SiGit,
+  SiDocker,
+  SiTypescript,
+  SiCss,
+  SiGithubcopilot,
 } from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
-import { FileText, Bot, Mail } from "lucide-react";
+import { TbBrandCSharp } from "react-icons/tb";
+import { FileText, Bot, Mail, Sparkles } from "lucide-react";
+
+type Skill = {
+  name: string;
+  icon?: ReactNode;
+};
+
+type SkillCategory = {
+  title: string;
+  skills: Skill[];
+};
+
+/** All unique Tech_Pill skills from experience, grouped by category. */
+const skillCategories: SkillCategory[] = [
+  {
+    title: "Languages",
+    skills: [
+      { name: "Python", icon: <SiPython color="default" /> },
+      { name: "C#", icon: <TbBrandCSharp /> },
+      { name: "TypeScript", icon: <SiTypescript color="default" /> },
+      { name: "HTML", icon: <SiHtml5 color="default" /> },
+      { name: "CSS", icon: <SiCss color="default" /> },
+      { name: "YAML", icon: <SiYaml color="default" /> },
+    ],
+  },
+  {
+    title: "Cloud Infrastructure",
+    skills: [
+      { name: "GCP (Cloud Run)", icon: <SiGooglecloud color="default" /> },
+      { name: "AWS Lambda" },
+      { name: "AWS S3 Bucket" },
+      { name: "Cloudformation" },
+      { name: "Docker", icon: <SiDocker color="default" /> },
+    ],
+  },
+  {
+    title: "AI & Voice",
+    skills: [
+      { name: "Google Gemini", icon: <SiGooglegemini color="default" /> },
+      { name: "Google Agent Developer Kit", icon: <Bot /> },
+      {
+        name: "GitHub Copilot",
+        icon: <SiGithubcopilot color="default" />,
+      },
+      { name: "Prompt Engineering", icon: <Sparkles /> },
+      { name: "Amazon Connect" },
+      { name: "Amazon Lex" },
+    ],
+  },
+  {
+    title: "Creative & Media",
+    skills: [
+      { name: "Photoshop", icon: <DiPhotoshop color="default" /> },
+      { name: "Lightroom Classic" },
+      { name: "DaVinci Resolve", icon: <SiDavinciresolve color="default" /> },
+      { name: "Premiere Pro" },
+    ],
+  },
+  {
+    title: "Development Tools",
+    skills: [
+      { name: "VS Code", icon: <VscVscode color="default" /> },
+      { name: "Git", icon: <SiGit color="default" /> },
+      { name: "GitHub", icon: <SiGithub color="default" /> },
+    ],
+  },
+  {
+    title: "Productivity & Platforms",
+    skills: [
+      { name: "Microsoft Word", icon: <FileText /> },
+      { name: "Dropbox", icon: <SiDropbox color="default" /> },
+      { name: "Wordpress", icon: <SiWordpress color="default" /> },
+      { name: "Email Triggers", icon: <Mail /> },
+    ],
+  },
+];
 
 export default function Resume() {
   return (
@@ -304,6 +385,10 @@ export default function Resume() {
                         icon={<SiGithub color="default" />}
                       />
                       <Tech_Pill name="Cloudformation" />
+                      <Tech_Pill
+                        name="Docker"
+                        icon={<SiDocker color="default" />}
+                      />
                     </div>
                   </Tech_Dropdown>
                 </ul>
@@ -383,6 +468,24 @@ export default function Resume() {
               </div>
             </Tech_Dropdown>
           </Resume_Card_Template>
+          <hr className="resume-divider" />
+          <h2>Skills</h2>
+          <div className="skills-grid">
+            {skillCategories.map((category) => (
+              <div key={category.title} className="skill-category-card">
+                <h3 className="skill-category-title">{category.title}</h3>
+                <div className="tech-pill-group">
+                  {category.skills.map((skill) => (
+                    <Tech_Pill
+                      key={skill.name}
+                      name={skill.name}
+                      icon={skill.icon}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
