@@ -31,3 +31,6 @@
     border: none;
     border-top: 2px solid var(--text-secondary);
   }
+  .tech-pill-group {
+    margin-bottom: 2rem;
+  }

@@ -10,10 +10,15 @@ import {
   SiDavinciresolve,
   SiWordpress,
   SiHtml5,
+  SiYaml,
+  SiGooglecloud,
+  SiGithub,
+  SiGit,
 } from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
-import { FileText } from "lucide-react";
+import { VscVscode } from "react-icons/vsc";
+import { FileText, Bot } from "lucide-react";
 
 export default function Resume() {
   return (
@@ -157,10 +162,7 @@ export default function Resume() {
                       name="Python"
                       icon={<SiPython color="default" />}
                     />
-                    <Tech_Pill
-                      name="Microsoft Word"
-                      icon={<FileText />}
-                    />
+                    <Tech_Pill name="Microsoft Word" icon={<FileText />} />
                     <Tech_Pill
                       name="Dropbox"
                       icon={<SiDropbox color="default" />}
@@ -202,7 +204,7 @@ export default function Resume() {
             title="Tech & Ops Software Development Intern"
             subtitle="The Hartford Insurance Group"
             location="Hartford, Connecticut"
-            num_details={1}
+            num_details={7}
           >
             <p>
               Worked in the Claims & Operations IT department on the AI
@@ -244,25 +246,65 @@ export default function Resume() {
                   </li>
                   <Tech_Dropdown title="View the stack behind it">
                     <p>
-                      First, I developed the business contracts for digital
-                      image delivery. Most contracts allowed for personal use
-                      only, but some clients required commercial use rights as
-                      well.{" "}
+                      The project used a hybrid-cloud architecture to leverage
+                      the unique strengths of both AWS and GCP. Amazon Connect
+                      handled the telephony ingress and call flow management,
+                      while the core intelligence was hosted on GCP Cloud Run.
+                      By developing an agent with the Google Agent Developer Kit
+                      (ADK), I was able to implement an agentic AI workflow that
+                      could process natural language and execute backend tasks
+                      via AWS Lambda, creating a seamless, automated end-to-end
+                      voice experience.
                     </p>
                     <p>
-                      Once the contracts were made, I created a script to fill
-                      out the details (date, client name, image numbers, etc.)
-                      and then export the contract. Finally, I added the ability
-                      to resize images automatically based on the package
-                      purchased by the client, and I added the ability to add
-                      our studio watermark, which changed colors based on the
-                      background of the image.
+                      <b>Languages:</b>
                     </p>
                     <div className="tech-pill-group">
                       <Tech_Pill
                         name="Python"
                         icon={<SiPython color="default" />}
+                      />{" "}
+                      <Tech_Pill
+                        name="YAML"
+                        icon={<SiYaml color="default" />}
                       />
+                    </div>
+                    <p>
+                      <b>Cloud Infrastructure:</b>
+                    </p>
+                    <div className="tech-pill-group">
+                      <Tech_Pill
+                        name="GCP (Cloud Run)"
+                        icon={<SiGooglecloud color="default" />}
+                      />{" "}
+                      <Tech_Pill name="AWS Lambda" />
+                      <Tech_Pill name="AWS S3 Bucket" />
+                    </div>
+                    <p>
+                      <b>Voice & AI:</b>
+                    </p>
+                    <div className="tech-pill-group">
+                      <Tech_Pill
+                        name="Google Agent Developer Kit"
+                        icon={<Bot />}
+                      />
+                      <Tech_Pill name="Amazon Connect" />
+                      <Tech_Pill name="Amazon Lex" />
+                    </div>
+                    <p>
+                      <b>Development Workflow:</b>
+                    </p>
+                    <div className="tech-pill-group">
+                      <Tech_Pill
+                        name="VS Code"
+                        icon={<VscVscode color="default" />}
+                      />
+                      <Tech_Pill name="Git" icon={<SiGit color="default" />} />
+                      <Tech_Pill
+                        name="GitHub"
+                        icon={<SiGithub color="default" />}
+                      />
+                      <Tech_Pill name="Cloudformation" />
                     </div>
                   </Tech_Dropdown>
                 </ul>
