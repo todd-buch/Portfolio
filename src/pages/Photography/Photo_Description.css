@@ -1,0 +1,103 @@
+.photo-description-box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--bg-secondary);
+  padding: 2rem 1.75rem;
+  /* Fixed horizontal footprint; height follows content (capped by parent) */
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  box-sizing: border-box;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.photo-description-box::-webkit-scrollbar {
+  display: none;
+}
+
+.photo-description-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.photo-description-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.2vw, 2.15rem);
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.photo-description-date {
+  margin: 0.35rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.photo-description-body {
+  color: var(--text-primary);
+  line-height: 1.65;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.photo-description-body p {
+  margin: 0 0 1rem;
+}
+
+.photo-description-body p:last-child {
+  margin-bottom: 0;
+}
+
+.photo-description-actions {
+  margin-top: 1.5rem;
+  padding-top: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.photo-description-actions .action-btn {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .photo-description-box {
+    padding: 1.5rem 1.25rem;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .photo-description-body {
+    flex: 0 0 auto;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .photo-description-actions {
+    flex-shrink: 0;
+    /* Keep the button fully clear of the bottom edge / home indicator */
+    margin-bottom: 0.25rem;
+  }
+
+  .photo-description-top {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .photo-description-date {
+    white-space: normal;
+  }
+}

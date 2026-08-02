@@ -1,39 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 /* Light Theme */
-:root {
+:root,
+[data-theme="light"] {
   --bg-primary: #f0f0ee; /* blue #f0f9ff or alternatively cream #fffbeb */
   --bg-secondary: #ffffff;
-  --text-primary: #052131;
+  --text-primary: #3f3f46;
   --text-secondary: #4b5563;
   --accent: #9B491A;
-  --border-color: #e5e7eb;
+  --border-color: #cbcdd1;
+  color-scheme: light;
 }
 
 /* Dark Theme */
 [data-theme="dark"] {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --text-primary: #f9fafb;
+  --bg-primary: #18181B;
+  --bg-secondary: #1E1E21;
+  --text-primary: #f0f0ee;
   --text-secondary: #9ca3af;
   --accent: #FA9C30;
   --border-color: #334155;
+  color-scheme: dark;
 }
 
-/* Apply CSS Variables to Base Elements */
+
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 1.1rem;
   margin: 0;
-  /* Smooth transition when toggling modes */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 h1 {
   font-family: 'Bebas Neue', -apple-system, sans-serif;
-  font-weight: 600;
+  font-weight: 400;
+  font-size: 5rem;
 }
 h2 {
-  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
   font-weight: 500;
+  font-size: 3rem;
 }

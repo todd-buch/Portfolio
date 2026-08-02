@@ -1,0 +1,387 @@
+.photo-scroller-shell {
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+  background-color: var(--bg-primary);
+  overflow: hidden;
+}
+
+.photo-scroller {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  outline: none;
+}
+
+.photo-scroller::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.photo-scroller--empty {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  color: var(--text-secondary);
+  padding: 2rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+
+.photo-intro {
+  height: 100dvh;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
+  padding: 7.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.photo-intro-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding-bottom: 5rem;
+}
+
+.photo-intro-title {
+  margin: 0 0 1.25rem;
+  font-size: clamp(3.5rem, 18vw, 10rem);
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.photo-intro-bio {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  line-height: 1.7;
+  max-width: 34rem;
+}
+
+.photo-intro-bio p {
+  margin: 0 0 1rem;
+}
+
+.photo-intro-bio p:last-child {
+  margin-bottom: 0;
+}
+
+.photo-intro-scroll {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.photo-intro-scroll-label {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.photo-intro-scroll-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 999px;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+  animation: photo-intro-bounce 2s ease-in-out infinite;
+}
+
+.photo-intro-scroll-btn:hover {
+  color: var(--accent);
+  transform: translateY(2px);
+}
+
+.photo-intro-scroll-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@keyframes photo-intro-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-intro-scroll-btn {
+    animation: none;
+  }
+}
+
+
+
+.photo-slide {
+  height: 100dvh;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
+  padding: 7.5rem 3.25rem 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-slide-cluster {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem 2.5rem;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.photo-slide-image-wrap {
+  position: relative;
+  flex: 0 1 auto;
+  max-width: min(66.666vw, 100%);
+  max-height: min(90dvh, 100%);
+  line-height: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.photo-slide-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(66.666vw, 100%);
+  max-height: min(90dvh, calc(100dvh - 9.5rem));
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: auto;
+  /* vertical-align: middle; */
+}
+
+
+.photo-slide-placeholder {
+  width: min(42vw, 520px);
+  max-width: min(66.666vw, 100%);
+  aspect-ratio: 3 / 2;
+  max-height: min(90dvh, calc(100dvh - 9.5rem));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 12%, var(--bg-secondary)),
+    var(--bg-secondary) 55%
+  );
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  line-height: 1.4;
+}
+
+
+.photo-slide-description {
+  flex: 0 0 22rem;
+  width: 22rem;
+  max-width: 22rem;
+  min-width: 0;
+  max-height: min(90dvh, calc(100dvh - 9.5rem));
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.photo-slide-description > * {
+  max-height: 100%;
+  min-height: 0;
+}
+
+
+.photo-scroller-end {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  min-height: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.photo-scroller-end--alone {
+  min-height: auto;
+}
+
+.photo-dots {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0;
+  pointer-events: auto;
+  transition: opacity 0.25s ease;
+}
+
+.photo-dots--dimmed {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.photo-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background-color: color-mix(
+    in srgb,
+    var(--text-secondary) 55%,
+    transparent
+  );
+  cursor: pointer;
+  transition:
+    height 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.photo-dot:hover {
+  background-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  transform: scale(1.15);
+}
+
+.photo-dot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.photo-dot--active {
+  height: 1.35rem;
+  background-color: var(--accent);
+}
+
+
+@media (max-width: 900px) {
+  /*
+   * Let the slide grow with image + card instead of clipping at 100dvh.
+   * Snap still lands on the top of each photo; extra height scrolls before
+   * the next snap.
+   */
+  .photo-slide {
+    height: auto;
+    min-height: 100dvh;
+    padding: 6.5rem 2.25rem 2.5rem 1.25rem;
+    align-items: flex-start;
+    overflow: visible;
+  }
+
+  .photo-slide-cluster {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.25rem;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+    flex: 1 0 auto;
+  }
+
+  .photo-slide-image-wrap {
+    max-width: 100%;
+    max-height: none;
+    flex-shrink: 0;
+  }
+
+  .photo-slide-image {
+    max-width: 100%;
+    max-height: min(42dvh, 360px);
+  }
+
+  .photo-slide-placeholder {
+    width: min(100%, 420px);
+    max-height: min(42dvh, 360px);
+  }
+
+  .photo-slide-description {
+    flex: 0 0 auto;
+    width: min(100%, 22rem);
+    max-width: min(100%, 22rem);
+    max-height: none;
+    align-self: stretch;
+    margin-inline: auto;
+  }
+
+  /* Don’t clamp the card to a percentage of an auto-height parent */
+  .photo-slide-description > * {
+    max-height: none;
+  }
+
+  .photo-dots {
+    right: 0.55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-slide {
+    padding-left: 1rem;
+    padding-right: 2rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .photo-slide-image {
+    max-height: min(38dvh, 300px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-scroller {
+    scroll-behavior: auto;
+  }
+
+  .photo-dot {
+    transition: none;
+  }
+}

@@ -1,14 +1,40 @@
-.sidebar {
+.top-sidebar {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: transparent;
+  border-radius: 0 0 1rem 1rem;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.top-sidebar.scrolled {
+  background-color: var(--bg-primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Photography: solid bar still, but no drop shadow under the nav */
+.top-sidebar.scrolled.no-shadow {
+  box-shadow: none;
+}
+
+.top-sidebar.menu-open {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.sidebar {
   height: 120px;
   width: 100%;
   color: var(--text-primary);
-  justify-content: space-between;
   display: flex;
   box-sizing: border-box;
   align-items: center;
+  position: relative;
+  z-index: 1002;
 }
 
 .sidebar-logo {
@@ -19,24 +45,77 @@
   padding: 0 1.5rem;
 }
 
-.logo-img {
+.sidebar-logo a {
+  display: flex;
   height: 100%;
+  align-items: center;
 }
 
-/* Navigation List */
+.logo-img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+/* Hamburger — hidden on desktop; top-right on mobile */
+.sidebar-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  margin-left: auto;
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.sidebar-menu-toggle:hover {
+  background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+/* Only force white chrome when floating over the dark home hero */
+.top-sidebar.over-hero .sidebar-menu-toggle {
+  color: #ffffff;
+}
+
+.top-sidebar.over-hero .sidebar-menu-toggle:hover {
+  color: #ffffff;
+  background-color: color-mix(in srgb, #ffffff 14%, transparent);
+}
+
+/* Theme toggle sits in .nav-socials; reset button defaults only */
+.theme-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
 .sidebar-nav {
   display: flex;
-  gap: 4rem;
-  align-items: middle;
+  gap: 3rem;
+  align-items: center;
+  margin-left: auto;
+  /* Keep the original right inset so the social row doesn't hug the edge */
   padding: 0 4rem;
 }
 
 .nav-item {
   display: flex;
+  align-items: center;
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .nav-item:hover {
@@ -44,6 +123,128 @@
 }
 
 .nav-item.active {
-  
   color: var(--accent);
+}
+
+.nav-socials {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.sidebar-backdrop {
+  display: none;
+}
+
+/* ── Mobile ────────────────────────────────────────────────── */
+@media (max-width: 1225px) {
+  .sidebar {
+    height: 72px;
+  }
+
+  .sidebar-logo {
+    padding: 0.5rem 0.75rem;
+    height: 100%;
+  }
+
+  .logo-img {
+    height: 100%;
+    max-height: 56px;
+    width: auto;
+  }
+
+  .sidebar-menu-toggle {
+    display: flex;
+    z-index: 1003;
+    margin-right: 0.75rem;
+  }
+
+  .sidebar-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.25rem 1.25rem 1.5rem;
+    background-color: var(--bg-primary);
+    /* Only round the bottom — top is flush with the bar */
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    /* Closed state */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem);
+    pointer-events: none;
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease,
+      visibility 0.22s ease;
+  }
+
+  .sidebar-nav.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Keep the bar + panel reading as one piece */
+  .top-sidebar.menu-open .sidebar {
+    background-color: var(--bg-primary);
+  }
+
+
+  .sidebar-nav .nav-item {
+    padding: 0.95rem 0.25rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .sidebar-nav .nav-item:last-of-type {
+    border-bottom: none;
+  }
+
+  .nav-socials {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.25rem;
+    margin-top: 1rem;
+    padding-top: 0.25rem;
+  }
+
+  .nav-socials .nav-item {
+    padding: 0.5rem;
+    border-bottom: none;
+    font-size: inherit;
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1001;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    height: 64px;
+  }
+
+  .logo-img {
+    max-height: 48px;
+  }
+
+  .sidebar-menu-toggle {
+    margin-right: 0.5rem;
+  }
 }
