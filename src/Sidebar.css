@@ -11,14 +11,11 @@
     box-shadow 0.3s ease;
 }
 
-/* Fills in background once scrolled (or menu open on mobile) */
 .top-sidebar.scrolled {
   background-color: var(--bg-primary);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* When the mobile menu is open, drop top-bar bottom radius so it
-   joins the dropdown as one continuous panel (no curved gap). */
 .top-sidebar.menu-open {
   border-radius: 0;
   box-shadow: none;
@@ -55,23 +52,17 @@
   display: block;
 }
 
-/* Theme toggle + hamburger cluster (top-right) */
-.sidebar-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin-right: 1rem;
-  flex-shrink: 0;
-}
-
-.theme-toggle,
+/* Hamburger — hidden on desktop; top-right on mobile */
 .sidebar-menu-toggle {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
+  margin-right: 1rem;
+  margin-left: auto;
   padding: 0.5rem;
   border: none;
   background: transparent;
+  color: var(--text-primary);
   cursor: pointer;
   border-radius: 0.5rem;
   transition:
@@ -79,27 +70,11 @@
     background-color 0.2s ease;
 }
 
-/* Match nav / social icon color */
-.theme-toggle {
-  color: var(--text-secondary);
-}
-
-.theme-toggle:hover {
-  color: var(--text-primary);
-  background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
-}
-
-.sidebar-menu-toggle {
-  display: none;
-  color: var(--text-primary);
-}
-
 .sidebar-menu-toggle:hover {
   background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 
-/* Hamburger only: white when floating over the dark home hero.
-   Theme toggle stays --text-secondary to match nav/social icons. */
+/* Only force white chrome when floating over the dark home hero */
 .top-sidebar.over-hero .sidebar-menu-toggle {
   color: #ffffff;
 }
@@ -109,13 +84,22 @@
   background-color: color-mix(in srgb, #ffffff 14%, transparent);
 }
 
-/* Navigation List — pushed right so it sits with the theme toggle */
+/* Theme toggle sits in .nav-socials; reset button defaults only */
+.theme-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
 .sidebar-nav {
   display: flex;
-  gap: 4rem;
+  gap: 3rem;
   align-items: center;
   margin-left: auto;
-  padding: 0 1.5rem 0 4rem;
+  /* Keep the original right inset so the social row doesn't hug the edge */
+  padding: 0 4rem;
 }
 
 .nav-item {
@@ -137,14 +121,12 @@
   color: var(--accent);
 }
 
-/* Socials sit inline with links on desktop */
 .nav-socials {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
-/* Backdrop only used on mobile */
 .sidebar-backdrop {
   display: none;
 }
@@ -166,14 +148,10 @@
     width: auto;
   }
 
-  .sidebar-actions {
-    margin-left: auto;
-    margin-right: 0.75rem;
-    z-index: 1003;
-  }
-
   .sidebar-menu-toggle {
     display: flex;
+    z-index: 1003;
+    margin-right: 0.75rem;
   }
 
   .sidebar-nav {
@@ -261,7 +239,7 @@
     max-height: 48px;
   }
 
-  .sidebar-actions {
-    margin-right: 0.35rem;
+  .sidebar-menu-toggle {
+    margin-right: 0.5rem;
   }
 }

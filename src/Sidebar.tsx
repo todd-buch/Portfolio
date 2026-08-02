@@ -112,8 +112,7 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
   const { isDark, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const isHome =
-    location.pathname === "/" || location.pathname === "";
+  const isHome = location.pathname === "/" || location.pathname === "";
 
   // Close mobile menu on resize up to desktop
   useEffect(() => {
@@ -197,16 +196,6 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
 
           <div className="nav-socials">
             <a
-              href="https://github.com/todd-buch"
-              target="_blank"
-              rel="noreferrer"
-              className="nav-item nav-social"
-              aria-label="GitHub"
-              onClick={closeMenu}
-            >
-              <FaGithub size={22} />
-            </a>
-            <a
               href="https://linkedin.com/in/todd-buch"
               target="_blank"
               rel="noreferrer"
@@ -215,6 +204,16 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
               onClick={closeMenu}
             >
               <FaLinkedin size={22} />
+            </a>
+            <a
+              href="https://github.com/todd-buch"
+              target="_blank"
+              rel="noreferrer"
+              className="nav-item nav-social"
+              aria-label="GitHub"
+              onClick={closeMenu}
+            >
+              <FaGithub size={22} />
             </a>
             <a
               href="https://www.instagram.com/toddbmedia/"
@@ -226,39 +225,38 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
             >
               <FaInstagram size={22} />
             </a>
+            <button
+              type="button"
+              className="nav-item nav-social theme-toggle"
+              onClick={toggleTheme}
+              aria-label={
+                isDark ? "Switch to light mode" : "Switch to dark mode"
+              }
+              title={isDark ? "Light mode" : "Dark mode"}
+            >
+              {isDark ? (
+                <Sun size={22} strokeWidth={2.25} />
+              ) : (
+                <Moon size={22} strokeWidth={2.25} />
+              )}
+            </button>
           </div>
         </nav>
 
-        <div className="sidebar-actions">
-          <button
-            type="button"
-            className="theme-toggle"
-            onClick={toggleTheme}
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            title={isDark ? "Light mode" : "Dark mode"}
-          >
-            {isDark ? (
-              <Sun size={22} strokeWidth={2.25} />
-            ) : (
-              <Moon size={22} strokeWidth={2.25} />
-            )}
-          </button>
-
-          <button
-            type="button"
-            className="sidebar-menu-toggle"
-            onClick={toggleMenu}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            aria-controls="primary-nav"
-          >
-            {menuOpen ? (
-              <X size={28} strokeWidth={2.25} />
-            ) : (
-              <Menu size={28} strokeWidth={2.25} />
-            )}
-          </button>
-        </div>
+        <button
+          type="button"
+          className="sidebar-menu-toggle"
+          onClick={toggleMenu}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="primary-nav"
+        >
+          {menuOpen ? (
+            <X size={28} strokeWidth={2.25} />
+          ) : (
+            <Menu size={28} strokeWidth={2.25} />
+          )}
+        </button>
       </aside>
 
       {menuOpen && (

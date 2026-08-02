@@ -12,14 +12,6 @@ export default function Footer() {
         </p>
         <nav className="footer-social" aria-label="Social links">
           <a
-            href="https://github.com/todd-buch"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub"
-          >
-            <FaGithub size={18} />
-          </a>
-          <a
             href="https://linkedin.com/in/todd-buch"
             target="_blank"
             rel="noreferrer"
@@ -27,6 +19,15 @@ export default function Footer() {
           >
             <FaLinkedin size={18} />
           </a>
+          <a
+            href="https://github.com/todd-buch"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+          >
+            <FaGithub size={18} />
+          </a>
+
           <a
             href="https://www.instagram.com/toddbmedia/"
             target="_blank"
