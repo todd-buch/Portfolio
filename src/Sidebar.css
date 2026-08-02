@@ -16,6 +16,11 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
+/* Photography: solid bar still, but no drop shadow under the nav */
+.top-sidebar.scrolled.no-shadow {
+  box-shadow: none;
+}
+
 .top-sidebar.menu-open {
   border-radius: 0;
   box-shadow: none;

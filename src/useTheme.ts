@@ -10,7 +10,6 @@ function systemTheme(): Theme {
     : "light";
 }
 
-/** Resolve theme: explicit user choice, else system preference. */
 export function resolveTheme(): Theme {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -21,18 +20,12 @@ export function resolveTheme(): Theme {
   return systemTheme();
 }
 
-/** Apply theme to <html> (variables + native UI chrome). */
 export function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
   document.documentElement.style.colorScheme = theme;
 }
 
-/**
- * Theme state with:
- * - system default on first visit
- * - localStorage after the user toggles
- * - live updates when OS theme changes (only if user never chose)
- */
+
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof document === "undefined") return "light";
