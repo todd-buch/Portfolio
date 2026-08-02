@@ -1,5 +1,5 @@
 import "./Main_Projects.css";
-import { Dot, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import Info_Button from "./Reuseable-Components/Info_Button";
 import Action_Button from "./Reuseable-Components/Action_Button";
 import Magnetic_Timeline from "./Reuseable-Components/Magnetic_Timeline";
@@ -19,15 +19,23 @@ export default function Main_Projects() {
         <Magnetic_Timeline />
         <div id="bio" className="bio">
           <h1>Todd Buch</h1>
-          <div className="projects-traits">
-            <p>
-              Computer Science Student<i></i>
-            </p>
-            <Dot className="projects-traits-dot" />
-            <p>Software Development & Design</p>
-            <Dot className="projects-traits-dot" />
-            <p>Studio Manager</p>
-          </div>
+          <p className="projects-traits">
+            <span>
+              Computer Science Student
+              <span className="projects-traits-sep" aria-hidden="true">
+                {" "}
+                ·
+              </span>
+            </span>
+            <span>
+              Software Development & Design
+              <span className="projects-traits-sep" aria-hidden="true">
+                {" "}
+                ·
+              </span>
+            </span>
+            <span>Studio Manager</span>
+          </p>
           <p>
             As a software development student with a foundation in photography
             and design, I build digital worlds that balance technical logic with
