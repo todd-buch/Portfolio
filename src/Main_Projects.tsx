@@ -41,6 +41,7 @@ import {
 } from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
+import { FaGithub } from "react-icons/fa6";
 
 export default function Main_Projects() {
   return (
@@ -276,14 +277,15 @@ export default function Main_Projects() {
               <p>
                 Fire Prevention at the Edge is an edge computing safety
                 appliance created by a team of 4 UConn students for their final
-                capstone project. Our team architected, designed, and developed
-                the full-stack system end to end. It is designed to detect
-                potential hazards before they ignite. By combining real-time
-                visual feeds with local environmental sensors (CO₂, temperature,
-                humidity, and thermal mapping), the system uses a deterministic
-                classifier to evaluate risk severity. Finally, an entirely local
-                LLM analyzes the data to provide actionable, real-time safety
-                recommendations to warehouse personnel.
+                capstone project. I served as project manager while our team
+                architected, designed, and developed the full-stack system end
+                to end. It is designed to detect potential hazards before they
+                ignite. By combining real-time visual feeds with local
+                environmental sensors (CO₂, temperature, humidity, and thermal
+                mapping), the system uses a deterministic classifier to evaluate
+                risk severity. Finally, an entirely local LLM analyzes the data
+                to provide actionable, real-time safety recommendations to
+                warehouse personnel.
               </p>
               <Tech_Dropdown title="View the stack behind it">
                 <p>
@@ -501,8 +503,20 @@ export default function Main_Projects() {
                     name="GitHub"
                     icon={<SiGithub color="default" />}
                   />
+                  <Tech_Pill
+                    name="GitHub Pages"
+                    icon={<SiGithub color="default" />}
+                  />
                 </div>
               </Tech_Dropdown>
+              <Action_Button
+                  text="View source code"
+                  icon={<FaGithub />}
+                  link="https://github.com/todd-buch/Portfolio"
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="outline"
+                />
             </Small_Card>
           </div>
         </div>
