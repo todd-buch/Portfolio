@@ -8,7 +8,21 @@ import Tech_Pill from "./Reuseable-Components/Tech_Pill";
 import Small_Card from "./Reuseable-Components/Small_Card";
 import Current from "./Reuseable-Components/Current";
 
-import { SiPython, SiDavinciresolve } from "@icons-pack/react-simple-icons";
+import {
+  SiPython,
+  SiDavinciresolve,
+  SiNextdotjs,
+  SiReact,
+  SiTypescript,
+  SiTailwindcss,
+  SiFirebase,
+  SiSpringboot,
+  SiOpenjdk,
+  SiFastapi,
+  SiDocker,
+  SiApachemaven,
+  SiPydantic,
+} from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
 
@@ -128,8 +142,102 @@ export default function Main_Projects() {
                 </>
               }
             >
-              <p>Placeholder</p>
-              <Tech_Pill name="Python" icon={<SiPython color="default" />} />
+              <p>
+                <b>Work in progress</b>
+              </p>
+              <p>
+                Quant Engine is a full-stack stock portfolio analytics and
+                backtesting platform — an open-source alternative to premium
+                financial tools. It helps investors analyze holdings, run
+                historical simulations, and build rule-based trading strategies
+                through an intuitive web interface.
+              </p>
+              <Tech_Dropdown title="View the stack behind it">
+                <p>
+                  The app covers three core areas: AI-powered portfolio analysis
+                  from CSV or manual inputs (with automated summary reports), a
+                  high-performance backtesting engine that surfaces risk-return
+                  metrics like Sharpe/Sortino and max drawdown, and an
+                  interactive strategy builder for testing rules such as
+                  momentum or buy-the-dip against past market data. Services are
+                  containerized with Docker as a multi-service stack.
+                </p>
+                <p>
+                  <b>Frontend:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Next.js"
+                    icon={<SiNextdotjs color="default" />}
+                  />
+                  <Tech_Pill name="React" icon={<SiReact color="default" />} />
+                  <Tech_Pill
+                    name="TypeScript"
+                    icon={<SiTypescript color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Tailwind CSS"
+                    icon={<SiTailwindcss color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Firebase Auth"
+                    icon={<SiFirebase color="default" />}
+                  />
+                </div>
+                <p>
+                  <b>Application Backend:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Spring Boot"
+                    icon={<SiSpringboot color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Java 21"
+                    icon={<SiOpenjdk color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Maven"
+                    icon={<SiApachemaven color="default" />}
+                  />
+                </div>
+                <p>
+                  <b>Backtesting & Analytics:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="FastAPI"
+                    icon={<SiFastapi color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Python"
+                    icon={<SiPython color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Pydantic"
+                    icon={<SiPydantic color="default" />}
+                  />
+                </div>
+                <p>
+                  <b>Database:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Firebase"
+                    icon={<SiFirebase color="default" />}
+                  />
+                </div>
+                <p>
+                  <b>Infrastructure:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Docker"
+                    icon={<SiDocker color="default" />}
+                  />
+                  <Tech_Pill name="Docker Compose" />
+                </div>
+              </Tech_Dropdown>
             </Small_Card>
             <Small_Card
               title="Fire Prevention at the Edge"
