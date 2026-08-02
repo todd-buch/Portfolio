@@ -10,34 +10,86 @@ interface SidebarProps {
   isScrolled: boolean;
 }
 
-function useIsDarkTheme() {
-  const [isDark, setIsDark] = useState(false);
+/** Parse any CSS color the browser understands into [r, g, b] 0–255. */
+function cssColorToRgb(color: string): [number, number, number] | null {
+  if (!color) return null;
+
+  // Fast path for #rgb / #rrggbb
+  const hex = color.trim().match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+  if (hex) {
+    let h = hex[1];
+    if (h.length === 3) {
+      h = h
+        .split("")
+        .map((c) => c + c)
+        .join("");
+    }
+    return [
+      parseInt(h.slice(0, 2), 16),
+      parseInt(h.slice(2, 4), 16),
+      parseInt(h.slice(4, 6), 16),
+    ];
+  }
+
+  // Let the browser resolve named colors, rgb(), hsl(), etc.
+  const probe = document.createElement("div");
+  probe.style.color = color;
+  probe.style.position = "absolute";
+  probe.style.visibility = "hidden";
+  probe.style.pointerEvents = "none";
+  document.body.appendChild(probe);
+  const resolved = getComputedStyle(probe).color;
+  document.body.removeChild(probe);
+
+  const match = resolved.match(
+    /rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)/i,
+  );
+  if (!match) return null;
+  return [Number(match[1]), Number(match[2]), Number(match[3])];
+}
+
+/** Relative luminance (WCAG). Higher = lighter. */
+function relativeLuminance(r: number, g: number, b: number): number {
+  const toLinear = (c: number) => {
+    const s = c / 255;
+    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  };
+  return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+}
+
+/**
+ * True when --bg-primary is light enough that a dark (black) logo is needed
+ * for contrast. Light bg → black logo; dark bg → white logo.
+ */
+function useIsPrimaryBgLight() {
+  // Default matches :root light theme so first paint is correct without flash.
+  const [isLight, setIsLight] = useState(true);
 
   useEffect(() => {
     const root = document.documentElement;
 
     const update = () => {
-      const attr = root.getAttribute("data-theme");
-      if (attr === "dark") {
-        setIsDark(true);
+      const bg = getComputedStyle(root).getPropertyValue("--bg-primary").trim();
+      const rgb = cssColorToRgb(bg);
+      if (!rgb) {
+        // Fallback: only treat as dark when data-theme is explicitly dark.
+        setIsLight(root.getAttribute("data-theme") !== "dark");
         return;
       }
-      if (attr === "light") {
-        setIsDark(false);
-        return;
-      }
-      // No explicit theme attribute — follow system preference
-      setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      // 0.5 is a balanced midpoint; light cream (~0.88) and slate (~0.02) are clear.
+      setIsLight(relativeLuminance(...rgb) > 0.5);
     };
 
     update();
 
+    // Theme toggles typically flip data-theme on <html>.
     const observer = new MutationObserver(update);
     observer.observe(root, {
       attributes: true,
-      attributeFilter: ["data-theme"],
+      attributeFilter: ["data-theme", "class", "style"],
     });
 
+    // If dark mode is ever driven by prefers-color-scheme in CSS, pick that up.
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     media.addEventListener("change", update);
 
@@ -47,12 +99,12 @@ function useIsDarkTheme() {
     };
   }, []);
 
-  return isDark;
+  return isLight;
 }
 
 export default function Sidebar({ isScrolled }: SidebarProps) {
   const location = useLocation();
-  const isDark = useIsDarkTheme();
+  const isPrimaryBgLight = useIsPrimaryBgLight();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isHome =
@@ -95,9 +147,10 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
   const showSolidBar = isScrolled || menuOpen;
 
   // White logo only when floating over the dark home hero.
-  // Everywhere else (other pages, or home after scroll): theme-aware logo.
+  // Everywhere else: opposite of --bg-primary so the mark stays readable
+  // (light primary → black logo, dark primary → white logo).
   const overHero = isHome && !isScrolled && !menuOpen;
-  const themeLogo = isDark ? sideLogoWht : sideLogoBlk;
+  const themeLogo = isPrimaryBgLight ? sideLogoBlk : sideLogoWht;
   const logoSrc = overHero ? sideLogoWht : themeLogo;
 
   return (

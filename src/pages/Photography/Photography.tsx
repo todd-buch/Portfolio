@@ -1,3 +1,7 @@
 export default function Photography() {
-  return null;
+  return (
+    <>
+    <h1><br/><br/>Under construction</h1>
+    </>
+  );
 }

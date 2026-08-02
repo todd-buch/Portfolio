@@ -141,7 +141,7 @@ export default function Resume() {
                   <p>
                     First, I developed the business contracts for digital image
                     delivery. Most contracts allowed for personal use only, but
-                    some clients required commercial use rights as well.{" "}
+                    some clients required commercial use rights as well.
                   </p>
                   <p>
                     Once the contracts were made, I created a script to fill out
@@ -152,15 +152,20 @@ export default function Resume() {
                     watermark, which changed colors based on the background of
                     the image.
                   </p>
-                  <Tech_Pill
-                    name="Python"
-                    icon={<SiPython color="default" />}
-                  />
-                  <Tech_Pill name="Microsoft Word" icon={<FileText />} />
-                  <Tech_Pill
-                    name="Dropbox"
-                    icon={<SiDropbox color="default" />}
-                  />
+                  <div className="tech-pill-group">
+                    <Tech_Pill
+                      name="Python"
+                      icon={<SiPython color="default" />}
+                    />
+                    <Tech_Pill
+                      name="Microsoft Word"
+                      icon={<FileText />}
+                    />
+                    <Tech_Pill
+                      name="Dropbox"
+                      icon={<SiDropbox color="default" />}
+                    />
+                  </div>
                 </Tech_Dropdown>
               </li>
               <li>
@@ -171,24 +176,108 @@ export default function Resume() {
                 </p>
               </li>
             </ul>
-            <Tech_Pill
-              name="Photoshop"
-              icon={<DiPhotoshop color="default" />}
-            />
-            <Tech_Pill name="Lightroom Classic" />
-            <Tech_Pill
-              name="DaVinci Resolve"
-              icon={<SiDavinciresolve color="default" />}
-            />
-            <Tech_Pill name="HTML" icon={<SiHtml5 color="default" />} />
-            <Tech_Pill
-              name="Wordpress"
-              icon={<SiWordpress color="default" />}
-            />
-            <Tech_Pill
-              name="Google Gemini"
-              icon={<SiGooglegemini color="default" />}
-            />
+            <div className="tech-pill-group">
+              <Tech_Pill
+                name="Photoshop"
+                icon={<DiPhotoshop color="default" />}
+              />
+              <Tech_Pill name="Lightroom Classic" />
+              <Tech_Pill
+                name="DaVinci Resolve"
+                icon={<SiDavinciresolve color="default" />}
+              />
+              <Tech_Pill name="HTML" icon={<SiHtml5 color="default" />} />
+              <Tech_Pill
+                name="Wordpress"
+                icon={<SiWordpress color="default" />}
+              />
+              <Tech_Pill
+                name="Google Gemini"
+                icon={<SiGooglegemini color="default" />}
+              />
+            </div>
+          </Resume_Card_Template>
+          <Resume_Card_Template
+            date={<>May 2026 — July 2026</>}
+            title="Tech & Ops Software Development Intern"
+            subtitle="The Hartford Insurance Group"
+            location="Hartford, Connecticut"
+            num_details={1}
+          >
+            <p>
+              Worked in the Claims & Operations IT department on the AI
+              Accelerators team, a team focused on exploring emerging tech & AI
+              platforms. During the internship, I developed an end-to-end
+              proof-of-concept (POC) conversational AI solution.
+            </p>
+            <p>
+              Technical Project: Hybrid-Cloud Conversational Agentic AI Solution
+            </p>
+            <ul>
+              <li>
+                <strong>Architectural Design:</strong> Engineered an end-to-end,
+                hybrid-cloud conversational AI solution to automate complex
+                business workflows. Managed the full lifecycle from initial
+                design to deployment within a 10-week timeframe.
+              </li>
+              <li>
+                <strong>Full-Stack Engineering:</strong>
+                <ul>
+                  <li>
+                    <p>
+                      Integrated Amazon Connect for telephony orchestration and
+                      call flow management. Set up an Amazon Connect phone
+                      number, and creating the incoming call flow.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Developed backend logic and data storage solutions using
+                      AWS Lambda and S3.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Deployed an agentic AI engine on GCP Cloud Run using the
+                      Google Agent Developer Kit (ADK).
+                    </p>
+                  </li>
+                  <Tech_Dropdown title="View the stack behind it">
+                    <p>
+                      First, I developed the business contracts for digital
+                      image delivery. Most contracts allowed for personal use
+                      only, but some clients required commercial use rights as
+                      well.{" "}
+                    </p>
+                    <p>
+                      Once the contracts were made, I created a script to fill
+                      out the details (date, client name, image numbers, etc.)
+                      and then export the contract. Finally, I added the ability
+                      to resize images automatically based on the package
+                      purchased by the client, and I added the ability to add
+                      our studio watermark, which changed colors based on the
+                      background of the image.
+                    </p>
+                    <div className="tech-pill-group">
+                      <Tech_Pill
+                        name="Python"
+                        icon={<SiPython color="default" />}
+                      />
+                    </div>
+                  </Tech_Dropdown>
+                </ul>
+              </li>
+              <li>
+                <strong>Operational Impact:</strong> Designed the system to
+                replace manual processes with an automated workflow, optimizing
+                both operational cost-efficiency and the customer experience.
+              </li>
+              <li>
+                <strong>Strategic Leadership Development:</strong> Actively
+                pursued cross-functional engagement through networking to gain a
+                holistic understanding of business operations.
+              </li>
+            </ul>
           </Resume_Card_Template>
         </div>
       </div>
