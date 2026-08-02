@@ -19,12 +19,15 @@ import {
   SiTypescript,
   SiCss,
   SiGithubcopilot,
+  SiOcaml,
+  SiMarkdown,
+  SiReact,
 } from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 import { TbBrandCSharp } from "react-icons/tb";
-import { FileText, Bot, Mail, Sparkles } from "lucide-react";
+import { FileText, Bot, Mail, Sparkles, PenTool, Palette } from "lucide-react";
 
 type Skill = {
   name: string;
@@ -44,9 +47,12 @@ const skillCategories: SkillCategory[] = [
       { name: "Python", icon: <SiPython color="default" /> },
       { name: "C#", icon: <TbBrandCSharp /> },
       { name: "TypeScript", icon: <SiTypescript color="default" /> },
+      { name: "React", icon: <SiReact color="default" /> },
+      { name: "OCaml", icon: <SiOcaml color="default" /> },
       { name: "HTML", icon: <SiHtml5 color="default" /> },
       { name: "CSS", icon: <SiCss color="default" /> },
       { name: "YAML", icon: <SiYaml color="default" /> },
+      { name: "Markdown", icon: <SiMarkdown color="default" /> },
     ],
   },
   {
@@ -80,6 +86,8 @@ const skillCategories: SkillCategory[] = [
       { name: "Lightroom Classic" },
       { name: "DaVinci Resolve", icon: <SiDavinciresolve color="default" /> },
       { name: "Premiere Pro" },
+      { name: "Affinity", icon: <PenTool /> },
+      { name: "Canva", icon: <Palette /> },
     ],
   },
   {
