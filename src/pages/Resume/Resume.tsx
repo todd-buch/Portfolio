@@ -18,7 +18,7 @@ import {
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
-import { FileText, Bot } from "lucide-react";
+import { FileText, Bot, Mail } from "lucide-react";
 
 export default function Resume() {
   return (
@@ -334,8 +334,55 @@ export default function Resume() {
             title="Creative Team Member"
             subtitle="Charleen's Portrait Studio"
             location="Dayville, CT"
-            num_details={1}
-          ></Resume_Card_Template>
+            num_details={3}
+          >
+            <p>
+              As a Creative Team Member, I handled customer service, editing and
+              prepping images for printing, and created automated HTML email
+              workflows.
+            </p>
+
+            <ul>
+              <li>
+                Oversaw customer service operations by designing automated HTML
+                email workflows for booking confirmations, payment reminders,
+                and post-session follow-ups.
+              </li>
+              <li>
+                Post-production editing on photos and videos, using Lightroom,
+                Photoshop, and Premiere Pro for selecting, cropping, retouching,
+                color grading, and video cutting.
+              </li>
+            </ul>
+
+            <Tech_Dropdown title="View the stack behind it">
+              <p>
+                To streamline the communication with clients, I built HTML email
+                templates that automatically triggered based on client actions.
+                These templates handled critical touchpoints, from immediate
+                booking confirmations and scheduled payment reminders to
+                post-session thank you messages and image delivery emails.
+              </p>
+              <p>
+                On the media production side, I managed full post-processing in
+                Adobe Lightroom Classic by filtering and culling RAW images,
+                cropping, and applying color adjustments. For advanced
+                retouching, I moved key into Photoshop, while using Premiere Pro
+                to assemble, color grade, and finalize videos.
+              </p>
+
+              <div className="tech-pill-group">
+                <Tech_Pill name="Lightroom Classic" />
+                <Tech_Pill
+                  name="Photoshop"
+                  icon={<DiPhotoshop color="default" />}
+                />
+                <Tech_Pill name="Premiere Pro" />
+                <Tech_Pill name="HTML" icon={<SiHtml5 color="default" />} />
+                <Tech_Pill name="Email Triggers" icon={<Mail />} />
+              </div>
+            </Tech_Dropdown>
+          </Resume_Card_Template>
         </div>
       </div>
     </>
