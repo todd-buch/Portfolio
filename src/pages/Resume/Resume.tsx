@@ -493,6 +493,49 @@ export default function Resume() {
               </div>
             ))}
           </div>
+          <hr className="resume-divider" />
+          <h2>Awards & Recognition</h2>
+          <div className="skills-grid">
+            <div className="skill-category-card">
+              <h3>Dean's List Student</h3>
+              <p>
+                <i>University of Connecticut, 2026</i>
+              </p>
+              <p>
+                Earned for maintaining high academic standing and GPA
+                excellence.
+              </p>
+            </div>
+            <div className="skill-category-card">
+              <h3>President's Education Award</h3>
+              <p>
+                <i>Edwin O. Smith High School, 2023</i>
+              </p>
+              <p>
+                Awarded on behalf of the President of the United States and the
+                United States Secretary of Education.
+              </p>
+            </div>
+            <div className="skill-category-card">
+              <h3>VEX Robotics Excellence Award</h3>
+              <p>
+                <i>Edwin O. Smith High School, 2022</i>
+              </p>
+              <p>
+                The Excellence Award is the highest honor presented at a VEX
+                Robotics Competition event. This award recognizes a team that
+                demonstrates overall excellence in both judged and performance
+                categories.
+              </p>
+            </div>
+            <div className="skill-category-card">
+              <h3>Excellence in Accounting Award</h3>
+              <p>
+                <i>Edwin O. Smith High School, 2023</i>
+              </p>
+              <p>Completed Advanced Accounting, A.</p>
+            </div>
+          </div>
         </div>
       </div>
     </>
