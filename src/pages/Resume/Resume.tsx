@@ -39,7 +39,6 @@ type SkillCategory = {
   skills: Skill[];
 };
 
-/** All unique Tech_Pill skills from experience, grouped by category. */
 const skillCategories: SkillCategory[] = [
   {
     title: "Languages",
