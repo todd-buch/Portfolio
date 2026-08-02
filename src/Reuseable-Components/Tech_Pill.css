@@ -9,6 +9,8 @@
   color: var(--text-primary);
   font-size: 0.95rem;
   font-weight: 500;
+  line-height: 1.2;
+  vertical-align: middle;
   transition: border-color 0.25s ease, color 0.25s ease;
   user-select: none;
   width: fit-content;

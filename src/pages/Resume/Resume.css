@@ -25,3 +25,9 @@
   font-weight: 500;
   color: var(--text-secondary);
 }
+.resume-divider {
+    margin-top: -4rem;
+    margin-bottom: 8rem;
+    border: none;
+    border-top: 2px solid var(--text-secondary);
+  }

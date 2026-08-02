@@ -77,7 +77,7 @@ export default function Main_Projects() {
             bulk image resizing, adding watermarks, and creating print release
             contracts for clients.
           </p>
-          <Tech_Dropdown title="View the stack behind it">
+          <Tech_Dropdown title="View the stack used in this role">
             <div className="current-role-dropdown">
               <p>
                 Used specialized photography & videography software, and used
