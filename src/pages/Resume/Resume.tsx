@@ -52,35 +52,34 @@ export default function Resume() {
               <br />
               Graduation: December 2026
             </p>
-            <p>Relevant Courses:</p>
-
             <p>
-              <b>Data Structures and Object-Oriented Design:</b> Introduction to
-              fundamental data structures and algorithms.
+              <b>Relevant Courses:</b>
             </p>
-
-            <p>
-              <b>Introduction to Discrete Systems:</b> Introduction to formal
-              mathematical thinking including discrete systems and proofs.
-            </p>
-
-            <p>
-              <b>Business Software Development:</b> Development of computer
-              software for business information processing, using the C#
-              language.
-            </p>
-
-            <p>
-              <b>Intro to Software Engineering:</b> Software engineering
-              concepts including the software life cycle and other
-              software-development process models.
-            </p>
-
-            <p>
-              <b>Programming Languages:</b> The study of programming language
-              features and programming paradigms. Simply Typed Lambda Calculus,
-              OCaml, Prolog, & Smalltalk.
-            </p>
+            <ul>
+              <li>
+                <b>Data Structures and Object-Oriented Design:</b> Introduction
+                to fundamental data structures and algorithms.
+              </li>
+              <li>
+                <b>Introduction to Discrete Systems:</b> Introduction to formal
+                mathematical thinking including discrete systems and proofs.
+              </li>
+              <li>
+                <b>Business Software Development:</b> Development of computer
+                software for business information processing, using the C#
+                language.
+              </li>
+              <li>
+                <b>Intro to Software Engineering:</b> Software engineering
+                concepts including the software life cycle and other
+                software-development process models.
+              </li>
+              <li>
+                <b>Programming Languages:</b> The study of programming language
+                features and programming paradigms. Simply Typed Lambda
+                Calculus, OCaml, Prolog, &amp; Smalltalk.
+              </li>
+            </ul>
           </Resume_Card_Template>
           <hr className="resume-divider" />
           <h2>Work Experience</h2>
@@ -330,6 +329,13 @@ export default function Resume() {
               </li>
             </ul>
           </Resume_Card_Template>
+          <Resume_Card_Template
+            date={<>April 2022 — June 2025</>}
+            title="Creative Team Member"
+            subtitle="Charleen's Portrait Studio"
+            location="Dayville, CT"
+            num_details={1}
+          ></Resume_Card_Template>
         </div>
       </div>
     </>
