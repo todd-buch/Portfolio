@@ -1,0 +1,68 @@
+.photo-gallery-missing {
+  display: grid;
+  place-items: center;
+  padding: 8rem 1.5rem 3rem;
+  box-sizing: border-box;
+}
+
+.photo-gallery-missing-inner {
+  max-width: 32rem;
+  text-align: center;
+}
+
+.photo-gallery-missing-inner h1 {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin: 0 0 1rem;
+}
+
+.photo-gallery-missing-inner p {
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem;
+  line-height: 1.6;
+}
+
+.photo-gallery-missing-inner code {
+  color: var(--accent);
+  font-size: 0.9em;
+}
+
+.photo-gallery-back-wrap {
+  margin-top: 1.75rem;
+}
+
+.photo-gallery-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.photo-gallery-back:hover {
+  color: var(--accent);
+}
+
+.photo-gallery-back:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.photo-gallery-empty-hint {
+  margin-top: 1rem !important;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.photo-gallery-empty-hint code {
+  color: var(--accent);
+  font-size: 0.9em;
+}
+
+.photo-gallery-missing .site-footer {
+  margin-top: auto;
+  width: 100%;
+}

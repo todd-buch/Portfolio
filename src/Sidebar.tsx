@@ -113,6 +113,7 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isHome = location.pathname === "/" || location.pathname === "";
+  const isPhotography = location.pathname.startsWith("/photography");
 
   // Close mobile menu on resize up to desktop
   useEffect(() => {
@@ -159,7 +160,7 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
 
   return (
     <header
-      className={`top-sidebar ${showSolidBar ? "scrolled" : ""} ${overHero ? "over-hero" : ""} ${menuOpen ? "menu-open" : ""}`}
+      className={`top-sidebar ${showSolidBar ? "scrolled" : ""} ${overHero ? "over-hero" : ""} ${menuOpen ? "menu-open" : ""} ${isPhotography ? "no-shadow" : ""}`}
     >
       <aside className="sidebar">
         <div className="sidebar-logo">

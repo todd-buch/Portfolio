@@ -1,0 +1,279 @@
+/* Full-viewport snap scroller with side dots and hidden scrollbar */
+
+.photo-scroller-shell {
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+  background-color: var(--bg-primary);
+  overflow: hidden;
+}
+
+.photo-scroller {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  outline: none;
+}
+
+.photo-scroller::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.photo-scroller--empty {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  color: var(--text-secondary);
+  padding: 2rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* ---- Slide: centered cluster (image + fixed-width card) ---- */
+
+.photo-slide {
+  height: 100dvh;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
+  /* Clear fixed nav; keep side room for dots */
+  padding: 7.5rem 3.25rem 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-slide-cluster {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem 2.5rem;
+  max-width: 100%;
+  /* Image may use up to 90% of the slide’s height */
+  max-height: 100%;
+}
+
+/*
+ * Image box hugs the photo’s aspect ratio.
+ * Caps: ≤ 2/3 viewport width, ≤ 90% of viewport height (within the padded slide).
+ */
+.photo-slide-image-wrap {
+  position: relative;
+  flex: 0 1 auto;
+  max-width: min(66.666vw, 100%);
+  max-height: min(90dvh, 100%);
+  line-height: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.photo-slide-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(66.666vw, 100%);
+  max-height: min(90dvh, calc(100dvh - 9.5rem));
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+  -webkit-user-drag: none;
+  vertical-align: middle;
+}
+
+/* Fixed aspect placeholder when no src is set yet */
+.photo-slide-placeholder {
+  width: min(42vw, 520px);
+  max-width: min(66.666vw, 100%);
+  aspect-ratio: 3 / 2;
+  max-height: min(90dvh, calc(100dvh - 9.5rem));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 12%, var(--bg-secondary)),
+    var(--bg-secondary) 55%
+  );
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  line-height: 1.4;
+}
+
+.photo-slide-placeholder-label {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--text-primary);
+}
+
+.photo-slide-placeholder-hint {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.photo-slide-placeholder-hint code {
+  font-size: 0.85em;
+  color: var(--accent);
+}
+
+/* Fixed horizontal size for every text card */
+.photo-slide-description {
+  flex: 0 0 22rem;
+  width: 22rem;
+  max-width: 22rem;
+  min-width: 0;
+  max-height: min(90dvh, calc(100dvh - 9.5rem));
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.photo-slide-description > * {
+  max-height: 100%;
+}
+
+/* ---- Footer after last photo ---- */
+
+.photo-scroller-end {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  min-height: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.photo-scroller-end--alone {
+  min-height: auto;
+}
+
+/* ---- Progress dots (right edge) ---- */
+
+.photo-dots {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0;
+  pointer-events: auto;
+  transition: opacity 0.25s ease;
+}
+
+.photo-dots--dimmed {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.photo-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background-color: color-mix(
+    in srgb,
+    var(--text-secondary) 55%,
+    transparent
+  );
+  cursor: pointer;
+  transition:
+    height 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.photo-dot:hover {
+  background-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  transform: scale(1.15);
+}
+
+.photo-dot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.photo-dot--active {
+  height: 1.35rem;
+  background-color: var(--accent);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 900px) {
+  .photo-slide {
+    padding: 6.5rem 2.25rem 1.5rem 1.25rem;
+    align-items: flex-start;
+  }
+
+  .photo-slide-cluster {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.25rem;
+    width: 100%;
+    max-height: none;
+    overflow: auto;
+  }
+
+  .photo-slide-image-wrap {
+    max-width: 100%;
+  }
+
+  .photo-slide-image {
+    max-width: 100%;
+    max-height: min(50dvh, calc(100dvh - 14rem));
+  }
+
+  .photo-slide-placeholder {
+    width: min(100%, 420px);
+    max-height: min(50dvh, calc(100dvh - 14rem));
+  }
+
+  .photo-slide-description {
+    flex: 0 0 auto;
+    width: min(100%, 22rem);
+    max-width: min(100%, 22rem);
+    max-height: none;
+  }
+
+  .photo-dots {
+    right: 0.55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-slide {
+    padding-left: 1rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-scroller {
+    scroll-behavior: auto;
+  }
+
+  .photo-dot {
+    transition: none;
+  }
+}

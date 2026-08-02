@@ -7,6 +7,7 @@ import Main_Projects from "./Main_Projects";
 import Footer from "./Footer";
 import Resume from "./pages/Resume/Resume";
 import Photography from "./pages/Photography/Photography";
+import PhotoGallery from "./pages/Photography/PhotoGallery";
 
 /** React Router preserves scroll position across navigations; reset on route change. */
 function ScrollToTop() {
@@ -22,8 +23,21 @@ function ScrollToTop() {
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const isPhotographyRoute = location.pathname.startsWith("/photography");
 
   useEffect(() => {
+    // Photography uses an internal snap scroller — window scroll never moves.
+    // Keep the nav solid so it stays readable over images, and lock body scroll
+    // so the browser chrome doesn't show a second scrollbar.
+    if (isPhotographyRoute) {
+      setIsScrolled(true);
+      const previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = previousOverflow;
+      };
+    }
+
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);
@@ -37,7 +51,7 @@ function App() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]);
+  }, [location.pathname, isPhotographyRoute]);
 
   return (
     <>
@@ -55,8 +69,10 @@ function App() {
         />
         <Route path="/resume" element={<Resume />} />
         <Route path="/photography" element={<Photography />} />
+        <Route path="/photography/:gallerySlug" element={<PhotoGallery />} />
       </Routes>
-      <Footer />
+      {/* Photography embeds Footer after the last snap slide */}
+      {!isPhotographyRoute && <Footer />}
     </>
   );
 }
