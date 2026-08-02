@@ -1,11 +1,9 @@
 .photography-page {
-  /* Lock page chrome so only the scroller moves */
   height: 100dvh;
   overflow: hidden;
   background-color: var(--bg-primary);
 }
 
-/* Missing-gallery fallback (no scroller shell) */
 .photography-page.photo-gallery-missing {
   height: auto;
   min-height: 100dvh;

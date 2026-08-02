@@ -510,13 +510,13 @@ export default function Main_Projects() {
                 </div>
               </Tech_Dropdown>
               <Action_Button
-                  text="View source code"
-                  icon={<FaGithub />}
-                  link="https://github.com/todd-buch/Portfolio"
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="outline"
-                />
+                text="View source code"
+                icon={<FaGithub />}
+                link="https://github.com/todd-buch/Portfolio"
+                target="_blank"
+                rel="noreferrer"
+                variant="outline"
+              />
             </Small_Card>
           </div>
         </div>
@@ -532,7 +532,7 @@ export default function Main_Projects() {
           <Action_Button
             text="Get in touch"
             icon={<Mail />}
-            link="mailto:todd@example.com"
+            link="mailto:hello@toddbuch.com"
           />
         </div>
       </div>

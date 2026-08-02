@@ -1,6 +1,10 @@
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import Action_Button from "../../Reuseable-Components/Action_Button";
+import {
+  rememberFeaturedForReturn,
+  type PhotographyLocationState,
+} from "./photoNav";
 import "./Photo_Description.css";
 
 interface Photo_Description_Props {
@@ -14,6 +18,11 @@ interface Photo_Description_Props {
   galleryTo?: string;
   /** Override the default gallery button label. */
   galleryLabel?: string;
+  /**
+   * Featured highlight id for this card. Used so returning from the gallery
+   * lands back on this image instead of the intro.
+   */
+  featuredId?: string;
 }
 
 export default function Photo_Description({
@@ -22,8 +31,28 @@ export default function Photo_Description({
   children,
   galleryTo,
   galleryLabel = "View the gallery",
+  featuredId,
 }: Photo_Description_Props) {
   const navigate = useNavigate();
+
+  const openGallery = () => {
+    if (!galleryTo) return;
+
+    if (featuredId) {
+      rememberFeaturedForReturn(featuredId);
+      // Stamp current history entry so browser-back also restores this photo
+      navigate(".", {
+        replace: true,
+        state: { restoreFeaturedId: featuredId } satisfies PhotographyLocationState,
+      });
+    }
+
+    navigate(galleryTo, {
+      state: {
+        fromFeaturedId: featuredId,
+      } satisfies PhotographyLocationState,
+    });
+  };
 
   return (
     <div className="photo-description-box">
@@ -42,8 +71,8 @@ export default function Photo_Description({
         <div className="photo-description-actions">
           <Action_Button
             text={galleryLabel}
-            onClick={() => navigate(galleryTo)}
-            variant="filled"
+            onClick={openGallery}
+            variant="outline"
           />
         </div>
       )}

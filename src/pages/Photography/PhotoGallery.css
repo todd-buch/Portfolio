@@ -15,15 +15,8 @@
   margin: 0 0 1rem;
 }
 
-.photo-gallery-missing-inner p {
-  color: var(--text-secondary);
-  margin: 0 0 1.5rem;
-  line-height: 1.6;
-}
-
-.photo-gallery-missing-inner code {
-  color: var(--accent);
-  font-size: 0.9em;
+.photo-gallery-missing-inner .photo-gallery-back {
+  margin-top: 0.5rem;
 }
 
 .photo-gallery-back-wrap {
@@ -39,6 +32,12 @@
   font-size: 0.95rem;
   font-weight: 500;
   transition: color 0.2s ease;
+  /* Reset when used as <button> */
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .photo-gallery-back:hover {
@@ -49,17 +48,6 @@
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 0.25rem;
-}
-
-.photo-gallery-empty-hint {
-  margin-top: 1rem !important;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-}
-
-.photo-gallery-empty-hint code {
-  color: var(--accent);
-  font-size: 0.9em;
 }
 
 .photo-gallery-missing .site-footer {

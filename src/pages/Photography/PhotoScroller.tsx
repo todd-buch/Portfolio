@@ -5,92 +5,112 @@ import {
   useRef,
   useState,
   type ReactNode,
+  type MouseEvent,
 } from "react";
+import { ChevronDown } from "lucide-react";
 import "./PhotoScroller.css";
 
 export type PhotoSlide = {
   id: string;
   imageSrc?: string;
   imageAlt: string;
-  /** Right-hand card content for this slide */
   description: ReactNode;
 };
 
 interface PhotoScrollerProps {
   slides: PhotoSlide[];
-  /** Accessible name for the scroll region */
   label?: string;
-  /** Rendered after the last photo (e.g. site footer). Scroll continues past snaps. */
+  intro?: ReactNode;
+  introScrollLabel?: string;
   endContent?: ReactNode;
-  /**
-   * 0-based index to land on when the scroller mounts (e.g. 1 = second photo).
-   * Clamped to the available slides.
-   */
   initialIndex?: number;
+}
+
+function blockImageSave(e: MouseEvent) {
+  e.preventDefault();
 }
 
 export default function PhotoScroller({
   slides,
   label = "Photo gallery",
+  intro,
+  introScrollLabel = "Scroll to view gallery",
   endContent,
-  initialIndex = 0,
+  initialIndex,
 }: PhotoScrollerProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLElement | null>(null);
   const slideRefs = useRef<(HTMLElement | null)[]>([]);
   const endRef = useRef<HTMLElement | null>(null);
-  const [activeIndex, setActiveIndex] = useState(() =>
-    Math.min(Math.max(0, initialIndex), Math.max(0, slides.length - 1)),
-  );
-  /** True while the post-gallery footer region is the primary view */
-  const [onEndContent, setOnEndContent] = useState(false);
 
-  // Stable identity for the slide list so we only re-jump when content changes.
+  const hasIntro = intro != null;
+  const resolvedStart =
+    initialIndex !== undefined
+      ? Math.min(Math.max(0, initialIndex), Math.max(0, slides.length - 1))
+      : hasIntro
+        ? -1 // intro
+        : 0;
+
+  const [activeIndex, setActiveIndex] = useState(() =>
+    resolvedStart < 0 ? 0 : resolvedStart,
+  );
+  /** Dim dots on intro or footer */
+  const [dotsDimmed, setDotsDimmed] = useState(
+    () => resolvedStart < 0 || slides.length === 0,
+  );
+
   const slidesKey = slides.map((s) => s.id).join("|");
 
-  // Jump to the requested start slide before paint (no flash of slide 0).
+  // Jump to intro or a photo before paint.
   useLayoutEffect(() => {
-    const start = Math.min(
-      Math.max(0, initialIndex),
-      Math.max(0, slides.length - 1),
-    );
-    const el = slideRefs.current[start];
     const root = scrollerRef.current;
-    if (!el || !root) return;
-    // Instant — avoid smooth scroll fighting the route transition
-    root.scrollTop = el.offsetTop;
-    setActiveIndex(start);
-    setOnEndContent(false);
-    // slides.length covered via slidesKey
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- slidesKey stands in for slides
-  }, [initialIndex, slidesKey]);
+    if (!root) return;
 
-  // Track active slide / footer with scroll position (more reliable than
-  // IntersectionObserver alone when leaving a short footer section).
+    if (resolvedStart < 0) {
+      root.scrollTop = 0;
+      setDotsDimmed(true);
+      setActiveIndex(0);
+      return;
+    }
+
+    const el = slideRefs.current[resolvedStart];
+    if (!el) return;
+    root.scrollTop = el.offsetTop;
+    setActiveIndex(resolvedStart);
+    setDotsDimmed(false);
+  }, [resolvedStart, slidesKey, hasIntro]);
+
   useEffect(() => {
     const root = scrollerRef.current;
-    if (!root || slides.length === 0) return;
+    if (!root) return;
 
     const updateFromScroll = () => {
       const rootRect = root.getBoundingClientRect();
       const viewportMid = rootRect.top + rootRect.height * 0.45;
 
-      // Footer: if the end section covers most of the viewport, dim the dots
-      const endEl = endRef.current;
-      if (endEl) {
-        const endRect = endEl.getBoundingClientRect();
-        const visibleTop = Math.max(endRect.top, rootRect.top);
-        const visibleBottom = Math.min(endRect.bottom, rootRect.bottom);
+      const coverageOf = (el: HTMLElement | null) => {
+        if (!el) return 0;
+        const rect = el.getBoundingClientRect();
+        const visibleTop = Math.max(rect.top, rootRect.top);
+        const visibleBottom = Math.min(rect.bottom, rootRect.bottom);
         const visible = Math.max(0, visibleBottom - visibleTop);
-        const coverage = visible / rootRect.height;
-        if (coverage >= 0.4) {
-          setOnEndContent(true);
-          return;
-        }
+        return visible / rootRect.height;
+      };
+
+      // Intro / footer: dim side dots
+      if (coverageOf(introRef.current) >= 0.4) {
+        setDotsDimmed(true);
+        return;
+      }
+      if (coverageOf(endRef.current) >= 0.4) {
+        setDotsDimmed(true);
+        return;
       }
 
-      setOnEndContent(false);
+      setDotsDimmed(false);
 
-      // Active slide = the one whose vertical center is closest to the view midpoint
+      if (slides.length === 0) return;
+
       let bestIndex = 0;
       let bestDist = Infinity;
       slideRefs.current.forEach((el, index) => {
@@ -113,7 +133,7 @@ export default function PhotoScroller({
       root.removeEventListener("scroll", updateFromScroll);
       window.removeEventListener("resize", updateFromScroll);
     };
-  }, [slides, endContent]);
+  }, [slides, endContent, hasIntro]);
 
   const goTo = useCallback((index: number) => {
     const el = slideRefs.current[index];
@@ -121,11 +141,11 @@ export default function PhotoScroller({
     el.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
-  if (slides.length === 0) {
+  if (slides.length === 0 && !intro) {
     return (
       <div className="photo-scroller-shell">
         <div className="photo-scroller photo-scroller--empty">
-          <p>No photos yet — add entries in photographyData.ts.</p>
+          <p>No photos yet.</p>
         </div>
         {endContent && (
           <div className="photo-scroller-end photo-scroller-end--alone">
@@ -144,6 +164,29 @@ export default function PhotoScroller({
         aria-label={label}
         tabIndex={0}
       >
+        {intro != null && (
+          <section
+            className="photo-intro"
+            ref={introRef}
+            aria-label="Photography introduction"
+          >
+            <div className="photo-intro-center">{intro}</div>
+            {slides.length > 0 && (
+              <div className="photo-intro-scroll">
+                <p className="photo-intro-scroll-label">{introScrollLabel}</p>
+                <button
+                  type="button"
+                  className="photo-intro-scroll-btn"
+                  onClick={() => goTo(0)}
+                  aria-label={introScrollLabel}
+                >
+                  <ChevronDown size={36} strokeWidth={1.75} />
+                </button>
+              </div>
+            )}
+          </section>
+        )}
+
         {slides.map((slide, index) => (
           <section
             key={slide.id}
@@ -155,27 +198,25 @@ export default function PhotoScroller({
             aria-label={`${index + 1} of ${slides.length}: ${slide.imageAlt}`}
           >
             <div className="photo-slide-cluster">
-              <div className="photo-slide-image-wrap">
+              <div
+                className="photo-slide-image-wrap"
+                onContextMenu={blockImageSave}
+              >
                 {slide.imageSrc ? (
                   <img
                     src={slide.imageSrc}
                     alt={slide.imageAlt}
                     className="photo-slide-image"
                     draggable={false}
+                    onContextMenu={blockImageSave}
+                    onDragStart={blockImageSave}
                   />
                 ) : (
                   <div
                     className="photo-slide-placeholder"
                     role="img"
                     aria-label={slide.imageAlt}
-                  >
-                    <span className="photo-slide-placeholder-label">
-                      Photo placeholder
-                    </span>
-                    <span className="photo-slide-placeholder-hint">
-                      Import <code>src</code> in photographyData.ts
-                    </span>
-                  </div>
+                  />
                 )}
               </div>
 
@@ -198,25 +239,27 @@ export default function PhotoScroller({
         )}
       </div>
 
-      <nav
-        className={`photo-dots${onEndContent ? " photo-dots--dimmed" : ""}`}
-        aria-label="Photo position"
-        aria-hidden={onEndContent || undefined}
-      >
-        {slides.map((slide, index) => {
-          const isActive = !onEndContent && index === activeIndex;
-          return (
-            <button
-              key={slide.id}
-              type="button"
-              className={`photo-dot${isActive ? " photo-dot--active" : ""}`}
-              aria-label={`Go to photo ${index + 1}${isActive ? " (current)" : ""}`}
-              aria-current={isActive ? "true" : undefined}
-              onClick={() => goTo(index)}
-            />
-          );
-        })}
-      </nav>
+      {slides.length > 0 && (
+        <nav
+          className={`photo-dots${dotsDimmed ? " photo-dots--dimmed" : ""}`}
+          aria-label="Photo position"
+          aria-hidden={dotsDimmed || undefined}
+        >
+          {slides.map((slide, index) => {
+            const isActive = !dotsDimmed && index === activeIndex;
+            return (
+              <button
+                key={slide.id}
+                type="button"
+                className={`photo-dot${isActive ? " photo-dot--active" : ""}`}
+                aria-label={`Go to photo ${index + 1}${isActive ? " (current)" : ""}`}
+                aria-current={isActive ? "true" : undefined}
+                onClick={() => goTo(index)}
+              />
+            );
+          })}
+        </nav>
+      )}
     </div>
   );
 }

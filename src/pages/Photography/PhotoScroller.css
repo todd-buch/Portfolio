@@ -1,5 +1,3 @@
-/* Full-viewport snap scroller with side dots and hidden scrollbar */
-
 .photo-scroller-shell {
   position: relative;
   height: 100dvh;
@@ -36,7 +34,117 @@
   box-sizing: border-box;
 }
 
-/* ---- Slide: centered cluster (image + fixed-width card) ---- */
+
+.photo-intro {
+  height: 100dvh;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
+  padding: 7.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.photo-intro-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding-bottom: 5rem;
+}
+
+.photo-intro-title {
+  margin: 0 0 1.25rem;
+  font-size: clamp(3.5rem, 18vw, 10rem);
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.photo-intro-bio {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  line-height: 1.7;
+  max-width: 34rem;
+}
+
+.photo-intro-bio p {
+  margin: 0 0 1rem;
+}
+
+.photo-intro-bio p:last-child {
+  margin-bottom: 0;
+}
+
+.photo-intro-scroll {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.photo-intro-scroll-label {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.photo-intro-scroll-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 999px;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+  animation: photo-intro-bounce 2s ease-in-out infinite;
+}
+
+.photo-intro-scroll-btn:hover {
+  color: var(--accent);
+  transform: translateY(2px);
+}
+
+.photo-intro-scroll-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@keyframes photo-intro-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-intro-scroll-btn {
+    animation: none;
+  }
+}
+
+
 
 .photo-slide {
   height: 100dvh;
@@ -44,7 +152,6 @@
   scroll-snap-align: start;
   scroll-snap-stop: always;
   box-sizing: border-box;
-  /* Clear fixed nav; keep side room for dots */
   padding: 7.5rem 3.25rem 2rem 2rem;
   display: flex;
   align-items: center;
@@ -58,14 +165,9 @@
   justify-content: center;
   gap: 2rem 2.5rem;
   max-width: 100%;
-  /* Image may use up to 90% of the slide’s height */
   max-height: 100%;
 }
 
-/*
- * Image box hugs the photo’s aspect ratio.
- * Caps: ≤ 2/3 viewport width, ≤ 90% of viewport height (within the padded slide).
- */
 .photo-slide-image-wrap {
   position: relative;
   flex: 0 1 auto;
@@ -86,11 +188,14 @@
   object-fit: contain;
   object-position: center;
   user-select: none;
+  -webkit-user-select: none;
   -webkit-user-drag: none;
-  vertical-align: middle;
+  -webkit-touch-callout: none;
+  pointer-events: auto;
+  /* vertical-align: middle; */
 }
 
-/* Fixed aspect placeholder when no src is set yet */
+
 .photo-slide-placeholder {
   width: min(42vw, 520px);
   max-width: min(66.666vw, 100%);
@@ -115,24 +220,7 @@
   line-height: 1.4;
 }
 
-.photo-slide-placeholder-label {
-  font-family: "Space Grotesk", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 1.15rem;
-  color: var(--text-primary);
-}
 
-.photo-slide-placeholder-hint {
-  font-size: 0.9rem;
-  opacity: 0.85;
-}
-
-.photo-slide-placeholder-hint code {
-  font-size: 0.85em;
-  color: var(--accent);
-}
-
-/* Fixed horizontal size for every text card */
 .photo-slide-description {
   flex: 0 0 22rem;
   width: 22rem;
@@ -146,9 +234,9 @@
 
 .photo-slide-description > * {
   max-height: 100%;
+  min-height: 0;
 }
 
-/* ---- Footer after last photo ---- */
 
 .photo-scroller-end {
   scroll-snap-align: start;
@@ -161,8 +249,6 @@
 .photo-scroller-end--alone {
   min-height: auto;
 }
-
-/* ---- Progress dots (right edge) ---- */
 
 .photo-dots {
   position: absolute;
@@ -217,12 +303,19 @@
   background-color: var(--accent);
 }
 
-/* ---- Responsive ---- */
 
 @media (max-width: 900px) {
+  /*
+   * Let the slide grow with image + card instead of clipping at 100dvh.
+   * Snap still lands on the top of each photo; extra height scrolls before
+   * the next snap.
+   */
   .photo-slide {
-    padding: 6.5rem 2.25rem 1.5rem 1.25rem;
+    height: auto;
+    min-height: 100dvh;
+    padding: 6.5rem 2.25rem 2.5rem 1.25rem;
     align-items: flex-start;
+    overflow: visible;
   }
 
   .photo-slide-cluster {
@@ -232,27 +325,37 @@
     gap: 1.25rem;
     width: 100%;
     max-height: none;
-    overflow: auto;
+    overflow: visible;
+    flex: 1 0 auto;
   }
 
   .photo-slide-image-wrap {
     max-width: 100%;
+    max-height: none;
+    flex-shrink: 0;
   }
 
   .photo-slide-image {
     max-width: 100%;
-    max-height: min(50dvh, calc(100dvh - 14rem));
+    max-height: min(42dvh, 360px);
   }
 
   .photo-slide-placeholder {
     width: min(100%, 420px);
-    max-height: min(50dvh, calc(100dvh - 14rem));
+    max-height: min(42dvh, 360px);
   }
 
   .photo-slide-description {
     flex: 0 0 auto;
     width: min(100%, 22rem);
     max-width: min(100%, 22rem);
+    max-height: none;
+    align-self: stretch;
+    margin-inline: auto;
+  }
+
+  /* Don’t clamp the card to a percentage of an auto-height parent */
+  .photo-slide-description > * {
     max-height: none;
   }
 
@@ -265,6 +368,11 @@
   .photo-slide {
     padding-left: 1rem;
     padding-right: 2rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .photo-slide-image {
+    max-height: min(38dvh, 300px);
   }
 }
 

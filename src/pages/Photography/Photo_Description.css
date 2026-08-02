@@ -75,8 +75,21 @@
 @media (max-width: 900px) {
   .photo-description-box {
     padding: 1.5rem 1.25rem;
+    height: auto;
     max-height: none;
     overflow: visible;
+  }
+
+  .photo-description-body {
+    flex: 0 0 auto;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .photo-description-actions {
+    flex-shrink: 0;
+    /* Keep the button fully clear of the bottom edge / home indicator */
+    margin-bottom: 0.25rem;
   }
 
   .photo-description-top {

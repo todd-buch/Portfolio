@@ -8,6 +8,7 @@ import Footer from "./Footer";
 import Resume from "./pages/Resume/Resume";
 import Photography from "./pages/Photography/Photography";
 import PhotoGallery from "./pages/Photography/PhotoGallery";
+import { clearFeaturedReturnId } from "./pages/Photography/photoNav";
 
 /** React Router preserves scroll position across navigations; reset on route change. */
 function ScrollToTop() {
@@ -24,6 +25,11 @@ function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const isPhotographyRoute = location.pathname.startsWith("/photography");
+
+  // Drop restore markers when leaving photography entirely (e.g. Home / Resume)
+  useEffect(() => {
+    if (!isPhotographyRoute) clearFeaturedReturnId();
+  }, [isPhotographyRoute]);
 
   useEffect(() => {
     // Photography uses an internal snap scroller — window scroll never moves.
