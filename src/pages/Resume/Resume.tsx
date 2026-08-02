@@ -533,7 +533,7 @@ export default function Resume() {
               <p>
                 <i>Edwin O. Smith High School, 2023</i>
               </p>
-              <p>Completed Advanced Accounting, A.</p>
+              <p>Completed Advanced Accounting, as well as Intro to Business, and Personal Finance. A+.</p>
             </div>
           </div>
         </div>

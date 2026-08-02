@@ -32,7 +32,8 @@
   margin-bottom: 10rem;
 }
 .main-regular-text-block-title {
-  font-weight: 800;
+  /* Space Grotesk tops out at 700; 800 was faux-bolding headers */
+  font-weight: 700;
   margin-bottom: 2rem;
 }
 .main-regular-text-block-subtitle {

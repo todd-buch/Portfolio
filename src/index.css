@@ -1,15 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap');
+/* Load only real weights each face ships — mismatched weights force faux-bold,
+   which looks dramatically heavier on non-Retina / external monitors. */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 /* Light Theme */
-:root {
+:root,
+[data-theme="light"] {
   --bg-primary: #f0f0ee; /* blue #f0f9ff or alternatively cream #fffbeb */
   --bg-secondary: #ffffff;
   --text-primary: #3f3f46;
   --text-secondary: #4b5563;
   --accent: #9B491A;
   --border-color: #cbcdd1;
+  color-scheme: light;
 }
 
 /* Dark Theme */
@@ -20,6 +22,7 @@
   --text-secondary: #9ca3af;
   --accent: #FA9C30;
   --border-color: #334155;
+  color-scheme: dark;
 }
 
 /* Apply CSS Variables to Base Elements */
@@ -29,12 +32,16 @@ body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 1.1rem;
   margin: 0;
+  /* Consistent stroke weight across Retina vs external displays */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   /* Smooth transition when toggling modes */
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 h1 {
   font-family: 'Bebas Neue', -apple-system, sans-serif;
-  font-weight: 600;
+  /* Bebas Neue is single-weight (400); higher values synthesize bold */
+  font-weight: 400;
   font-size: 5rem;
 }
 h2 {

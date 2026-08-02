@@ -4,7 +4,8 @@ import "./Sidebar.css";
 import sideLogoWht from "/src/assets/LogoWHT.png";
 import sideLogoBlk from "/src/assets/LogoBLK.png";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa6";
-import { Menu, X } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { useTheme } from "./useTheme";
 
 interface SidebarProps {
   isScrolled: boolean;
@@ -62,8 +63,11 @@ function relativeLuminance(r: number, g: number, b: number): number {
  * for contrast. Light bg → black logo; dark bg → white logo.
  */
 function useIsPrimaryBgLight() {
-  // Default matches :root light theme so first paint is correct without flash.
-  const [isLight, setIsLight] = useState(true);
+  // Seed from data-theme set by the blocking script in index.html.
+  const [isLight, setIsLight] = useState(() => {
+    if (typeof document === "undefined") return true;
+    return document.documentElement.getAttribute("data-theme") !== "dark";
+  });
 
   useEffect(() => {
     const root = document.documentElement;
@@ -82,7 +86,7 @@ function useIsPrimaryBgLight() {
 
     update();
 
-    // Theme toggles typically flip data-theme on <html>.
+    // Theme toggles flip data-theme on <html>.
     const observer = new MutationObserver(update);
     observer.observe(root, {
       attributes: true,
@@ -105,6 +109,7 @@ function useIsPrimaryBgLight() {
 export default function Sidebar({ isScrolled }: SidebarProps) {
   const location = useLocation();
   const isPrimaryBgLight = useIsPrimaryBgLight();
+  const { isDark, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isHome =
@@ -163,21 +168,6 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
             <img src={logoSrc} alt="Todd Buch" className="logo-img" />
           </Link>
         </div>
-
-        <button
-          type="button"
-          className="sidebar-menu-toggle"
-          onClick={toggleMenu}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          aria-controls="primary-nav"
-        >
-          {menuOpen ? (
-            <X size={28} strokeWidth={2.25} />
-          ) : (
-            <Menu size={28} strokeWidth={2.25} />
-          )}
-        </button>
 
         <nav
           id="primary-nav"
@@ -238,6 +228,37 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
             </a>
           </div>
         </nav>
+
+        <div className="sidebar-actions">
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            title={isDark ? "Light mode" : "Dark mode"}
+          >
+            {isDark ? (
+              <Sun size={22} strokeWidth={2.25} />
+            ) : (
+              <Moon size={22} strokeWidth={2.25} />
+            )}
+          </button>
+
+          <button
+            type="button"
+            className="sidebar-menu-toggle"
+            onClick={toggleMenu}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="primary-nav"
+          >
+            {menuOpen ? (
+              <X size={28} strokeWidth={2.25} />
+            ) : (
+              <Menu size={28} strokeWidth={2.25} />
+            )}
+          </button>
+        </div>
       </aside>
 
       {menuOpen && (

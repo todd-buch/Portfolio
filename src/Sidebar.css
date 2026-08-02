@@ -28,7 +28,6 @@
   height: 120px;
   width: 100%;
   color: var(--text-primary);
-  justify-content: space-between;
   display: flex;
   box-sizing: border-box;
   align-items: center;
@@ -56,16 +55,23 @@
   display: block;
 }
 
-/* Hamburger — hidden on desktop */
+/* Theme toggle + hamburger cluster (top-right) */
+.sidebar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.theme-toggle,
 .sidebar-menu-toggle {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 1rem;
   padding: 0.5rem;
   border: none;
   background: transparent;
-  color: var(--text-primary);
   cursor: pointer;
   border-radius: 0.5rem;
   transition:
@@ -73,21 +79,43 @@
     background-color 0.2s ease;
 }
 
-/* Only force white chrome when floating over the dark home hero */
-.top-sidebar.over-hero .sidebar-menu-toggle {
-  color: #ffffff;
+/* Match nav / social icon color */
+.theme-toggle {
+  color: var(--text-secondary);
+}
+
+.theme-toggle:hover {
+  color: var(--text-primary);
+  background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+.sidebar-menu-toggle {
+  display: none;
+  color: var(--text-primary);
 }
 
 .sidebar-menu-toggle:hover {
   background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 
-/* Navigation List */
+/* Hamburger only: white when floating over the dark home hero.
+   Theme toggle stays --text-secondary to match nav/social icons. */
+.top-sidebar.over-hero .sidebar-menu-toggle {
+  color: #ffffff;
+}
+
+.top-sidebar.over-hero .sidebar-menu-toggle:hover {
+  color: #ffffff;
+  background-color: color-mix(in srgb, #ffffff 14%, transparent);
+}
+
+/* Navigation List — pushed right so it sits with the theme toggle */
 .sidebar-nav {
   display: flex;
   gap: 4rem;
   align-items: center;
-  padding: 0 4rem;
+  margin-left: auto;
+  padding: 0 1.5rem 0 4rem;
 }
 
 .nav-item {
@@ -138,9 +166,14 @@
     width: auto;
   }
 
+  .sidebar-actions {
+    margin-left: auto;
+    margin-right: 0.75rem;
+    z-index: 1003;
+  }
+
   .sidebar-menu-toggle {
     display: flex;
-    z-index: 1003;
   }
 
   .sidebar-nav {
@@ -148,6 +181,7 @@
     top: 100%;
     left: 0;
     right: 0;
+    margin-left: 0;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -227,7 +261,7 @@
     max-height: 48px;
   }
 
-  .sidebar-menu-toggle {
-    margin-right: 0.5rem;
+  .sidebar-actions {
+    margin-right: 0.35rem;
   }
 }
