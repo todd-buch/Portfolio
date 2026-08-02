@@ -1,5 +1,5 @@
 import "./Main_Projects.css";
-import { Bot, Camera, Cpu, Mail, Sparkles } from "lucide-react";
+import { Bot, Camera, ChartColumn, Cpu, Mail, Sparkles } from "lucide-react";
 import Info_Button from "./Reuseable-Components/Info_Button";
 import Action_Button from "./Reuseable-Components/Action_Button";
 import Magnetic_Timeline from "./Reuseable-Components/Magnetic_Timeline";
@@ -30,6 +30,9 @@ import {
   SiOllama,
   SiApple,
   SiUltralytics,
+  SiLatex,
+  SiGit,
+  SiGithub,
 } from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
@@ -376,6 +379,83 @@ export default function Main_Projects() {
                   <Tech_Pill
                     name="Apple M4 Pro Chip"
                     icon={<SiApple color="default" />}
+                  />
+                </div>
+              </Tech_Dropdown>
+            </Small_Card>
+            <Small_Card title="Blackjack Agent" date="March 2026 — April 2026">
+              <p>
+                Blackjack Agent is an AI-driven simulation and analysis
+                framework that models, evaluates, and optimizes player decisions
+                in Blackjack. We asked whether a skilled player can gain a
+                mathematical advantage over the house (the short answer is,
+                sadly, no). It compares three strategies: a random baseline, a
+                rule-based reflex agent that follows standard strategy charts,
+                and a model-free reinforcement learning agent that optimizes
+                both play and bet sizing under casino-like conditions.
+              </p>
+              <Tech_Dropdown title="View the stack behind it">
+                <p>
+                  The system is built around a custom terminal Blackjack engine,
+                  a training environment, and a comparative evaluation suite.
+                  The engine models multi-deck shoes (auto-reshuffling when
+                  fewer than 25% of cards remain) and a dealer that hits soft 16
+                  and stands on all 17s. A reflex agent hard-codes optimal
+                  tables for hard totals, soft totals, and pair splits. The
+                  learning agent uses tabular Q-learning with state{" "}
+                  <i>
+                    (player total, dealer upcard, usable ace, binned true count)
+                  </i>
+                  , Hi-Lo counting for the true count, separate Q-tables for
+                  play actions (hit / stand / double) and bet sizes (1–50
+                  units), and ε-greedy exploration.
+                </p>
+                <p>
+                  Training ran for 5,000,000 episodes with Q-tables persisted
+                  via pickle. Across a 100,000-hand benchmark, the Q-learning
+                  agent reduced average loss to 0.045 units/hand — beating basic
+                  strategy (0.055) and random play (2.0), while still showing
+                  that card counting can shrink losses without fully overcoming
+                  the house edge. A recursive probability module also computes
+                  exact win probabilities and expected value for stand vs. hit
+                  from the remaining shoe distribution.
+                </p>
+                <p>
+                  <b>Language:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Python"
+                    icon={<SiPython color="default" />}
+                  />
+                </div>
+                <p>
+                  <b>Agents & Methods:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill name="Tabular Q-Learning" />
+                  <Tech_Pill name="ε-Greedy Exploration" />
+                  <Tech_Pill name="Hi-Lo Card Counting" />
+                  <Tech_Pill name="Basic Strategy Charts" />
+                  <Tech_Pill name="Expected Value (EV)" />
+                </div>
+                <p>
+                  <b>Visualization & Benchmarking:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill name="Matplotlib" icon={<ChartColumn />} />
+                  <Tech_Pill name="5M Training Episodes" />
+                  <Tech_Pill name="100k Hand Benchmark" />
+                </div>
+                <p>
+                  <b>Writing & Version Control:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill name="LaTeX" icon={<SiLatex color="default" />} />
+                  <Tech_Pill name="Git" icon={<SiGit color="default" />} />
+                  <Tech_Pill
+                    name="GitHub"
+                    icon={<SiGithub color="default" />}
                   />
                 </div>
               </Tech_Dropdown>
