@@ -1,6 +1,5 @@
 import "./Main_Projects.css";
-import { ChartCandlestick, Mail } from "lucide-react";
-import { FaGithub } from "react-icons/fa6";
+import { Bot, Camera, Cpu, Mail, Sparkles } from "lucide-react";
 import Info_Button from "./Reuseable-Components/Info_Button";
 import Action_Button from "./Reuseable-Components/Action_Button";
 import Magnetic_Timeline from "./Reuseable-Components/Magnetic_Timeline";
@@ -23,6 +22,14 @@ import {
   SiDocker,
   SiApachemaven,
   SiPydantic,
+  SiRaspberrypi,
+  SiArduino,
+  SiFlask,
+  SiGunicorn,
+  SiYolo,
+  SiOllama,
+  SiApple,
+  SiUltralytics,
 } from "@icons-pack/react-simple-icons";
 import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
@@ -144,9 +151,6 @@ export default function Main_Projects() {
               }
             >
               <p>
-                <b>Work in progress</b>
-              </p>
-              <p>
                 Quant Engine is a full-stack stock portfolio analytics and
                 backtesting platform — an open-source alternative to premium
                 financial tools. It helps investors analyze holdings, run
@@ -239,7 +243,7 @@ export default function Main_Projects() {
                   <Tech_Pill name="Docker Compose" />
                 </div>
               </Tech_Dropdown>
-              {/* Ready for launch — uncomment when public
+              {/* Ready for launch — uncomment when public (re-import ChartCandlestick from lucide-react + FaGithub from react-icons/fa6)
               <div className="small-card-actions">
                 <Action_Button
                   text="View app"
@@ -255,12 +259,126 @@ export default function Main_Projects() {
                 />
               </div>
               */}
+              <p>Work in progress</p>
             </Small_Card>
             <Small_Card
               title="Fire Prevention at the Edge"
               date="August 2025 — May 2026"
             >
-              <p>Placeholder</p>
+              <p>
+                Fire Prevention at the Edge is an edge computing safety
+                appliance created by a team of 4 UConn students for their final
+                capstone project. Our team architected, designed, and developed
+                the full-stack system end to end. It is designed to detect
+                potential hazards before they ignite. By combining real-time
+                visual feeds with local environmental sensors (CO₂, temperature,
+                humidity, and thermal mapping), the system uses a deterministic
+                classifier to evaluate risk severity. Finally, an entirely local
+                LLM analyzes the data to provide actionable, real-time safety
+                recommendations to warehouse personnel.
+              </p>
+              <Tech_Dropdown title="View the stack behind it">
+                <p>
+                  Cameras run vision models trained to flag fire-related
+                  hazards, while environmental sensors surface other risky
+                  conditions. Those signals are fused and passed to an on-device
+                  text model that turns raw detections into clear, specific
+                  alerts for warehouse staff.
+                </p>
+                <p>
+                  <b>What the vision model detects:</b> battery condition (okay,
+                  swollen, damaged, bad placement), fire exits (clear vs.
+                  blocked), and electrical hazards (normal/damaged wiring,
+                  normal/damaged outlets, sparking outlets).
+                </p>
+                <p>
+                  Building it was an end-to-end pipeline: we first generated
+                  synthetic images for the dataset (Grok, Gemini, and the OpenAI
+                  API), annotated them in CVAT, then trained and fine-tuned a
+                  YOLOv8 Nano model and validated its detections. In parallel we
+                  built a full web interface with live camera streaming and
+                  bounding boxes drawn in real time, then assembled a Raspberry
+                  Pi device with the Hailo AI HAT+, cameras, and environmental
+                  sensors so the model, backend, and local LLM could run
+                  together on the edge appliance.
+                </p>
+                <p>
+                  <b>Hardware — Compute:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Raspberry Pi 5"
+                    icon={<SiRaspberrypi color="default" />}
+                  />
+                  <Tech_Pill name="Hailo AI HAT+" icon={<Cpu />} />
+                </div>
+                <p>
+                  <b>Hardware — Microcontroller:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Arduino Portenta H7"
+                    icon={<SiArduino color="default" />}
+                  />
+                  <Tech_Pill name="USB Serial" />
+                </div>
+                <p>
+                  <b>Hardware — Sensors:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill name="Pi Camera" icon={<Camera />} />
+                  <Tech_Pill name="IR Thermal Camera" />
+                  <Tech_Pill name="CO₂ Sensor" />
+                  <Tech_Pill name="Temp / Humidity Sensor" />
+                </div>
+                <p>
+                  <b>Vision & Generative AI:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="YOLOv8 Nano"
+                    icon={<SiYolo color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Ultralytics"
+                    icon={<SiUltralytics color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Llama 3.2:1B"
+                    icon={<SiOllama color="default" />}
+                  />
+                </div>
+                <p>
+                  <b>Backend:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill name="Flask" icon={<SiFlask color="default" />} />
+                  <Tech_Pill
+                    name="Gunicorn"
+                    icon={<SiGunicorn color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Python"
+                    icon={<SiPython color="default" />}
+                  />
+                </div>
+                <p>
+                  <b>Annotation, Synthetic Data, & Training:</b>
+                </p>
+                <div className="tech-pill-group">
+                  <Tech_Pill name="CVAT.ai" />
+                  <Tech_Pill name="Grok" icon={<Sparkles />} />
+                  <Tech_Pill
+                    name="Google Gemini"
+                    icon={<SiGooglegemini color="default" />}
+                  />
+                  <Tech_Pill name="OpenAI API" icon={<Bot />} />
+                  <Tech_Pill
+                    name="Apple M4 Pro Chip"
+                    icon={<SiApple color="default" />}
+                  />
+                </div>
+              </Tech_Dropdown>
             </Small_Card>
             <Small_Card
               title="Portfolio Website"
