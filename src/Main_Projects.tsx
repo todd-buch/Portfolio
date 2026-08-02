@@ -1,5 +1,6 @@
 import "./Main_Projects.css";
-import { Mail } from "lucide-react";
+import { ChartCandlestick, Mail } from "lucide-react";
+import { FaGithub } from "react-icons/fa6";
 import Info_Button from "./Reuseable-Components/Info_Button";
 import Action_Button from "./Reuseable-Components/Action_Button";
 import Magnetic_Timeline from "./Reuseable-Components/Magnetic_Timeline";
@@ -238,6 +239,22 @@ export default function Main_Projects() {
                   <Tech_Pill name="Docker Compose" />
                 </div>
               </Tech_Dropdown>
+              {/* Ready for launch — uncomment when public
+              <div className="small-card-actions">
+                <Action_Button
+                  text="View app"
+                  icon={<ChartCandlestick />}
+                />
+                <Action_Button
+                  text="View source code"
+                  icon={<FaGithub />}
+                  link="https://github.com/Jawnpog/QuantEngine"
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="outline"
+                />
+              </div>
+              */}
             </Small_Card>
             <Small_Card
               title="Fire Prevention at the Edge"
