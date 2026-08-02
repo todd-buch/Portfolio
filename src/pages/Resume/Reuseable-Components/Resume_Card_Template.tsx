@@ -63,7 +63,11 @@ export default function Resume_Card_Template({
           <p className="resume-card-details-toggle">
             {isExpanded ? "- Hide details" : `+ ${detailCount} details`}
           </p>
-          <div className="resume-card-details-wrapper">
+          <div
+            className="resume-card-details-wrapper"
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
+          >
             <div className="resume-card-details">{children}</div>
           </div>
         </>

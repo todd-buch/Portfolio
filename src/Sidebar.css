@@ -11,14 +11,11 @@
     box-shadow 0.3s ease;
 }
 
-/* Fills in background once scrolled (or menu open on mobile) */
 .top-sidebar.scrolled {
   background-color: var(--bg-primary);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* When the mobile menu is open, drop top-bar bottom radius so it
-   joins the dropdown as one continuous panel (no curved gap). */
 .top-sidebar.menu-open {
   border-radius: 0;
   box-shadow: none;
@@ -28,7 +25,6 @@
   height: 120px;
   width: 100%;
   color: var(--text-primary);
-  justify-content: space-between;
   display: flex;
   box-sizing: border-box;
   align-items: center;
@@ -56,16 +52,17 @@
   display: block;
 }
 
-/* Hamburger — hidden on desktop */
+/* Hamburger — hidden on desktop; top-right on mobile */
 .sidebar-menu-toggle {
   display: none;
   align-items: center;
   justify-content: center;
   margin-right: 1rem;
+  margin-left: auto;
   padding: 0.5rem;
   border: none;
   background: transparent;
-  color: #ffffff;
+  color: var(--text-primary);
   cursor: pointer;
   border-radius: 0.5rem;
   transition:
@@ -73,19 +70,35 @@
     background-color 0.2s ease;
 }
 
-.top-sidebar.scrolled .sidebar-menu-toggle {
-  color: var(--text-primary);
-}
-
 .sidebar-menu-toggle:hover {
   background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 
-/* Navigation List */
+/* Only force white chrome when floating over the dark home hero */
+.top-sidebar.over-hero .sidebar-menu-toggle {
+  color: #ffffff;
+}
+
+.top-sidebar.over-hero .sidebar-menu-toggle:hover {
+  color: #ffffff;
+  background-color: color-mix(in srgb, #ffffff 14%, transparent);
+}
+
+/* Theme toggle sits in .nav-socials; reset button defaults only */
+.theme-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
 .sidebar-nav {
   display: flex;
-  gap: 4rem;
+  gap: 3rem;
   align-items: center;
+  margin-left: auto;
+  /* Keep the original right inset so the social row doesn't hug the edge */
   padding: 0 4rem;
 }
 
@@ -108,14 +121,12 @@
   color: var(--accent);
 }
 
-/* Socials sit inline with links on desktop */
 .nav-socials {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
-/* Backdrop only used on mobile */
 .sidebar-backdrop {
   display: none;
 }
@@ -140,6 +151,7 @@
   .sidebar-menu-toggle {
     display: flex;
     z-index: 1003;
+    margin-right: 0.75rem;
   }
 
   .sidebar-nav {
@@ -147,6 +159,7 @@
     top: 100%;
     left: 0;
     right: 0;
+    margin-left: 0;
     display: flex;
     flex-direction: column;
     align-items: stretch;

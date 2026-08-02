@@ -1,6 +1,8 @@
 import type { ReactNode, MouseEventHandler } from "react";
 import "./Action_Button.css";
 
+export type ActionButtonVariant = "filled" | "outline";
+
 interface ActionButtonProps {
   text?: string;
   icon?: ReactNode;
@@ -10,6 +12,8 @@ interface ActionButtonProps {
   rel?: string;
   children?: ReactNode;
   disabled?: boolean;
+  /** filled = accent solid (default); outline = text-primary border, no fill */
+  variant?: ActionButtonVariant;
 }
 
 export default function Action_Button({
@@ -21,7 +25,15 @@ export default function Action_Button({
   rel,
   children,
   disabled = false,
+  variant = "filled",
 }: ActionButtonProps) {
+  const className = [
+    "action-btn",
+    variant === "outline" ? "action-btn--outline" : null,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   const content = children ? (
     children
   ) : (
@@ -35,7 +47,7 @@ export default function Action_Button({
     return (
       <a
         href={link}
-        className="action-btn"
+        className={className}
         onClick={onClick as MouseEventHandler<HTMLAnchorElement>}
         target={target}
         rel={rel}
@@ -48,7 +60,7 @@ export default function Action_Button({
   return (
     <button
       type="button"
-      className="action-btn"
+      className={className}
       onClick={onClick as MouseEventHandler<HTMLButtonElement>}
       disabled={disabled}
     >

@@ -1,6 +1,115 @@
+import type { ReactNode } from "react";
 import "./Resume.css";
 import Resume_Card_Template from "./Reuseable-Components/Resume_Card_Template";
 import Current from "../../Reuseable-Components/Current";
+import Tech_Dropdown from "../../Reuseable-Components/Tech_Dropdown";
+import Tech_Pill from "../../Reuseable-Components/Tech_Pill";
+
+import {
+  SiPython,
+  SiDropbox,
+  SiDavinciresolve,
+  SiWordpress,
+  SiHtml5,
+  SiYaml,
+  SiGooglecloud,
+  SiGithub,
+  SiGit,
+  SiDocker,
+  SiTypescript,
+  SiCss,
+  SiGithubcopilot,
+  SiOcaml,
+  SiMarkdown,
+  SiReact,
+  SiFlask,
+} from "@icons-pack/react-simple-icons";
+import { DiPhotoshop } from "react-icons/di";
+import { SiGooglegemini } from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
+import { TbBrandCSharp } from "react-icons/tb";
+import { FileText, Bot, Mail, Sparkles, PenTool, Palette } from "lucide-react";
+
+type Skill = {
+  name: string;
+  icon?: ReactNode;
+};
+
+type SkillCategory = {
+  title: string;
+  skills: Skill[];
+};
+
+const skillCategories: SkillCategory[] = [
+  {
+    title: "Languages",
+    skills: [
+      { name: "Python", icon: <SiPython color="default" /> },
+      { name: "Flask", icon: <SiFlask color="default" /> },
+      { name: "C#", icon: <TbBrandCSharp /> },
+      { name: "TypeScript", icon: <SiTypescript color="default" /> },
+      { name: "React", icon: <SiReact color="default" /> },
+      { name: "OCaml", icon: <SiOcaml color="default" /> },
+      { name: "HTML", icon: <SiHtml5 color="default" /> },
+      { name: "CSS", icon: <SiCss color="default" /> },
+      { name: "YAML", icon: <SiYaml color="default" /> },
+      { name: "Markdown", icon: <SiMarkdown color="default" /> },
+    ],
+  },
+  {
+    title: "Cloud Infrastructure",
+    skills: [
+      { name: "GCP (Cloud Run)", icon: <SiGooglecloud color="default" /> },
+      { name: "AWS Lambda" },
+      { name: "AWS S3 Bucket" },
+      { name: "Cloudformation" },
+      { name: "Docker", icon: <SiDocker color="default" /> },
+    ],
+  },
+  {
+    title: "AI & Voice",
+    skills: [
+      { name: "Google Gemini", icon: <SiGooglegemini color="default" /> },
+      { name: "Google Agent Developer Kit", icon: <Bot /> },
+      {
+        name: "GitHub Copilot",
+        icon: <SiGithubcopilot color="default" />,
+      },
+      { name: "Prompt Engineering", icon: <Sparkles /> },
+      { name: "Amazon Connect" },
+      { name: "Amazon Lex" },
+    ],
+  },
+  {
+    title: "Creative & Media",
+    skills: [
+      { name: "Photoshop", icon: <DiPhotoshop color="default" /> },
+      { name: "Lightroom Classic" },
+      { name: "DaVinci Resolve", icon: <SiDavinciresolve color="default" /> },
+      { name: "Premiere Pro" },
+      { name: "Affinity", icon: <PenTool /> },
+      { name: "Canva", icon: <Palette /> },
+    ],
+  },
+  {
+    title: "Development Tools",
+    skills: [
+      { name: "VS Code", icon: <VscVscode color="default" /> },
+      { name: "Git", icon: <SiGit color="default" /> },
+      { name: "GitHub", icon: <SiGithub color="default" /> },
+    ],
+  },
+  {
+    title: "Productivity & Platforms",
+    skills: [
+      { name: "Microsoft Word", icon: <FileText /> },
+      { name: "Dropbox", icon: <SiDropbox color="default" /> },
+      { name: "Wordpress", icon: <SiWordpress color="default" /> },
+      { name: "Email Triggers", icon: <Mail /> },
+    ],
+  },
+];
+
 export default function Resume() {
   return (
     <>
@@ -27,39 +136,408 @@ export default function Resume() {
             num_details={5}
           >
             <p>
-              <i>Dean's List Student | Concentration: Software Development & Design</i> | Graduation:
-              December 2026
+              <b>Dean's List Student</b>
+              <br />
+              <i>Concentration: Software Development & Design</i>
+              <br />
+              Graduation: December 2026
             </p>
-            <p>Relevant Courses:</p>
-
             <p>
-              <b>Data Structures and Object-Oriented Design:</b> Introduction to
-              fundamental data structures and algorithms.
+              <b>Relevant Courses:</b>
             </p>
-
-            <p>
-              <b>Introduction to Discrete Systems:</b> Introduction to formal
-              mathematical thinking including discrete systems and proofs.
-            </p>
-
-            <p>
-              <b>Business Software Development:</b> Development of computer
-              software for business information processing, using the C#
-              language.
-            </p>
-
-            <p>
-              <b>Intro to Software Engineering:</b> Software engineering
-              concepts including the software life cycle and other
-              software-development process models.
-            </p>
-
-            <p>
-              <b>Programming Languages:</b> The study of programming language
-              features and programming paradigms. Simply Typed Lambda Calculus,
-              OCaml, Prolog, & Smalltalk.
-            </p>
+            <ul>
+              <li>
+                <b>Data Structures and Object-Oriented Design:</b> Introduction
+                to fundamental data structures and algorithms.
+              </li>
+              <li>
+                <b>Introduction to Discrete Systems:</b> Introduction to formal
+                mathematical thinking including discrete systems and proofs.
+              </li>
+              <li>
+                <b>Business Software Development:</b> Development of computer
+                software for business information processing, using the C#
+                language.
+              </li>
+              <li>
+                <b>Intro to Software Engineering:</b> Software engineering
+                concepts including the software life cycle and other
+                software-development process models.
+              </li>
+              <li>
+                <b>Programming Languages:</b> The study of programming language
+                features and programming paradigms. Simply Typed Lambda
+                Calculus, OCaml, Prolog, &amp; Smalltalk.
+              </li>
+            </ul>
           </Resume_Card_Template>
+          <hr className="resume-divider" />
+          <h2>Work Experience</h2>
+          <Resume_Card_Template
+            date={
+              <>
+                June 2025 — <Current />
+              </>
+            }
+            title="Studio Manager"
+            subtitle="Charleen's Portrait Studio"
+            location="Dayville, Connecticut"
+            num_details={6}
+          >
+            <p>
+              As the Studio Manager, I oversee the daily operations of the
+              studio, managing a small team to ensure seamless service delivery
+              across all client needs. My role balances operational strategy,
+              such as resource allocation and project management, with client
+              relations and sales. I develop automated tools for the team to
+              use, to make sure that the studio can scale to meet high-volume
+              seasonal demands without sacrificing quality or attention to
+              detail.
+            </p>
+            <ul>
+              <li>
+                <strong>Operational Leadership:</strong> Directed daily studio
+                workflows and staff scheduling to manage high volume periods,
+                including school portrait seasons involving hundreds of students
+                and various levels of education.
+              </li>
+              <li>
+                <strong>Sales & Business Development:</strong> Managed the full
+                sales lifecycle, including in-person and remote consultations
+                for high school seniors and executive clients. Analyzed costs,
+                calculated and set product pricing, and created new product
+                lines.
+              </li>
+              <li>
+                <strong>Client Relationship Management:</strong> Served as the
+                primary point of contact for key clients, including schools and
+                corporate partners.
+              </li>
+              <li>
+                <p>
+                  <strong>Technical Workflow Automation:</strong> Developed
+                  custom scripts to automate repetitive post-production and
+                  administrative tasks, such as bulk image resizing,
+                  watermarking, and the generation of print release contracts.
+                </p>
+
+                <ul>
+                  <li>
+                    <p>
+                      <strong>Impact:</strong> Reduced manual processing time
+                      from ~20 minutes to ~2 minutes per task, allowing the team
+                      to focus on creative output rather than administrative
+                      overhead.
+                    </p>
+                  </li>
+                </ul>
+                <Tech_Dropdown title="View the stack behind it">
+                  <p>
+                    First, I developed the business contracts for digital image
+                    delivery. Most contracts allowed for personal use only, but
+                    some clients required commercial use rights as well.
+                  </p>
+                  <p>
+                    Once the contracts were made, I created a script to fill out
+                    the details (date, client name, image numbers, etc.) and
+                    then export the contract. Finally, I added the ability to
+                    resize images automatically based on the package purchased
+                    by the client, and I added the ability to add our studio
+                    watermark, which changed colors based on the background of
+                    the image.
+                  </p>
+                  <div className="tech-pill-group">
+                    <Tech_Pill
+                      name="Python"
+                      icon={<SiPython color="default" />}
+                    />
+                    <Tech_Pill name="Microsoft Word" icon={<FileText />} />
+                    <Tech_Pill
+                      name="Dropbox"
+                      icon={<SiDropbox color="default" />}
+                    />
+                  </div>
+                </Tech_Dropdown>
+              </li>
+              <li>
+                <p>
+                  <strong>Creative Production:</strong> Used the Adobe Creative
+                  Cloud suite to for graphic design, designing albums, and
+                  visual branding.
+                </p>
+              </li>
+            </ul>
+            <div className="tech-pill-group">
+              <Tech_Pill
+                name="Photoshop"
+                icon={<DiPhotoshop color="default" />}
+              />
+              <Tech_Pill name="Lightroom Classic" />
+              <Tech_Pill
+                name="DaVinci Resolve"
+                icon={<SiDavinciresolve color="default" />}
+              />
+              <Tech_Pill name="HTML" icon={<SiHtml5 color="default" />} />
+              <Tech_Pill
+                name="Wordpress"
+                icon={<SiWordpress color="default" />}
+              />
+              <Tech_Pill
+                name="Google Gemini"
+                icon={<SiGooglegemini color="default" />}
+              />
+            </div>
+          </Resume_Card_Template>
+          <Resume_Card_Template
+            date={<>May 2026 — July 2026</>}
+            title="Tech & Ops Software Development Intern"
+            subtitle="The Hartford Insurance Group"
+            location="Hartford, Connecticut"
+            num_details={8}
+          >
+            <p>
+              Worked in the Claims & Operations IT department on the AI
+              Accelerators team, a team focused on exploring emerging tech & AI
+              platforms. During the internship, I developed an end-to-end
+              proof-of-concept (POC) conversational AI solution.
+            </p>
+            <p>
+              Technical Project: Hybrid-Cloud Conversational Agentic AI Solution
+            </p>
+            <ul>
+              <li>
+                <strong>Architectural Design:</strong> Engineered an end-to-end,
+                hybrid-cloud conversational AI solution to automate complex
+                business workflows. Managed the full lifecycle from initial
+                design to deployment within a 10-week timeframe.
+              </li>
+              <li>
+                <strong>Full-Stack Engineering:</strong>
+                <ul>
+                  <li>
+                    <p>
+                      Integrated Amazon Connect for telephony orchestration and
+                      call flow management. Set up an Amazon Connect phone
+                      number, and creating the incoming call flow.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Developed backend logic and data storage solutions using
+                      AWS Lambda and S3.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Deployed an agentic AI engine on GCP Cloud Run using the
+                      Google Agent Developer Kit (ADK).
+                    </p>
+                  </li>
+                  <Tech_Dropdown title="View the stack behind it">
+                    <p>
+                      The project used a hybrid-cloud architecture to leverage
+                      the unique strengths of both AWS and GCP. Amazon Connect
+                      handled the telephony ingress and call flow management,
+                      while the core intelligence was hosted on GCP Cloud Run.
+                      By developing an agent with the Google Agent Developer Kit
+                      (ADK), I was able to implement an agentic AI workflow that
+                      could process natural language and execute backend tasks
+                      via AWS Lambda, creating a seamless, automated end-to-end
+                      voice experience.
+                    </p>
+                    <p>
+                      <b>Languages:</b>
+                    </p>
+                    <div className="tech-pill-group">
+                      <Tech_Pill
+                        name="Python"
+                        icon={<SiPython color="default" />}
+                      />{" "}
+                      <Tech_Pill
+                        name="YAML"
+                        icon={<SiYaml color="default" />}
+                      />
+                    </div>
+                    <p>
+                      <b>Cloud Infrastructure:</b>
+                    </p>
+                    <div className="tech-pill-group">
+                      <Tech_Pill
+                        name="GCP (Cloud Run)"
+                        icon={<SiGooglecloud color="default" />}
+                      />{" "}
+                      <Tech_Pill name="AWS Lambda" />
+                      <Tech_Pill name="AWS S3 Bucket" />
+                    </div>
+                    <p>
+                      <b>Voice & AI:</b>
+                    </p>
+                    <div className="tech-pill-group">
+                      <Tech_Pill
+                        name="Google Agent Developer Kit"
+                        icon={<Bot />}
+                      />
+                      <Tech_Pill name="Amazon Connect" />
+                      <Tech_Pill name="Amazon Lex" />
+                    </div>
+                    <p>
+                      <b>Development Workflow:</b>
+                    </p>
+                    <div className="tech-pill-group">
+                      <Tech_Pill
+                        name="VS Code"
+                        icon={<VscVscode color="default" />}
+                      />
+                      <Tech_Pill name="Git" icon={<SiGit color="default" />} />
+                      <Tech_Pill
+                        name="GitHub"
+                        icon={<SiGithub color="default" />}
+                      />
+                      <Tech_Pill name="Cloudformation" />
+                      <Tech_Pill
+                        name="Docker"
+                        icon={<SiDocker color="default" />}
+                      />
+                    </div>
+                  </Tech_Dropdown>
+                </ul>
+              </li>
+              <li>
+                <strong>Operational Impact:</strong> Designed the system to
+                replace manual processes with an automated workflow, optimizing
+                both operational cost-efficiency and the customer experience.
+              </li>
+              <li>
+                <strong>Strategic Leadership Development:</strong> Actively
+                pursued cross-functional engagement through networking to gain a
+                holistic understanding of business operations.
+              </li>
+              <li>
+                <strong>Communication Skills:</strong> In addition to actively
+                participating in daily team standups, I researched and presented
+                to the team on a newer technology that would be worth exploring,
+                the Gemini Live API. This system would allow the team to develop
+                conversational agentic AI solutions with lower latency and
+                better accuracy. I also prepared a presentation & live demo to
+                show off my work over the summer.
+              </li>
+            </ul>
+          </Resume_Card_Template>
+          <Resume_Card_Template
+            date={<>April 2022 — June 2025</>}
+            title="Creative Team Member"
+            subtitle="Charleen's Portrait Studio"
+            location="Dayville, CT"
+            num_details={3}
+          >
+            <p>
+              As a Creative Team Member, I handled customer service, editing and
+              prepping images for printing, and created automated HTML email
+              workflows.
+            </p>
+
+            <ul>
+              <li>
+                Oversaw customer service operations by designing automated HTML
+                email workflows for booking confirmations, payment reminders,
+                and post-session follow-ups.
+              </li>
+              <li>
+                Post-production editing on photos and videos, using Lightroom,
+                Photoshop, and Premiere Pro for selecting, cropping, retouching,
+                color grading, and video cutting.
+              </li>
+            </ul>
+
+            <Tech_Dropdown title="View the stack behind it">
+              <p>
+                To streamline the communication with clients, I built HTML email
+                templates that automatically triggered based on client actions.
+                These templates handled critical touchpoints, from immediate
+                booking confirmations and scheduled payment reminders to
+                post-session thank you messages and image delivery emails.
+              </p>
+              <p>
+                On the media production side, I managed full post-processing in
+                Adobe Lightroom Classic by filtering and culling RAW images,
+                cropping, and applying color adjustments. For advanced
+                retouching, I moved key into Photoshop, while using Premiere Pro
+                to assemble, color grade, and finalize videos.
+              </p>
+
+              <div className="tech-pill-group">
+                <Tech_Pill name="Lightroom Classic" />
+                <Tech_Pill
+                  name="Photoshop"
+                  icon={<DiPhotoshop color="default" />}
+                />
+                <Tech_Pill name="Premiere Pro" />
+                <Tech_Pill name="HTML" icon={<SiHtml5 color="default" />} />
+                <Tech_Pill name="Email Triggers" icon={<Mail />} />
+              </div>
+            </Tech_Dropdown>
+          </Resume_Card_Template>
+          <hr className="resume-divider" />
+          <h2>Skills</h2>
+          <div className="skills-grid">
+            {skillCategories.map((category) => (
+              <div key={category.title} className="skill-category-card">
+                <h3 className="skill-category-title">{category.title}</h3>
+                <div className="tech-pill-group">
+                  {category.skills.map((skill) => (
+                    <Tech_Pill
+                      key={skill.name}
+                      name={skill.name}
+                      icon={skill.icon}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <hr className="resume-divider" />
+          <h2>Awards & Recognition</h2>
+          <div className="skills-grid">
+            <div className="skill-category-card">
+              <h3>Dean's List Student</h3>
+              <p>
+                <i>University of Connecticut, 2026</i>
+              </p>
+              <p>
+                Earned for maintaining high academic standing and GPA
+                excellence.
+              </p>
+            </div>
+            <div className="skill-category-card">
+              <h3>President's Education Award</h3>
+              <p>
+                <i>Edwin O. Smith High School, 2023</i>
+              </p>
+              <p>
+                Awarded on behalf of the President of the United States and the
+                United States Secretary of Education.
+              </p>
+            </div>
+            <div className="skill-category-card">
+              <h3>VEX Robotics Excellence Award</h3>
+              <p>
+                <i>Edwin O. Smith High School, 2022</i>
+              </p>
+              <p>
+                The Excellence Award is the highest honor presented at a VEX
+                Robotics Competition event. This award recognizes a team that
+                demonstrates overall excellence in both judged and performance
+                categories.
+              </p>
+            </div>
+            <div className="skill-category-card">
+              <h3>Excellence in Accounting Award</h3>
+              <p>
+                <i>Edwin O. Smith High School, 2023</i>
+              </p>
+              <p>Completed Advanced Accounting, as well as Intro to Business, and Personal Finance. A+.</p>
+            </div>
+          </div>
         </div>
       </div>
     </>

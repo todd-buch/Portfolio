@@ -1,3 +1,14 @@
+/* Row/group of pills — keeps every pill on the same vertical axis.
+   Prefer this wrapper over bare inline-flex siblings (icon SVGs from
+   different packs can otherwise shift individual pills by a few px). */
+.tech-pill-group,
+.current-role-dropdown-stack {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .tech-pill {
   display: inline-flex;
   align-items: center;
@@ -9,10 +20,19 @@
   color: var(--text-primary);
   font-size: 0.95rem;
   font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
+  box-sizing: border-box;
   transition: border-color 0.25s ease, color 0.25s ease;
   user-select: none;
   width: fit-content;
+  /* Fallback spacing when pills sit outside a .tech-pill-group */
   margin: 0.25rem;
+}
+
+.tech-pill-group > .tech-pill,
+.current-role-dropdown-stack > .tech-pill {
+  margin: 0;
 }
 
 .tech-pill:hover {
@@ -24,12 +44,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 1.2rem;
   height: 1.2rem;
+  line-height: 0;
+  overflow: hidden;
 }
 
 .tech-pill-icon svg {
-  width: 100%;
-  height: 100%;
+  width: 1.2rem !important;
+  height: 1.2rem !important;
   display: block;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.tech-pill-name {
+  line-height: 1.2;
 }

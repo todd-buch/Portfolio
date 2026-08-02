@@ -25,3 +25,56 @@
   font-weight: 500;
   color: var(--text-secondary);
 }
+.resume-divider {
+  width: 100%;
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+  border: none;
+  border-top: 2px solid var(--text-secondary);
+}
+
+.tech-pill-group {
+  margin-bottom: 2rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.skill-category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--bg-primary);
+  transition: border-color 0.25s ease;
+  min-width: 0;
+}
+
+.skill-category-card:hover {
+  border-color: var(--text-primary);
+}
+
+.skill-category-title {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.skill-category-card .tech-pill-group {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
