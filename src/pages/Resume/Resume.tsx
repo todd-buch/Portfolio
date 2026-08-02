@@ -204,7 +204,7 @@ export default function Resume() {
             title="Tech & Ops Software Development Intern"
             subtitle="The Hartford Insurance Group"
             location="Hartford, Connecticut"
-            num_details={7}
+            num_details={8}
           >
             <p>
               Worked in the Claims & Operations IT department on the AI
@@ -318,6 +318,15 @@ export default function Resume() {
                 <strong>Strategic Leadership Development:</strong> Actively
                 pursued cross-functional engagement through networking to gain a
                 holistic understanding of business operations.
+              </li>
+              <li>
+                <strong>Communication Skills:</strong> In addition to actively
+                participating in daily team standups, I researched and presented
+                to the team on a newer technology that would be worth exploring,
+                the Gemini Live API. This system would allow the team to develop
+                conversational agentic AI solutions with lower latency and
+                better accuracy. I also prepared a presentation & live demo to
+                show off my work over the summer.
               </li>
             </ul>
           </Resume_Card_Template>
