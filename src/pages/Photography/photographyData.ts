@@ -36,6 +36,9 @@ export const photographyIntro = {
 
 /* Higlights */
 import NTS1 from "./galleries/NASCAR-Truck-Series/01 - Poster.jpg";
+import NNH1 from "./galleries/NASCAR-NH/DSC06772.jpg";
+import CS1 from "./galleries/Car-Shows/01 - DSC02846.jpg";
+import LI1 from "./galleries/Long-Island/01 - DSC06229.jpg";
 
 export const featuredPhotos: FeaturedPhoto[] = [
   {
@@ -48,6 +51,35 @@ export const featuredPhotos: FeaturedPhoto[] = [
       "The NASCAR Craftsman Truck Series race at Lime Rock Park, Connecticut.",
     gallerySlug: "NASCAR-Truck-Series",
   },
+  {
+    id: "NASCAR NH",
+    src: NNH1,
+    alt: "NASCAR NH",
+    title: "NASCAR Race, New Hampshire Motor Speedway",
+    date: "September 2025",
+    description:
+      "Mobil 1 301 NASCAR Cup Series race at New Hampshire Motor Speedway, Loudon, New Hampshire.",
+  },
+  {
+    id: "Car Shows",
+    src: CS1,
+    alt: "Car Shows",
+    title: "Car Shows",
+    date: "Summer 2025 — present",
+    description:
+      "I enjoy attending car shows and capturing the unique vehicles and moments at these events. This gallery features a selection of my favorite shots from various car shows I've attended.",
+    gallerySlug: "Car-Shows",
+  },
+  {
+    id: "Long Island",
+    src: LI1,
+    alt: "Long Island",
+    title: "Long Island",
+    date: "August 2025",
+    description:
+      "Photos from my trip to Long Island. Nissequogue River State Park - Site of a former Psychiatric Center and the Old Westbury Gardens.",
+    gallerySlug: "Long-Island",
+  },
 ];
 
 /* Gallery */
@@ -59,6 +91,20 @@ export const galleryMeta: Record<string, GalleryMeta> = {
     date: "June 2025",
     description:
       "The NASCAR Craftsman Truck Series race at Lime Rock Park, Connecticut.",
+  },
+  "Car-Shows": {
+    slug: "Car-Shows",
+    title: "Car Shows",
+    date: "Summer 2025 — present",
+    description:
+      "I enjoy attending car shows and capturing the unique vehicles and moments at these events. This gallery features a selection of my favorite shots from various car shows I've attended.",
+  },
+  "Long-Island": {
+    slug: "Long-Island",
+    title: "Long Island",
+    date: "August 2025",
+    description:
+      "Photos from my trip to Long Island. Nissequogue River State Park - Site of a former Psychiatric Center and the Old Westbury Gardens.",
   },
 };
 
