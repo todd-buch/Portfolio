@@ -1,5 +1,6 @@
 import "./Footer.css";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa6";
+import { Mail } from "lucide-react";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -35,6 +36,14 @@ export default function Footer() {
             aria-label="Instagram"
           >
             <FaInstagram size={18} />
+          </a>
+          <a
+            href="mailto:hello@toddbuch.com"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Mail"
+          >
+            <Mail size={18} />
           </a>
         </nav>
       </div>

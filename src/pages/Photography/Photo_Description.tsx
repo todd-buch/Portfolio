@@ -11,17 +11,8 @@ interface Photo_Description_Props {
   title?: string;
   date?: ReactNode;
   children?: ReactNode;
-  /**
-   * Optional gallery route (e.g. "/photography/landscapes").
-   * When set, shows a "View the gallery" button at the bottom of the card.
-   */
   galleryTo?: string;
-  /** Override the default gallery button label. */
   galleryLabel?: string;
-  /**
-   * Featured highlight id for this card. Used so returning from the gallery
-   * lands back on this image instead of the intro.
-   */
   featuredId?: string;
 }
 
@@ -40,7 +31,6 @@ export default function Photo_Description({
 
     if (featuredId) {
       rememberFeaturedForReturn(featuredId);
-      // Stamp current history entry so browser-back also restores this photo
       navigate(".", {
         replace: true,
         state: { restoreFeaturedId: featuredId } satisfies PhotographyLocationState,

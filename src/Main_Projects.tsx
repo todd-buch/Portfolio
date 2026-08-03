@@ -69,10 +69,9 @@ export default function Main_Projects() {
           </p>
           <p>
             As a software development student with a foundation in photography
-            and design, I build digital worlds that balance technical logic with
-            visual impact. I focus on creating high-quality, user-centric
-            solutions through a blend of creative intuition and engineering
-            precision.
+            and design, I build software and digital media that balance
+            technical knowledge with visual impact. Creativity & curiosity are
+            at the core of what I do.
           </p>
         </div>
         <div id="about" className="main-regular-text-block">
@@ -84,10 +83,10 @@ export default function Main_Projects() {
             digital environments, I can now build them from the ground up.
           </p>
           <p className="main-regular-text-block-body">
-            I enjoy working at the intersection of UI/UX and full-stack
-            development. I aim to combine intuitive design with robust
-            engineering, exploring how AI and cloud technologies can create more
-            intelligent, seamless digital solutions.
+            I enjoy working with both UI/UX and full-stack development. I'm
+            working to combine intuitive, smart design with robust engineering,
+            exploring how AI and cloud technologies can create more intelligent,
+            seamless digital solutions.
           </p>
           <p className="main-regular-text-block-body">
             When I’m not coding, I am usually capturing the world through car

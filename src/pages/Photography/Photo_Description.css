@@ -7,7 +7,6 @@
   border-radius: 0.5rem;
   background-color: var(--bg-secondary);
   padding: 2rem 1.75rem;
-  /* Fixed horizontal footprint; height follows content (capped by parent) */
   width: 100%;
   height: auto;
   max-height: 100%;
@@ -88,7 +87,6 @@
 
   .photo-description-actions {
     flex-shrink: 0;
-    /* Keep the button fully clear of the bottom edge / home indicator */
     margin-bottom: 0.25rem;
   }
 

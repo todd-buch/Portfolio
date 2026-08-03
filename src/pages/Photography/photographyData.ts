@@ -39,6 +39,7 @@ import NTS1 from "./galleries/NASCAR-Truck-Series/01 - Poster.jpg";
 import NNH1 from "./galleries/NASCAR-NH/DSC06772.jpg";
 import CS1 from "./galleries/Car-Shows/01 - DSC02846.jpg";
 import LI1 from "./galleries/Long-Island/01 - DSC06229.jpg";
+import UConn1 from "./galleries/UConn/DSC00968_HDR.jpg";
 
 export const featuredPhotos: FeaturedPhoto[] = [
   {
@@ -48,7 +49,7 @@ export const featuredPhotos: FeaturedPhoto[] = [
     title: "NASCAR Truck Series",
     date: "June 2025",
     description:
-      "The NASCAR Craftsman Truck Series race at Lime Rock Park, Connecticut.",
+      "The NASCAR Craftsman Truck Series race at Lime Rock Park, Connecticut. \n I created this poster & had it printed as a stunning 24x36 inch metal.",
     gallerySlug: "NASCAR-Truck-Series",
   },
   {
@@ -69,6 +70,15 @@ export const featuredPhotos: FeaturedPhoto[] = [
     description:
       "I enjoy attending car shows and capturing the unique vehicles and moments at these events. This gallery features a selection of my favorite shots from various car shows I've attended.",
     gallerySlug: "Car-Shows",
+  },
+  {
+    id: "UConn",
+    src: UConn1,
+    alt: "University of Connecticut",
+    title: "UConn in the Fall",
+    date: "October 2024",
+    description:
+      "An autumn morning at the University of Connecticut.",
   },
   {
     id: "Long Island",

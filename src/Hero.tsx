@@ -25,7 +25,6 @@ function Hero() {
     return () => media.removeEventListener("change", update);
   }, []);
 
-  // Progress 0 → 1 as the hero scrolls from filling the viewport to fully off-screen
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -35,7 +34,6 @@ function Hero() {
   const yRight = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const yMiddle = useTransform(scrollYProgress, [0, 1], [0, 120]);
 
-  // Hard-zero past the fade range (function form avoids near-zero interpolation leftovers)
   const opacityMiddle = useTransform(scrollYProgress, (progress) => {
     const fadeEnd = 0.55;
     if (progress >= fadeEnd) return 0;
@@ -82,11 +80,8 @@ function Hero() {
           style={isMobile ? undefined : { y: yLeft }}
           className="hero-left-text"
         >
-          <h1>INNOVATE</h1>
-          <h2>
-            Through smart software design, powerful media, and strong
-            execution.
-          </h2>
+          <h1>Code + Creative</h1>
+          <h2>Where full-stack software development meets digital media.</h2>
           <a href="#bio" className="hero-left-button" onClick={scrollToBio}>
             About Me
             <ArrowDown className="btn-icon" size={28} />

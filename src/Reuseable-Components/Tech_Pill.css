@@ -1,6 +1,3 @@
-/* Row/group of pills — keeps every pill on the same vertical axis.
-   Prefer this wrapper over bare inline-flex siblings (icon SVGs from
-   different packs can otherwise shift individual pills by a few px). */
 .tech-pill-group,
 .current-role-dropdown-stack {
   display: flex;
