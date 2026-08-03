@@ -29,6 +29,8 @@ import { SiGooglegemini } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 import { TbBrandCSharp } from "react-icons/tb";
 import { FileText, Bot, Mail, Sparkles, PenTool, Palette } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa6";
+import Action_Button from "../../Reuseable-Components/Action_Button";
 
 type Skill = {
   name: string;
@@ -116,12 +118,43 @@ export default function Resume() {
       <div className="resume-container">
         <div className="resume-section-text">
           <h1>Resume — Todd Buch</h1>
+          <div className="resume-contact-meta">
+            <a
+              className="resume-subtitle resume-contact-link"
+              href="mailto:hello@toddbuch.com"
+            >
+              hello@toddbuch.com
+            </a>
+            <span className="resume-contact-sep" aria-hidden="true">
+              ·
+            </span>
+            <span className="resume-subtitle">Connecticut, United States</span>
+          </div>
+          <div className="resume-contact-actions">
+            <Action_Button
+              text="LinkedIn"
+              icon={<FaLinkedin />}
+              link="https://linkedin.com/in/todd-buch"
+              target="_blank"
+              rel="noreferrer"
+              variant="outline"
+            />
+            <Action_Button
+              text="GitHub"
+              icon={<FaGithub />}
+              link="https://github.com/todd-buch"
+              target="_blank"
+              rel="noreferrer"
+              variant="outline"
+            />
+          </div>
           <p className="resume-subtitle">
             Hey there 👋 I'm Todd Buch, a student studying Computer Science,
             with an interest in software development, graphic design,
             photography, and many other things.
           </p>
         </div>
+        <hr className="resume-divider-small" />
         <div className="resume-section-text">
           <h2>Education</h2>
           <Resume_Card_Template
