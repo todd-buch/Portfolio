@@ -21,7 +21,6 @@ function descriptionParagraphs(text: string) {
 export default function Photography() {
   const location = useLocation();
 
-  // Capture once on mount so StrictMode / later navigations don't re-jump
   const [restoreIndex] = useState<number | undefined>(() => {
     const featuredId = consumeFeaturedReturnId(
       location.state as PhotographyLocationState | null,

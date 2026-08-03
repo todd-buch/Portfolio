@@ -12,7 +12,6 @@ interface ActionButtonProps {
   rel?: string;
   children?: ReactNode;
   disabled?: boolean;
-  /** filled = accent solid (default); outline = text-primary border, no fill */
   variant?: ActionButtonVariant;
 }
 

@@ -3,7 +3,6 @@ import "./Magnetic_Timeline.css";
 
 interface SectionInfo {
   id: string;
-  /** Y position in content space (0 = top of timeline container). */
   y: number;
 }
 
@@ -25,7 +24,6 @@ function buildPathD(verts: Vertex[]): string {
   return d;
 }
 
-/** Partial path from start through filledY (content space, not padded). */
 function buildFilledPathD(verts: Vertex[], filledY: number): string {
   if (verts.length === 0 || filledY <= verts[0].y) return "";
 
