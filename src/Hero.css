@@ -113,7 +113,7 @@
 .hero-right-text {
   align-items: flex-start;
   height: 100%;
-  width: 70%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -126,7 +126,7 @@
   display: flex;
   align-items: center;
   margin: 0;
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 4.5vw, 4rem);
   font-weight: 500;
 }
 
