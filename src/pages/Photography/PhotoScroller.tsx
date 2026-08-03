@@ -7,6 +7,10 @@ import {
   type ReactNode,
   type MouseEvent,
 } from "react";
+import {
+  animate,
+  type AnimationPlaybackControls,
+} from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import "./PhotoScroller.css";
 
@@ -26,6 +30,16 @@ interface PhotoScrollerProps {
   initialIndex?: number;
 }
 
+/** Ease-out curve shared with the hero “scroll to bio” motion. */
+const SCROLL_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 function blockImageSave(e: MouseEvent) {
   e.preventDefault();
 }
@@ -42,6 +56,7 @@ export default function PhotoScroller({
   const introRef = useRef<HTMLElement | null>(null);
   const slideRefs = useRef<(HTMLElement | null)[]>([]);
   const endRef = useRef<HTMLElement | null>(null);
+  const scrollAnim = useRef<AnimationPlaybackControls | null>(null);
 
   const hasIntro = intro != null;
   const resolvedStart =
@@ -61,10 +76,67 @@ export default function PhotoScroller({
 
   const slidesKey = slides.map((s) => s.id).join("|");
 
-  // Jump to intro or a photo before paint.
+  const setProgrammaticScroll = useCallback((on: boolean) => {
+    scrollerRef.current?.classList.toggle(
+      "photo-scroller--programmatic",
+      on,
+    );
+  }, []);
+
+  const animateScrollTo = useCallback(
+    (
+      targetTop: number,
+      options?: { duration?: number; onComplete?: () => void },
+    ) => {
+      const root = scrollerRef.current;
+      if (!root) return;
+
+      scrollAnim.current?.stop();
+
+      if (prefersReducedMotion()) {
+        setProgrammaticScroll(false);
+        root.scrollTop = targetTop;
+        options?.onComplete?.();
+        return;
+      }
+
+      const from = root.scrollTop;
+      const distance = Math.abs(targetTop - from);
+      if (distance < 1) {
+        setProgrammaticScroll(false);
+        root.scrollTop = targetTop;
+        options?.onComplete?.();
+        return;
+      }
+
+      const duration =
+        options?.duration ??
+        Math.min(1.35, Math.max(0.75, 0.55 + distance / 1400));
+
+      setProgrammaticScroll(true);
+      scrollAnim.current = animate(from, targetTop, {
+        duration,
+        ease: SCROLL_EASE,
+        onUpdate: (value) => {
+          root.scrollTop = value;
+        },
+        onComplete: () => {
+          root.scrollTop = targetTop;
+          setProgrammaticScroll(false);
+          scrollAnim.current = null;
+          options?.onComplete?.();
+        },
+      });
+    },
+    [setProgrammaticScroll],
+  );
+
   useLayoutEffect(() => {
     const root = scrollerRef.current;
     if (!root) return;
+
+    scrollAnim.current?.stop();
+    setProgrammaticScroll(false);
 
     if (resolvedStart < 0) {
       root.scrollTop = 0;
@@ -73,12 +145,89 @@ export default function PhotoScroller({
       return;
     }
 
-    const el = slideRefs.current[resolvedStart];
-    if (!el) return;
-    root.scrollTop = el.offsetTop;
-    setActiveIndex(resolvedStart);
-    setDotsDimmed(false);
-  }, [resolvedStart, slidesKey, hasIntro]);
+    const targetEl = slideRefs.current[resolvedStart];
+    if (!targetEl) return;
+
+    const shouldAnimateEntrance =
+      initialIndex !== undefined && (resolvedStart > 0 || hasIntro);
+
+    if (!shouldAnimateEntrance) {
+      root.scrollTop = targetEl.offsetTop;
+      setActiveIndex(resolvedStart);
+      setDotsDimmed(false);
+      return;
+    }
+    if (resolvedStart > 0) {
+      const fromEl = slideRefs.current[resolvedStart - 1];
+      root.scrollTop = fromEl?.offsetTop ?? 0;
+      setActiveIndex(resolvedStart - 1);
+      setDotsDimmed(false);
+    } else {
+      root.scrollTop = 0; // intro
+      setActiveIndex(0);
+      setDotsDimmed(true);
+    }
+
+    let cancelled = false;
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        if (cancelled) return;
+        const latestTarget = slideRefs.current[resolvedStart];
+        if (!latestTarget || !scrollerRef.current) return;
+        animateScrollTo(latestTarget.offsetTop, {
+          onComplete: () => {
+            if (cancelled) return;
+            setActiveIndex(resolvedStart);
+            setDotsDimmed(false);
+          },
+        });
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+      scrollAnim.current?.stop();
+      setProgrammaticScroll(false);
+    };
+  }, [
+    resolvedStart,
+    slidesKey,
+    hasIntro,
+    initialIndex,
+    animateScrollTo,
+    setProgrammaticScroll,
+  ]);
+
+  useEffect(() => {
+    return () => {
+      scrollAnim.current?.stop();
+      setProgrammaticScroll(false);
+    };
+  }, [setProgrammaticScroll]);
+
+  useEffect(() => {
+    const root = scrollerRef.current;
+    if (!root) return;
+
+    const cancelProgrammatic = () => {
+      if (!scrollAnim.current) return;
+      scrollAnim.current.stop();
+      scrollAnim.current = null;
+      setProgrammaticScroll(false);
+    };
+
+    root.addEventListener("wheel", cancelProgrammatic, { passive: true });
+    root.addEventListener("touchstart", cancelProgrammatic, { passive: true });
+    root.addEventListener("pointerdown", cancelProgrammatic);
+    return () => {
+      root.removeEventListener("wheel", cancelProgrammatic);
+      root.removeEventListener("touchstart", cancelProgrammatic);
+      root.removeEventListener("pointerdown", cancelProgrammatic);
+    };
+  }, [setProgrammaticScroll]);
 
   useEffect(() => {
     const root = scrollerRef.current;
@@ -135,12 +284,14 @@ export default function PhotoScroller({
     };
   }, [slides, endContent, hasIntro]);
 
-  const goTo = useCallback((index: number) => {
-    const el = slideRefs.current[index];
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
-
+  const goTo = useCallback(
+    (index: number) => {
+      const el = slideRefs.current[index];
+      if (!el) return;
+      animateScrollTo(el.offsetTop);
+    },
+    [animateScrollTo],
+  );
   if (slides.length === 0 && !intro) {
     return (
       <div className="photo-scroller-shell">

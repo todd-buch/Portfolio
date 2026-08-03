@@ -118,7 +118,7 @@
   flex-direction: column;
   justify-content: center;
   margin-left: 30%;
-  gap: 2rem;
+  gap: 3rem;
   color: var(--text-primary);
 }
 

@@ -18,6 +18,11 @@
   outline: none;
 }
 
+.photo-scroller.photo-scroller--programmatic {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
 .photo-scroller::-webkit-scrollbar {
   display: none;
   width: 0;
