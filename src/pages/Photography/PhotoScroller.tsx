@@ -358,6 +358,12 @@ export default function PhotoScroller({
             aria-label={`${index + 1} of ${slides.length}: ${slide.imageAlt}`}
           >
             <div className="photo-slide-cluster">
+              {/*
+                Equal flex spacers pin the card to the bottom and center the
+                image in the free space above. As the card height animates open,
+                spacers shrink smoothly — no jump from margin-top:auto toggling.
+              */}
+              <div className="photo-slide-spacer" aria-hidden="true" />
               <div
                 className={`photo-slide-image-wrap${
                   slide.onImageClick
@@ -401,6 +407,7 @@ export default function PhotoScroller({
                   />
                 )}
               </div>
+              <div className="photo-slide-spacer" aria-hidden="true" />
 
               <div className="photo-slide-description">
                 {slide.description}

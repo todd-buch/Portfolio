@@ -173,6 +173,11 @@
   max-height: 100%;
 }
 
+/* Mobile-only flex spacers (enabled in the max-width: 900px block) */
+.photo-slide-spacer {
+  display: none;
+}
+
 .photo-slide-image-wrap {
   position: relative;
   flex: 0 1 auto;
@@ -328,20 +333,18 @@
 
 @media (max-width: 900px) {
   /*
-   * Mobile frame:
-   * - Image size is a fixed viewport budget (same collapsed + expanded) so
-   *   tall photos never shove the title bar off-screen and expand doesn't
-   *   resize the image.
-   * - Collapsed: fill the viewport, center the image, pin title to bottom.
-   * - Expanded: same image size; only the card grows so the user can scroll.
-   * - Corner radius lives on the <img> so it stays visible even when the
-   *   wrap is larger than the photo (landscape).
+   * Mobile frame (spacer model):
+   *   [spacer flex] — equal top/bottom spacers center the image
+   *   [image]
+   *   [spacer flex]
+   *   [description] — always at the bottom of the frame
+   *
+   * Expanding the card only changes card height; spacers absorb the
+   * difference so the card does not jump up under the image.
    */
   .photo-slide {
-    /* svh = currently visible viewport (avoids mobile URL bar pushing chrome off) */
     --photo-mobile-pad-top: 6.5rem;
     --photo-mobile-pad-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
-    /* Title bar + gap budget so images leave room for the bottom card */
     --photo-mobile-chrome: 6.25rem;
     --photo-mobile-frame: calc(
       100svh - var(--photo-mobile-pad-top) - var(--photo-mobile-pad-bottom)
@@ -366,13 +369,14 @@
     justify-content: flex-start;
     gap: 0.85rem;
     width: 100%;
-    max-height: none;
-    overflow: visible;
     flex: 1 1 auto;
     min-height: var(--photo-mobile-frame);
+    height: auto;
+    max-height: none;
+    overflow: visible;
   }
 
-  /* Collapsed: exact visible frame — title always fully on screen */
+  /* Collapsed: lock to one viewport so the title bar cannot sit off-screen */
   .photo-slide-cluster:has(.photo-description-box--collapsed) {
     height: var(--photo-mobile-frame);
     min-height: var(--photo-mobile-frame);
@@ -380,33 +384,30 @@
     overflow: hidden;
   }
 
-  .photo-slide-cluster:has(.photo-description-box--collapsed)
-    .photo-slide-image-wrap {
-    flex: 1 1 auto;
-    width: 100%;
-    min-height: 0;
-    max-width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* Wrap is just a centering stage — don't paint a tall rounded shell */
-    border-radius: 0;
+  /* Expanded: grow past the frame; keep min-height so spacers still work */
+  .photo-slide-cluster:has(.photo-description-box--expanded) {
+    height: auto;
+    min-height: var(--photo-mobile-frame);
+    max-height: none;
     overflow: visible;
-    background-color: transparent;
   }
 
-  .photo-slide-cluster:has(.photo-description-box--collapsed)
-    .photo-slide-description {
-    flex: 0 0 auto;
-    margin-top: auto;
+  .photo-slide-spacer {
+    display: block;
+    flex: 1 1 0;
+    min-height: 0;
     width: 100%;
-    max-width: min(100%, 22rem);
+    pointer-events: none;
   }
 
   .photo-slide-image-wrap {
+    flex: 0 0 auto;
+    width: auto;
     max-width: 100%;
     max-height: none;
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 0;
     overflow: visible;
     background-color: transparent;
@@ -426,28 +427,6 @@
     border-radius: 0.5rem;
   }
 
-  /* Expanded: keep the same image budget — only the text card grows */
-  .photo-slide-cluster:has(.photo-description-box--expanded) {
-    height: auto;
-    max-height: none;
-    min-height: 0;
-    overflow: visible;
-    justify-content: flex-start;
-  }
-
-  .photo-slide-cluster:has(.photo-description-box--expanded)
-    .photo-slide-image-wrap {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .photo-slide-cluster:has(.photo-description-box--expanded)
-    .photo-slide-description {
-    margin-top: 0;
-  }
-
   .photo-slide-description {
     flex: 0 0 auto;
     width: min(100%, 22rem);
@@ -455,6 +434,7 @@
     max-height: none;
     align-self: stretch;
     margin-inline: auto;
+    margin-top: 0;
   }
 
   .photo-slide-description > * {

@@ -73,48 +73,46 @@ export default function Photo_Description({
 
   const toggleDetails = () => {
     const scroller = findPhotoScroller(boxRef.current);
+    const slide = boxRef.current?.closest(".photo-slide") as HTMLElement | null;
 
-    setExpanded((prev) => {
-      const next = !prev;
-
-      if (next) {
-        // Remember where we were so collapse can restore the image framing.
-        scrollBeforeExpand.current = scroller?.scrollTop ?? null;
-
-        // Nudge after the open animation has mostly run so overflow is real.
-        window.setTimeout(() => {
-          const box = boxRef.current;
-          const root = findPhotoScroller(box);
-          if (!box || !root) return;
-
-          const boxRect = box.getBoundingClientRect();
-          const rootRect = root.getBoundingClientRect();
-          const pad = 16;
-          const overflowBottom = boxRect.bottom - (rootRect.bottom - pad);
-          if (overflowBottom <= 0) return;
-
-          // Keep most of the current slide on screen (~40% of viewport max).
-          const maxNudge = root.clientHeight * 0.4;
-          root.scrollBy({
-            top: Math.min(overflowBottom, maxNudge),
-            behavior: "smooth",
-          });
-        }, 320);
-      } else {
-        const saved = scrollBeforeExpand.current;
-        scrollBeforeExpand.current = null;
-
-        if (scroller != null && saved != null) {
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              scroller.scrollTo({ top: saved, behavior: "smooth" });
-            });
-          });
-        }
+    if (expanded) {
+      // Collapse: restore scroll FIRST (instant) so the next slide never
+      // flashes while the card height is animating closed.
+      const saved = scrollBeforeExpand.current;
+      scrollBeforeExpand.current = null;
+      if (scroller) {
+        const top =
+          saved ??
+          (slide
+            ? slide.offsetTop
+            : scroller.scrollTop);
+        scroller.scrollTo({ top, behavior: "instant" });
       }
+      setExpanded(false);
+      return;
+    }
 
-      return next;
-    });
+    // Expand: remember framing, open card, then gently reveal overflow.
+    scrollBeforeExpand.current = scroller?.scrollTop ?? null;
+    setExpanded(true);
+
+    window.setTimeout(() => {
+      const box = boxRef.current;
+      const root = findPhotoScroller(box);
+      if (!box || !root) return;
+
+      const boxRect = box.getBoundingClientRect();
+      const rootRect = root.getBoundingClientRect();
+      const pad = 16;
+      const overflowBottom = boxRect.bottom - (rootRect.bottom - pad);
+      if (overflowBottom <= 0) return;
+
+      const maxNudge = root.clientHeight * 0.35;
+      root.scrollBy({
+        top: Math.min(overflowBottom, maxNudge),
+        behavior: "smooth",
+      });
+    }, 360);
   };
 
   const boxClass = [
