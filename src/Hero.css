@@ -1,15 +1,20 @@
 .hero-container {
   height: 100vh;
   width: 100%;
+  max-width: 100%;
   display: flex;
   align-items: stretch;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-clip: border-box;
+  background-origin: border-box;
+  /* Fallback close to HeroBack so any sub-pixel edge never shows body cream */
+  background-color: #c45f1f;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
-
 .hero-panel-l {
   height: calc(100% - 2rem);
   width: 50%;
@@ -147,10 +152,13 @@
     height: 100svh;
     min-height: 100svh;
     overflow: hidden;
-    padding: 4.75rem 0.5rem 0.75rem;
+    /* No horizontal padding — keeps the bg edge-to-edge (side gaps were body color) */
+    padding: 4.75rem 0 0.75rem;
     box-sizing: border-box;
     column-gap: 0;
     row-gap: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   .hero-panel-l {
@@ -160,7 +168,7 @@
     height: auto;
     min-height: 0;
     margin: 0;
-    padding: 0.5rem 0.15rem 0 0.5rem;
+    padding: 0.5rem 0.15rem 0 0.85rem;
     align-self: stretch;
     z-index: 2;
   }
@@ -202,7 +210,7 @@
     width: auto;
     height: auto;
     min-height: 0;
-    margin: 0;
+    margin: 0 0.5rem;
     border-radius: 1.25rem;
     z-index: 2;
   }
@@ -257,8 +265,16 @@
 
 @media (max-width: 480px) {
   .hero-container {
-    padding: 4.25rem 0.35rem 0.5rem;
+    padding: 4.25rem 0 0.5rem;
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+
+  .hero-panel-l {
+    padding: 0.5rem 0.1rem 0 0.65rem;
+  }
+
+  .hero-panel-r {
+    margin: 0 0.35rem;
   }
 
   .hero-left-text h1 {
