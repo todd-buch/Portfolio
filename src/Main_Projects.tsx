@@ -5,8 +5,16 @@ import Action_Button from "./Reuseable-Components/Action_Button";
 import Magnetic_Timeline from "./Reuseable-Components/Magnetic_Timeline";
 import Tech_Dropdown from "./Reuseable-Components/Tech_Dropdown";
 import Tech_Pill from "./Reuseable-Components/Tech_Pill";
+import Project_Image_Gallery, {
+  Gallery_Image,
+} from "./Reuseable-Components/Project_Image_Gallery";
 import Small_Card from "./Reuseable-Components/Small_Card";
 import Current from "./Reuseable-Components/Current";
+
+import fireprevention1 from "./assets/projects/fire-prevention/fireprevention1.png"
+import fireprevention2 from "./assets/projects/fire-prevention/fireprevention2.png"
+import Blackjack1 from "./assets/projects/blackjack/Blackjack1.png";
+import Blackjack2 from "./assets/projects/blackjack/Blackjack2.png";
 
 import {
   SiPython,
@@ -286,6 +294,20 @@ export default function Main_Projects() {
                 to provide actionable, real-time safety recommendations to
                 warehouse personnel.
               </p>
+              <Tech_Dropdown title="View images">
+                <Project_Image_Gallery>
+                <Gallery_Image
+                    src={fireprevention1}
+                    alt="Fire Prevention at the Edge hazard detection"
+                    caption="Our vision AI model successfully detecting a sparking outlet."
+                  />
+                  <Gallery_Image
+                    src={fireprevention2}
+                    alt="Fire Prevention at the Edge UI"
+                    caption="The UI running on the Raspberry PI, showing the detected hazards and a recommendation."
+                  />
+                </Project_Image_Gallery>
+              </Tech_Dropdown>
               <Tech_Dropdown title="View the stack behind it">
                 <p>
                   Cameras run vision models trained to flag fire-related
@@ -400,6 +422,20 @@ export default function Main_Projects() {
                 and a model-free reinforcement learning agent that optimizes
                 both play and bet sizing under casino-like conditions.
               </p>
+              <Tech_Dropdown title="View images">
+                <Project_Image_Gallery>
+                  <Gallery_Image
+                    src={Blackjack1}
+                    alt="Blackjack agent chart"
+                    caption="Agent performance with Random Agent – The graph shows the total unit return of each agent over hands played. In this graph, we can see both the lookup agent and the learning agent we trained far outperform the random agent. We can also see that even with an ideal strategy, over many games, the house always wins."
+                  />
+                  <Gallery_Image
+                    src={Blackjack2}
+                    alt="Blackjack agent chart"
+                    caption="Agent performance without Random Agent - The graph shows the total unit return of each agent over hands played. In this graph, we can see that overtime, the learning agent outperforms the lookup agent."
+                  />
+                </Project_Image_Gallery>
+              </Tech_Dropdown>
               <Tech_Dropdown title="View the stack behind it">
                 <p>
                   The system is built around a custom terminal Blackjack engine,
