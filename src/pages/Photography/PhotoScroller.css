@@ -343,11 +343,35 @@
   .photo-slide-image {
     max-width: 100%;
     max-height: min(42dvh, 360px);
+    transition: max-height 0.3s ease;
   }
 
   .photo-slide-placeholder {
     width: min(100%, 420px);
     max-height: min(42dvh, 360px);
+  }
+
+  /*
+   * Collapsed description (title only) frees vertical space — show a larger
+   * image by default on mobile. Expanding details eases back toward the
+   * tighter cap so copy can fit without clipping as badly.
+   */
+  .photo-slide-cluster:has(.photo-description-box--collapsed) .photo-slide-image {
+    max-height: min(58dvh, 520px);
+  }
+
+  .photo-slide-cluster:has(.photo-description-box--collapsed)
+    .photo-slide-placeholder {
+    max-height: min(58dvh, 520px);
+  }
+
+  .photo-slide-cluster:has(.photo-description-box--expanded) .photo-slide-image {
+    max-height: min(36dvh, 300px);
+  }
+
+  .photo-slide-cluster:has(.photo-description-box--expanded)
+    .photo-slide-placeholder {
+    max-height: min(36dvh, 300px);
   }
 
   .photo-slide-description {
@@ -378,6 +402,14 @@
 
   .photo-slide-image {
     max-height: min(38dvh, 300px);
+  }
+
+  .photo-slide-cluster:has(.photo-description-box--collapsed) .photo-slide-image {
+    max-height: min(54dvh, 440px);
+  }
+
+  .photo-slide-cluster:has(.photo-description-box--expanded) .photo-slide-image {
+    max-height: min(32dvh, 260px);
   }
 }
 
