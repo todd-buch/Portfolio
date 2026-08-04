@@ -6,12 +6,19 @@
   margin-top: 120px;
   padding: 4rem 1rem;
   max-width: 1000px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 .resume-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 4rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 .resume-section-text {
   display: flex;
@@ -19,6 +26,8 @@
   align-items: flex-start;
   margin-bottom: 4rem;
   max-width: 750px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .resume-subtitle {
@@ -67,6 +76,9 @@
 .resume-contact-actions .action-btn {
   margin-top: 0;
   padding: 0.55rem 1.35rem;
+  font-size: 1.1rem;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 .resume-divider {
   width: 100%;
@@ -85,6 +97,7 @@
 
 .tech-pill-group {
   margin-bottom: 2rem;
+  max-width: 100%;
 }
 
 .skills-grid {
@@ -92,7 +105,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   width: 100%;
+  max-width: 100%;
   margin-top: 1rem;
+  box-sizing: border-box;
 }
 
 .skill-category-card {
@@ -105,6 +120,8 @@
   background-color: var(--bg-primary);
   transition: border-color 0.25s ease;
   min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .skill-category-card:hover {
@@ -124,7 +141,38 @@
 }
 
 @media (max-width: 640px) {
+  .resume-container {
+    padding: 3rem 1rem 4rem;
+  }
+
   .skills-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Preserve intended type scale; overflow was causing soft layout squeeze */
+  .resume-card-title {
+    font-size: 2rem;
+  }
+
+  .resume-card-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .resume-card-date,
+  .resume-card-location,
+  .resume-card-details-toggle {
+    font-size: 1rem;
+  }
+
+  .resume-card .action-btn,
+  .resume-card-details .action-btn {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    height: auto;
+  }
+
+  .skill-category-title {
+    font-size: 1.25rem;
   }
 }

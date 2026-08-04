@@ -23,6 +23,7 @@
   transition: border-color 0.25s ease, color 0.25s ease;
   user-select: none;
   width: fit-content;
+  max-width: 100%;
   /* Fallback spacing when pills sit outside a .tech-pill-group */
   margin: 0.25rem;
 }
@@ -58,4 +59,6 @@
 
 .tech-pill-name {
   line-height: 1.2;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
