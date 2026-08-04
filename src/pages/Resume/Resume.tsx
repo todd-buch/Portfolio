@@ -28,7 +28,15 @@ import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 import { TbBrandCSharp } from "react-icons/tb";
-import { FileText, Bot, Mail, Sparkles, PenTool, Palette } from "lucide-react";
+import {
+  FileText,
+  Bot,
+  Mail,
+  Sparkles,
+  PenTool,
+  Palette,
+  Download,
+} from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import Action_Button from "../../Reuseable-Components/Action_Button";
 
@@ -131,6 +139,14 @@ export default function Resume() {
             <span className="resume-subtitle">Connecticut, United States</span>
           </div>
           <div className="resume-contact-actions">
+            <Action_Button
+              text="Download Resume"
+              icon={<Download />}
+              link="/Resume - Todd Buch.pdf"
+              target="_blank"
+              rel="noreferrer"
+              variant="outline"
+            />
             <Action_Button
               text="LinkedIn"
               icon={<FaLinkedin />}

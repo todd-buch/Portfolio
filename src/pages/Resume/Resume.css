@@ -3,8 +3,8 @@
   flex-direction: column;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 120px;
-  padding: 4rem 1rem;
+  margin-top: 100px;
+  padding: 1.5rem 1rem 4rem;
   max-width: 1000px;
   width: 100%;
   box-sizing: border-box;
@@ -30,6 +30,11 @@
   box-sizing: border-box;
 }
 
+.resume-section-text h1 {
+  margin: 4rem 0 1.5rem 0;
+  line-height: 1.05;
+}
+
 .resume-subtitle {
   font-weight: 500;
   margin-top: 1rem;
@@ -41,7 +46,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem 0.65rem;
-  margin: 0.5rem 0 0;
+  margin: 0.15rem 0 0;
 }
 
 .resume-contact-meta .resume-subtitle {
@@ -142,7 +147,24 @@
 
 @media (max-width: 640px) {
   .resume-container {
-    padding: 3rem 1rem 4rem;
+    margin-top: 88px;
+    padding: 1.25rem 1rem 4rem;
+  }
+
+  .resume-section-text h1 {
+    margin-bottom: 0.2rem;
+  }
+
+  .resume-contact-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    margin-top: 0.1rem;
+  }
+
+  /* No middle-dot when email and location stack on separate lines */
+  .resume-contact-sep {
+    display: none;
   }
 
   .skills-grid {

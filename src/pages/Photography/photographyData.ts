@@ -66,7 +66,7 @@ export const featuredPhotos: FeaturedPhoto[] = [
     src: CS1,
     alt: "Car Shows",
     title: "Car Shows",
-    date: "Summer 2025 — present",
+    date: "Summer 2025 — Present",
     description:
       "I enjoy attending car shows and capturing the unique vehicles and moments at these events. This gallery features a selection of my favorite shots from various car shows I've attended.",
     gallerySlug: "Car-Shows",
