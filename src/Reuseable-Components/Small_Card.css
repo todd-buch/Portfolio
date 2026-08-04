@@ -9,6 +9,10 @@
     border-color 0.25s ease,
     color 0.25s ease;
   margin: 0.25rem;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
 }
 .small-card-top {
   display: flex;

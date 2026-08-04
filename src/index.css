@@ -24,9 +24,16 @@
 }
 
 
+/* Padding is included in width so width:100% sections don't spill off-screen */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
-  overflow-x: hidden;
   max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
