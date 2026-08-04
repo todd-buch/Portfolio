@@ -19,8 +19,9 @@ export type PhotoSlide = {
   imageSrc?: string;
   imageAlt: string;
   description: ReactNode;
+  /** When set, clicking/activating the image runs this (e.g. open gallery). */
+  onImageClick?: () => void;
 };
-
 interface PhotoScrollerProps {
   slides: PhotoSlide[];
   label?: string;
@@ -73,6 +74,15 @@ export default function PhotoScroller({
   const [dotsDimmed, setDotsDimmed] = useState(
     () => resolvedStart < 0 || slides.length === 0,
   );
+
+  const activeIndexRef = useRef(activeIndex);
+  const dotsDimmedRef = useRef(dotsDimmed);
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+  useEffect(() => {
+    dotsDimmedRef.current = dotsDimmed;
+  }, [dotsDimmed]);
 
   const slidesKey = slides.map((s) => s.id).join("|");
 
@@ -140,8 +150,10 @@ export default function PhotoScroller({
 
     if (resolvedStart < 0) {
       root.scrollTop = 0;
-      setDotsDimmed(true);
-      setActiveIndex(0);
+      setTimeout(() => {
+        setDotsDimmed(true);
+        setActiveIndex(0);
+      }, 0);
       return;
     }
 
@@ -153,19 +165,25 @@ export default function PhotoScroller({
 
     if (!shouldAnimateEntrance) {
       root.scrollTop = targetEl.offsetTop;
-      setActiveIndex(resolvedStart);
-      setDotsDimmed(false);
+      setTimeout(() => {
+        setActiveIndex(resolvedStart);
+        setDotsDimmed(false);
+      }, 0);
       return;
     }
     if (resolvedStart > 0) {
       const fromEl = slideRefs.current[resolvedStart - 1];
       root.scrollTop = fromEl?.offsetTop ?? 0;
-      setActiveIndex(resolvedStart - 1);
-      setDotsDimmed(false);
+      setTimeout(() => {
+        setActiveIndex(resolvedStart - 1);
+        setDotsDimmed(false);
+      }, 0);
     } else {
       root.scrollTop = 0; // intro
-      setActiveIndex(0);
-      setDotsDimmed(true);
+      setTimeout(() => {
+        setActiveIndex(0);
+        setDotsDimmed(true);
+      }, 0);
     }
 
     let cancelled = false;
@@ -284,6 +302,72 @@ export default function PhotoScroller({
     };
   }, [slides, endContent, hasIntro]);
 
+  useEffect(() => {
+    const root = scrollerRef.current;
+    if (!root) return;
+
+    let settleTimer: ReturnType<typeof setTimeout> | null = null;
+    let settleLock = false;
+
+    const settle = () => {
+      if (settleLock) return;
+      const idx = activeIndexRef.current;
+      const dimmed = dotsDimmedRef.current;
+
+      const expanded = Array.from(
+        root.querySelectorAll(".photo-description-box--expanded"),
+      );
+      const needsCollapse = expanded.some((box) => {
+        const slide = box.closest("[data-slide-index]") as HTMLElement | null;
+        if (!slide) return false;
+        const myIndex = Number(slide.dataset.slideIndex);
+        return dimmed || (Number.isFinite(myIndex) && myIndex !== idx);
+      });
+
+      // Same-slide expand/scroll: leave the user where they are.
+      if (!needsCollapse) return;
+
+      settleLock = true;
+      // Disable mandatory snap so height change can't re-snap to the old slide.
+      setProgrammaticScroll(true);
+
+      // React state collapse first (listeners use flushSync).
+      root.dispatchEvent(
+        new CustomEvent("photo-active-change", {
+          detail: { activeIndex: idx, dotsDimmed: dimmed },
+        }),
+      );
+
+      void root.offsetHeight;
+
+      if (!dimmed) {
+        const el = slideRefs.current[idx];
+        if (el) {
+          root.scrollTop = el.offsetTop;
+        }
+      }
+
+      requestAnimationFrame(() => {
+        setProgrammaticScroll(false);
+        settleLock = false;
+      });
+    };
+
+    const onScroll = () => {
+      if (settleLock) return;
+      if (settleTimer != null) clearTimeout(settleTimer);
+      settleTimer = setTimeout(settle, 160);
+    };
+
+    root.addEventListener("scroll", onScroll, { passive: true });
+    root.addEventListener("scrollend", settle);
+    return () => {
+      if (settleTimer != null) clearTimeout(settleTimer);
+      root.removeEventListener("scroll", onScroll);
+      root.removeEventListener("scrollend", settle);
+    };
+  }, [slidesKey, setProgrammaticScroll]);
+
   const goTo = useCallback(
     (index: number) => {
       const el = slideRefs.current[index];
@@ -349,9 +433,37 @@ export default function PhotoScroller({
             aria-label={`${index + 1} of ${slides.length}: ${slide.imageAlt}`}
           >
             <div className="photo-slide-cluster">
+              {/*
+                Equal flex spacers pin the card to the bottom and center the
+                image in the free space above. As the card height animates open,
+                spacers shrink smoothly — no jump from margin-top:auto toggling.
+              */}
+              <div className="photo-slide-spacer" aria-hidden="true" />
               <div
-                className="photo-slide-image-wrap"
+                className={`photo-slide-image-wrap${
+                  slide.onImageClick
+                    ? " photo-slide-image-wrap--clickable"
+                    : ""
+                }`}
                 onContextMenu={blockImageSave}
+                onClick={slide.onImageClick}
+                onKeyDown={
+                  slide.onImageClick
+                    ? (e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          slide.onImageClick?.();
+                        }
+                      }
+                    : undefined
+                }
+                role={slide.onImageClick ? "button" : undefined}
+                tabIndex={slide.onImageClick ? 0 : undefined}
+                aria-label={
+                  slide.onImageClick
+                    ? `Open gallery for ${slide.imageAlt}`
+                    : undefined
+                }
               >
                 {slide.imageSrc ? (
                   <img
@@ -370,6 +482,7 @@ export default function PhotoScroller({
                   />
                 )}
               </div>
+              <div className="photo-slide-spacer" aria-hidden="true" />
 
               <div className="photo-slide-description">
                 {slide.description}

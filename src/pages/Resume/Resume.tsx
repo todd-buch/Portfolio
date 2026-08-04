@@ -28,7 +28,15 @@ import { DiPhotoshop } from "react-icons/di";
 import { SiGooglegemini } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 import { TbBrandCSharp } from "react-icons/tb";
-import { FileText, Bot, Mail, Sparkles, PenTool, Palette } from "lucide-react";
+import {
+  FileText,
+  Bot,
+  Mail,
+  Sparkles,
+  PenTool,
+  Palette,
+  Download,
+} from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import Action_Button from "../../Reuseable-Components/Action_Button";
 
@@ -64,7 +72,7 @@ const skillCategories: SkillCategory[] = [
       { name: "GCP (Cloud Run)", icon: <SiGooglecloud color="default" /> },
       { name: "AWS Lambda" },
       { name: "AWS S3 Bucket" },
-      { name: "Cloudformation" },
+      { name: "CloudFormation" },
       { name: "Docker", icon: <SiDocker color="default" /> },
     ],
   },
@@ -106,7 +114,7 @@ const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Microsoft Word", icon: <FileText /> },
       { name: "Dropbox", icon: <SiDropbox color="default" /> },
-      { name: "Wordpress", icon: <SiWordpress color="default" /> },
+      { name: "WordPress", icon: <SiWordpress color="default" /> },
       { name: "Email Triggers", icon: <Mail /> },
     ],
   },
@@ -131,6 +139,14 @@ export default function Resume() {
             <span className="resume-subtitle">Connecticut, United States</span>
           </div>
           <div className="resume-contact-actions">
+            <Action_Button
+              text="Download Resume"
+              icon={<Download />}
+              link="/Resume - Todd Buch.pdf"
+              target="_blank"
+              rel="noreferrer"
+              variant="outline"
+            />
             <Action_Button
               text="LinkedIn"
               icon={<FaLinkedin />}
@@ -295,7 +311,7 @@ export default function Resume() {
               <li>
                 <p>
                   <strong>Creative Production:</strong> Used the Adobe Creative
-                  Cloud suite to for graphic design, designing albums, and
+                  Cloud suite for graphic design, designing albums, and
                   visual branding.
                 </p>
               </li>
@@ -312,7 +328,7 @@ export default function Resume() {
               />
               <Tech_Pill name="HTML" icon={<SiHtml5 color="default" />} />
               <Tech_Pill
-                name="Wordpress"
+                name="WordPress"
                 icon={<SiWordpress color="default" />}
               />
               <Tech_Pill
@@ -426,7 +442,7 @@ export default function Resume() {
                         name="GitHub"
                         icon={<SiGithub color="default" />}
                       />
-                      <Tech_Pill name="Cloudformation" />
+                      <Tech_Pill name="CloudFormation" />
                       <Tech_Pill
                         name="Docker"
                         icon={<SiDocker color="default" />}
@@ -494,7 +510,7 @@ export default function Resume() {
                 On the media production side, I managed full post-processing in
                 Adobe Lightroom Classic by filtering and culling RAW images,
                 cropping, and applying color adjustments. For advanced
-                retouching, I moved key into Photoshop, while using Premiere Pro
+                retouching, I moved into Photoshop, while using Premiere Pro
                 to assemble, color grade, and finalize videos.
               </p>
 

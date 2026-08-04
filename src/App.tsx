@@ -33,10 +33,8 @@ function App() {
 
   useEffect(() => {
     // Photography uses an internal snap scroller — window scroll never moves.
-    // Keep the nav solid so it stays readable over images, and lock body scroll
-    // so the browser chrome doesn't show a second scrollbar.
+    // Lock body scroll so the browser chrome doesn't show a second scrollbar.
     if (isPhotographyRoute) {
-      setIsScrolled(true);
       const previousOverflow = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       return () => {
@@ -59,10 +57,12 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname, isPhotographyRoute]);
 
+  const showSolidNav = isScrolled || isPhotographyRoute;
+
   return (
     <>
       <ScrollToTop />
-      <Sidebar isScrolled={isScrolled} />
+      <Sidebar isScrolled={showSolidNav} />
       <Routes>
         <Route
           path="/"

@@ -7,8 +7,8 @@ import {
   type AnimationPlaybackControls,
 } from "framer-motion";
 import "./Hero.css";
-import HeroBack from "/src/assets/HeroBack.png";
-import MiddleImg from "/src/assets/Todd-Middle.png";
+import HeroBack from "/src/assets/HeroBack.webp";
+import MiddleImg from "/src/assets/Todd-Middle.webp";
 
 import { ArrowDown, CircleSmall } from "lucide-react";
 
@@ -70,11 +70,13 @@ function Hero() {
   };
 
   return (
-    <div
-      ref={heroRef}
-      style={{ backgroundImage: `url(${HeroBack})` }}
-      className="hero-container"
-    >
+    <div ref={heroRef} className="hero-container">
+      {/* Dedicated layer so the bg always paints edge-to-edge (padding/grid safe) */}
+      <div
+        className="hero-bg"
+        style={{ backgroundImage: `url(${HeroBack})` }}
+        aria-hidden="true"
+      />
       <div className="hero-panel-l">
         <motion.div
           style={isMobile ? undefined : { y: yLeft }}

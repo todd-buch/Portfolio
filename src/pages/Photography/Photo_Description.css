@@ -29,11 +29,61 @@
   margin-bottom: 1.25rem;
 }
 
+.photo-description-heading-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .photo-description-title {
   margin: 0;
   font-size: clamp(1.5rem, 2.2vw, 2.15rem);
   line-height: 1.15;
   color: var(--text-primary);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Mobile-only control; always hidden on desktop */
+.photo-description-toggle {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: -0.2rem -0.35rem 0 0;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-primary) 55%, transparent);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.photo-description-toggle:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border-color));
+  color: var(--accent);
+}
+
+.photo-description-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.photo-description-toggle-icon {
+  display: block;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.photo-description-box--expanded .photo-description-toggle-icon {
+  transform: rotate(180deg);
 }
 
 .photo-description-date {
@@ -42,6 +92,25 @@
   font-size: 0.95rem;
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+/* Desktop: date sits opposite the title. Mobile uses the in-details copy. */
+.photo-description-date--mobile {
+  display: none;
+}
+
+.photo-description-details {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.photo-description-details-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1 1 auto;
 }
 
 .photo-description-body {
@@ -69,6 +138,10 @@
 
 .photo-description-actions .action-btn {
   margin-top: 0;
+  font-family: inherit;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  padding: 0.75rem 2.5rem;
 }
 
 @media (max-width: 900px) {
@@ -77,6 +150,32 @@
     height: auto;
     max-height: none;
     overflow: visible;
+  }
+
+  .photo-description-toggle {
+    display: inline-flex;
+  }
+
+  .photo-description-top {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.5rem;
+    transition: margin-bottom 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .photo-description-heading-row {
+    width: 100%;
+  }
+
+  /* Top-row date is desktop-only; mobile shows date inside the expandable block */
+  .photo-description-date--top {
+    display: none;
+  }
+
+  .photo-description-date--mobile {
+    display: block;
+    white-space: normal;
+    margin: 0 0 0.85rem;
   }
 
   .photo-description-body {
@@ -90,12 +189,53 @@
     margin-bottom: 0.25rem;
   }
 
-  .photo-description-top {
-    flex-direction: column;
-    gap: 0.35rem;
+  .photo-description-details {
+    display: grid;
+    grid-template-rows: 1fr;
+    flex: 0 0 auto;
+    min-height: 0;
+    transition: grid-template-rows 0.38s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .photo-description-date {
-    white-space: normal;
+  .photo-description-details-inner {
+    overflow: hidden;
+    min-height: 0;
+    flex: none;
+  }
+
+  .photo-description-box--collapsed .photo-description-top {
+    margin-bottom: 0;
+  }
+
+  .photo-description-box--collapsed .photo-description-details {
+    grid-template-rows: 0fr;
+  }
+
+  .photo-description-box--collapsed {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  /* Keep collapsed title row from growing too tall and overflowing the frame */
+  .photo-description-box--collapsed .photo-description-title {
+    font-size: clamp(1.2rem, 5.2vw, 1.55rem);
+    line-height: 1.2;
+  }
+
+  /* Programmatic collapse (scroll away) — no height animation that fights scroll */
+  .photo-description-box--instant .photo-description-details,
+  .photo-description-box--instant .photo-description-top,
+  .photo-description-box--instant .photo-description-toggle-icon {
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-description-toggle-icon {
+    transition: none;
+  }
+
+  .photo-description-details {
+    transition: none;
   }
 }
