@@ -185,6 +185,11 @@
     z-index: 2;
   }
 
+  /*
+   * Portrait sits in the right column but may be wider than that column.
+   * It must overflow LEFT over the text (overflow: visible) — clipping here
+   * cuts off the figure. Page cream-gap is handled by .hero-bg + body overflow-x.
+   */
   .hero-middle {
     position: relative;
     grid-column: 2;
@@ -194,7 +199,6 @@
     width: auto;
     height: 100%;
     min-height: 0;
-    min-width: 0;
     align-self: stretch;
     display: flex;
     align-items: flex-end;
@@ -202,12 +206,7 @@
     pointer-events: none;
     z-index: 1;
     margin-bottom: -0.15rem;
-    /*
-     * Clip only horizontal overflow so a wide portrait can't widen the page.
-     * Vertical is visible; contain keeps the full figure (no left crop).
-     */
-    overflow-x: hidden;
-    overflow-y: visible;
+    overflow: visible;
   }
 
   .hero-middle img,
@@ -215,7 +214,6 @@
     height: 100%;
     max-height: 100%;
     width: auto;
-    /* Allow natural width up to the cell; don't cover-crop the person */
     max-width: none;
     object-fit: contain;
     object-position: bottom right;
