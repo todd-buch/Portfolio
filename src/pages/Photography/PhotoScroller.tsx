@@ -140,8 +140,10 @@ export default function PhotoScroller({
 
     if (resolvedStart < 0) {
       root.scrollTop = 0;
-      setDotsDimmed(true);
-      setActiveIndex(0);
+      setTimeout(() => {
+        setDotsDimmed(true);
+        setActiveIndex(0);
+      }, 0);
       return;
     }
 
@@ -153,19 +155,25 @@ export default function PhotoScroller({
 
     if (!shouldAnimateEntrance) {
       root.scrollTop = targetEl.offsetTop;
-      setActiveIndex(resolvedStart);
-      setDotsDimmed(false);
+      setTimeout(() => {
+        setActiveIndex(resolvedStart);
+        setDotsDimmed(false);
+      }, 0);
       return;
     }
     if (resolvedStart > 0) {
       const fromEl = slideRefs.current[resolvedStart - 1];
       root.scrollTop = fromEl?.offsetTop ?? 0;
-      setActiveIndex(resolvedStart - 1);
-      setDotsDimmed(false);
+      setTimeout(() => {
+        setActiveIndex(resolvedStart - 1);
+        setDotsDimmed(false);
+      }, 0);
     } else {
       root.scrollTop = 0; // intro
-      setActiveIndex(0);
-      setDotsDimmed(true);
+      setTimeout(() => {
+        setActiveIndex(0);
+        setDotsDimmed(true);
+      }, 0);
     }
 
     let cancelled = false;

@@ -140,10 +140,12 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
     };
   }, [menuOpen]);
 
-  // Close menu when navigating between pages
-  useEffect(() => {
+  // Close menu when navigating between pages (handled in rendering)
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
+  if (location.pathname !== prevPathname) {
+    setPrevPathname(location.pathname);
     setMenuOpen(false);
-  }, [location.pathname]);
+  }
 
   const closeMenu = () => setMenuOpen(false);
   const toggleMenu = () => setMenuOpen((open) => !open);
