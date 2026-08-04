@@ -311,67 +311,124 @@
 
 @media (max-width: 900px) {
   /*
-   * Let the slide grow with image + card instead of clipping at 100dvh.
-   * Snap still lands on the top of each photo; extra height scrolls before
-   * the next snap.
+   * Mobile frame:
+   * - Image size is a fixed viewport budget (same collapsed + expanded) so
+   *   tall photos never shove the title bar off-screen and expand doesn't
+   *   resize the image.
+   * - Collapsed: fill the viewport, center the image, pin title to bottom.
+   * - Expanded: same image size; only the card grows so the user can scroll.
+   * - Corner radius lives on the <img> so it stays visible even when the
+   *   wrap is larger than the photo (landscape).
    */
   .photo-slide {
+    /* svh = currently visible viewport (avoids mobile URL bar pushing chrome off) */
+    --photo-mobile-pad-top: 6.5rem;
+    --photo-mobile-pad-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+    /* Title bar + gap budget so images leave room for the bottom card */
+    --photo-mobile-chrome: 6.25rem;
+    --photo-mobile-frame: calc(
+      100svh - var(--photo-mobile-pad-top) - var(--photo-mobile-pad-bottom)
+    );
+    --photo-mobile-image-max: calc(
+      var(--photo-mobile-frame) - var(--photo-mobile-chrome)
+    );
+
     height: auto;
-    min-height: 100dvh;
-    padding: 6.5rem 2.25rem 2.5rem 1.25rem;
-    align-items: flex-start;
+    min-height: 100svh;
+    padding: var(--photo-mobile-pad-top) 2.25rem var(--photo-mobile-pad-bottom)
+      1.25rem;
+    align-items: stretch;
+    justify-content: flex-start;
     overflow: visible;
+    box-sizing: border-box;
   }
 
   .photo-slide-cluster {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: 1.25rem;
+    gap: 0.85rem;
     width: 100%;
     max-height: none;
     overflow: visible;
-    flex: 1 0 auto;
+    flex: 1 1 auto;
+    min-height: var(--photo-mobile-frame);
+  }
+
+  /* Collapsed: exact visible frame — title always fully on screen */
+  .photo-slide-cluster:has(.photo-description-box--collapsed) {
+    height: var(--photo-mobile-frame);
+    min-height: var(--photo-mobile-frame);
+    max-height: var(--photo-mobile-frame);
+    overflow: hidden;
+  }
+
+  .photo-slide-cluster:has(.photo-description-box--collapsed)
+    .photo-slide-image-wrap {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Wrap is just a centering stage — don't paint a tall rounded shell */
+    border-radius: 0;
+    overflow: visible;
+    background-color: transparent;
+  }
+
+  .photo-slide-cluster:has(.photo-description-box--collapsed)
+    .photo-slide-description {
+    flex: 0 0 auto;
+    margin-top: auto;
+    width: 100%;
+    max-width: min(100%, 22rem);
   }
 
   .photo-slide-image-wrap {
     max-width: 100%;
     max-height: none;
     flex-shrink: 0;
+    border-radius: 0;
+    overflow: visible;
+    background-color: transparent;
   }
 
   .photo-slide-image {
     max-width: 100%;
-    max-height: min(42dvh, 360px);
-    transition: max-height 0.3s ease;
+    max-height: var(--photo-mobile-image-max);
+    width: auto;
+    height: auto;
+    border-radius: 0.5rem;
   }
 
   .photo-slide-placeholder {
     width: min(100%, 420px);
-    max-height: min(42dvh, 360px);
+    max-height: var(--photo-mobile-image-max);
+    border-radius: 0.5rem;
   }
 
-  /*
-   * Collapsed description (title only) frees vertical space — show a larger
-   * image by default on mobile. Expanding details eases back toward the
-   * tighter cap so copy can fit without clipping as badly.
-   */
-  .photo-slide-cluster:has(.photo-description-box--collapsed) .photo-slide-image {
-    max-height: min(58dvh, 520px);
-  }
-
-  .photo-slide-cluster:has(.photo-description-box--collapsed)
-    .photo-slide-placeholder {
-    max-height: min(58dvh, 520px);
-  }
-
-  .photo-slide-cluster:has(.photo-description-box--expanded) .photo-slide-image {
-    max-height: min(36dvh, 300px);
+  /* Expanded: keep the same image budget — only the text card grows */
+  .photo-slide-cluster:has(.photo-description-box--expanded) {
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    overflow: visible;
+    justify-content: flex-start;
   }
 
   .photo-slide-cluster:has(.photo-description-box--expanded)
-    .photo-slide-placeholder {
-    max-height: min(36dvh, 300px);
+    .photo-slide-image-wrap {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-slide-cluster:has(.photo-description-box--expanded)
+    .photo-slide-description {
+    margin-top: 0;
   }
 
   .photo-slide-description {
@@ -383,7 +440,6 @@
     margin-inline: auto;
   }
 
-  /* Don’t clamp the card to a percentage of an auto-height parent */
   .photo-slide-description > * {
     max-height: none;
   }
@@ -395,21 +451,10 @@
 
 @media (max-width: 480px) {
   .photo-slide {
+    --photo-mobile-pad-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+    --photo-mobile-chrome: 6rem;
     padding-left: 1rem;
     padding-right: 2rem;
-    padding-bottom: 2.75rem;
-  }
-
-  .photo-slide-image {
-    max-height: min(38dvh, 300px);
-  }
-
-  .photo-slide-cluster:has(.photo-description-box--collapsed) .photo-slide-image {
-    max-height: min(54dvh, 440px);
-  }
-
-  .photo-slide-cluster:has(.photo-description-box--expanded) .photo-slide-image {
-    max-height: min(32dvh, 260px);
   }
 }
 

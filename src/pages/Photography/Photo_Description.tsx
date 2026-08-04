@@ -17,6 +17,10 @@ interface Photo_Description_Props {
   featuredId?: string;
 }
 
+function findPhotoScroller(from: HTMLElement | null): HTMLElement | null {
+  return from?.closest(".photo-scroller") as HTMLElement | null;
+}
+
 export default function Photo_Description({
   title,
   date,
@@ -27,6 +31,7 @@ export default function Photo_Description({
 }: Photo_Description_Props) {
   const navigate = useNavigate();
   const boxRef = useRef<HTMLDivElement>(null);
+  const scrollBeforeExpand = useRef<number | null>(null);
   const detailsId = useId();
   const [expanded, setExpanded] = useState(false);
 
@@ -39,7 +44,10 @@ export default function Photo_Description({
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 900px)");
     const onChange = () => {
-      if (!mq.matches) setExpanded(false);
+      if (!mq.matches) {
+        setExpanded(false);
+        scrollBeforeExpand.current = null;
+      }
     };
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
@@ -64,20 +72,50 @@ export default function Photo_Description({
   };
 
   const toggleDetails = () => {
+    const scroller = findPhotoScroller(boxRef.current);
+
     setExpanded((prev) => {
       const next = !prev;
+
       if (next) {
-        // After the expanded layout paints, nudge the scroller so the card
-        // (and any overflowing text) is in view — may push the image up slightly.
+        // Remember where we were so collapse can restore the image framing.
+        scrollBeforeExpand.current = scroller?.scrollTop ?? null;
+
+        // After expand paints: nudge only enough to reveal the newly opened
+        // details. Cap the delta so we never jump onto the next photo.
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            boxRef.current?.scrollIntoView({
+            const box = boxRef.current;
+            const root = findPhotoScroller(box);
+            if (!box || !root) return;
+
+            const boxRect = box.getBoundingClientRect();
+            const rootRect = root.getBoundingClientRect();
+            const pad = 16;
+            const overflowBottom = boxRect.bottom - (rootRect.bottom - pad);
+            if (overflowBottom <= 0) return;
+
+            // Keep most of the current slide on screen (~40% of viewport max).
+            const maxNudge = root.clientHeight * 0.4;
+            root.scrollBy({
+              top: Math.min(overflowBottom, maxNudge),
               behavior: "smooth",
-              block: "nearest",
             });
           });
         });
+      } else {
+        const saved = scrollBeforeExpand.current;
+        scrollBeforeExpand.current = null;
+
+        if (scroller != null && saved != null) {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              scroller.scrollTo({ top: saved, behavior: "smooth" });
+            });
+          });
+        }
       }
+
       return next;
     });
   };
