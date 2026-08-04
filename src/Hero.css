@@ -202,8 +202,12 @@
     pointer-events: none;
     z-index: 1;
     margin-bottom: -0.15rem;
-    /* Clip so the portrait cannot widen the page and leave a cream strip */
-    overflow: hidden;
+    /*
+     * Clip only horizontal overflow so a wide portrait can't widen the page.
+     * Vertical is visible; contain keeps the full figure (no left crop).
+     */
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .hero-middle img,
@@ -211,9 +215,10 @@
     height: 100%;
     max-height: 100%;
     width: auto;
-    max-width: 100%;
-    object-fit: cover;
-    object-position: 65% bottom;
+    /* Allow natural width up to the cell; don't cover-crop the person */
+    max-width: none;
+    object-fit: contain;
+    object-position: bottom right;
     border-radius: 0;
     display: block;
   }
