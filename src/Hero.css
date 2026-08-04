@@ -1,13 +1,25 @@
 .hero-container {
   height: 100vh;
   width: 100%;
+  max-width: 100%;
   display: flex;
   align-items: stretch;
+  /* Fallback if the image layer is slow — matches HeroBack orange */
+  background-color: #c45f1f;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Full-bleed background: not affected by padding or grid gutters */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  position: relative;
-  overflow: hidden;
+  pointer-events: none;
 }
 
 .hero-panel-l {
@@ -147,10 +159,18 @@
     height: 100svh;
     min-height: 100svh;
     overflow: hidden;
-    padding: 4.75rem 0.5rem 0.75rem;
+    /* No horizontal padding — content insets live on panels only */
+    padding: 4.75rem 0 0.75rem;
     box-sizing: border-box;
     column-gap: 0;
     row-gap: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Still full-bleed under the top padding (nav clearance) */
+  .hero-bg {
+    inset: 0;
   }
 
   .hero-panel-l {
@@ -160,11 +180,16 @@
     height: auto;
     min-height: 0;
     margin: 0;
-    padding: 0.5rem 0.15rem 0 0.5rem;
+    padding: 0.5rem 0.15rem 0 0.85rem;
     align-self: stretch;
     z-index: 2;
   }
 
+  /*
+   * Portrait sits in the right column but may be wider than that column.
+   * It must overflow LEFT over the text (overflow: visible) — clipping here
+   * cuts off the figure. Page cream-gap is handled by .hero-bg + body overflow-x.
+   */
   .hero-middle {
     position: relative;
     grid-column: 2;
@@ -202,7 +227,7 @@
     width: auto;
     height: auto;
     min-height: 0;
-    margin: 0;
+    margin: 0 0.5rem;
     border-radius: 1.25rem;
     z-index: 2;
   }
@@ -257,8 +282,16 @@
 
 @media (max-width: 480px) {
   .hero-container {
-    padding: 4.25rem 0.35rem 0.5rem;
+    padding: 4.25rem 0 0.5rem;
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+
+  .hero-panel-l {
+    padding: 0.5rem 0.1rem 0 0.65rem;
+  }
+
+  .hero-panel-r {
+    margin: 0 0.35rem;
   }
 
   .hero-left-text h1 {

@@ -70,11 +70,13 @@ function Hero() {
   };
 
   return (
-    <div
-      ref={heroRef}
-      style={{ backgroundImage: `url(${HeroBack})` }}
-      className="hero-container"
-    >
+    <div ref={heroRef} className="hero-container">
+      {/* Dedicated layer so the bg always paints edge-to-edge (padding/grid safe) */}
+      <div
+        className="hero-bg"
+        style={{ backgroundImage: `url(${HeroBack})` }}
+        aria-hidden="true"
+      />
       <div className="hero-panel-l">
         <motion.div
           style={isMobile ? undefined : { y: yLeft }}

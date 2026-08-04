@@ -60,7 +60,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  max-width: 40rem;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   padding-bottom: 5rem;
 }
@@ -70,14 +71,18 @@
   font-size: clamp(3rem, 17vw, 15rem);
   line-height: 1;
   color: var(--text-primary);
+  text-align: center;
+  width: 100%;
 }
 
 .photo-intro-bio {
-  margin: 0;
+  margin: 0 auto;
   color: var(--text-primary);
   font-size: clamp(1.05rem, 1.6vw, 1.2rem);
   line-height: 1.7;
   max-width: 34rem;
+  text-align: center;
+  width: 100%;
 }
 
 .photo-intro-bio p {
@@ -173,6 +178,11 @@
   max-height: 100%;
 }
 
+/* Mobile-only flex spacers (enabled in the max-width: 900px block) */
+.photo-slide-spacer {
+  display: none;
+}
+
 .photo-slide-image-wrap {
   position: relative;
   flex: 0 1 auto;
@@ -182,6 +192,23 @@
   border-radius: 0.5rem;
   overflow: hidden;
   background-color: transparent;
+}
+
+.photo-slide-image-wrap--clickable {
+  cursor: pointer;
+}
+
+.photo-slide-image-wrap--clickable:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.photo-slide-image-wrap--clickable:hover .photo-slide-image {
+  filter: brightness(1.03);
+}
+
+.photo-slide-image-wrap--clickable .photo-slide-image {
+  transition: filter 0.2s ease;
 }
 
 .photo-slide-image {
@@ -311,43 +338,104 @@
 
 @media (max-width: 900px) {
   /*
-   * Let the slide grow with image + card instead of clipping at 100dvh.
-   * Snap still lands on the top of each photo; extra height scrolls before
-   * the next snap.
+   * Intro centering — match slide left/right padding so the text
+   * is centred between the left edge and the dot nav on the right.
    */
+  .photo-intro {
+    padding: 7.5rem 2.25rem 2rem 1.25rem;
+    box-sizing: border-box;
+  }
+
+  .photo-intro-center {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .photo-intro-bio {
+    max-width: min(34rem, 100%);
+  }
+
   .photo-slide {
+    --photo-mobile-pad-top: 6.5rem;
+    --photo-mobile-pad-bottom: max(1.85rem, env(safe-area-inset-bottom, 0px));
+    --photo-mobile-chrome: 5.75rem;
+    --photo-mobile-frame: calc(
+      100svh - var(--photo-mobile-pad-top) - var(--photo-mobile-pad-bottom)
+    );
+    --photo-mobile-image-max: calc(
+      var(--photo-mobile-frame) - var(--photo-mobile-chrome)
+    );
+
     height: auto;
-    min-height: 100dvh;
-    padding: 6.5rem 2.25rem 2.5rem 1.25rem;
-    align-items: flex-start;
+    min-height: 100svh;
+    padding: var(--photo-mobile-pad-top) 2.25rem var(--photo-mobile-pad-bottom)
+      1.25rem;
+    align-items: stretch;
+    justify-content: flex-start;
     overflow: visible;
+    box-sizing: border-box;
   }
 
   .photo-slide-cluster {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: 1.25rem;
+    gap: 0;
     width: 100%;
+    flex: 1 1 auto;
+    min-height: var(--photo-mobile-frame);
+    height: auto;
     max-height: none;
     overflow: visible;
-    flex: 1 0 auto;
+  }
+
+  .photo-slide-cluster:has(.photo-description-box--collapsed) {
+    height: var(--photo-mobile-frame);
+    min-height: var(--photo-mobile-frame);
+    max-height: var(--photo-mobile-frame);
+    overflow: hidden;
+  }
+
+  .photo-slide-cluster:has(.photo-description-box--expanded) {
+    height: auto;
+    min-height: var(--photo-mobile-frame);
+    max-height: none;
+    overflow: visible;
+  }
+
+  .photo-slide-spacer {
+    display: block;
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+    pointer-events: none;
   }
 
   .photo-slide-image-wrap {
+    flex: 0 0 auto;
+    width: auto;
     max-width: 100%;
     max-height: none;
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    overflow: visible;
+    background-color: transparent;
   }
 
   .photo-slide-image {
     max-width: 100%;
-    max-height: min(42dvh, 360px);
+    max-height: var(--photo-mobile-image-max);
+    width: auto;
+    height: auto;
+    border-radius: 0.5rem;
   }
 
   .photo-slide-placeholder {
     width: min(100%, 420px);
-    max-height: min(42dvh, 360px);
+    max-height: var(--photo-mobile-image-max);
+    border-radius: 0.5rem;
   }
 
   .photo-slide-description {
@@ -357,9 +445,9 @@
     max-height: none;
     align-self: stretch;
     margin-inline: auto;
+    margin-top: 0.75rem;
   }
 
-  /* Don’t clamp the card to a percentage of an auto-height parent */
   .photo-slide-description > * {
     max-height: none;
   }
@@ -370,14 +458,16 @@
 }
 
 @media (max-width: 480px) {
-  .photo-slide {
+  .photo-intro {
     padding-left: 1rem;
     padding-right: 2rem;
-    padding-bottom: 2.75rem;
   }
 
-  .photo-slide-image {
-    max-height: min(38dvh, 300px);
+  .photo-slide {
+    --photo-mobile-pad-bottom: max(1.65rem, env(safe-area-inset-bottom, 0px));
+    --photo-mobile-chrome: 5.5rem;
+    padding-left: 1rem;
+    padding-right: 2rem;
   }
 }
 
