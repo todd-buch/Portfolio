@@ -7,8 +7,8 @@ import {
   type AnimationPlaybackControls,
 } from "framer-motion";
 import "./Hero.css";
-import HeroBack from "/src/assets/HeroBack.png";
-import MiddleImg from "/src/assets/Todd-Middle.png";
+import HeroBack from "/src/assets/HeroBack.webp";
+import MiddleImg from "/src/assets/Todd-Middle.webp";
 
 import { ArrowDown, CircleSmall } from "lucide-react";
 

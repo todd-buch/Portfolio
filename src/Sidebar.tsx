@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
-import sideLogoWht from "/src/assets/LogoWHT.png";
-import sideLogoBlk from "/src/assets/LogoBLK.png";
+import sideLogoWht from "/src/assets/LogoWHT.webp";
+import sideLogoBlk from "/src/assets/LogoBLK.webp";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa6";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "./useTheme";
