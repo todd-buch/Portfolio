@@ -70,14 +70,18 @@
   font-size: clamp(3rem, 17vw, 15rem);
   line-height: 1;
   color: var(--text-primary);
+  text-align: center;
+  width: 100%;
 }
 
 .photo-intro-bio {
-  margin: 0;
+  margin: 0 auto;
   color: var(--text-primary);
   font-size: clamp(1.05rem, 1.6vw, 1.2rem);
   line-height: 1.7;
   max-width: 34rem;
+  text-align: center;
+  width: 100%;
 }
 
 .photo-intro-bio p {
@@ -332,6 +336,37 @@
 
 
 @media (max-width: 900px) {
+  /*
+   * Intro: slightly smaller type + equal gutters so the block reads centered
+   * (side dots make a pure center look left-shifted).
+   */
+  .photo-intro {
+    padding: 6.5rem 1.75rem 2rem;
+    /* Optical balance vs. the right-side page dots */
+    padding-left: calc(1.75rem + 0.45rem);
+    padding-right: 1.75rem;
+    box-sizing: border-box;
+  }
+
+  .photo-intro-center {
+    width: 100%;
+    max-width: 22rem;
+    margin-inline: auto;
+    padding-bottom: 4.5rem;
+    box-sizing: border-box;
+  }
+
+  .photo-intro-title {
+    font-size: clamp(2.6rem, 12.5vw, 4.25rem);
+    letter-spacing: 0.01em;
+  }
+
+  .photo-intro-bio {
+    font-size: clamp(0.98rem, 3.6vw, 1.1rem);
+    max-width: 100%;
+    line-height: 1.65;
+  }
+
   /*
    * Mobile frame (spacer model):
    *   [spacer flex] — equal top/bottom spacers center the image

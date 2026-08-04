@@ -293,6 +293,17 @@ export default function PhotoScroller({
     };
   }, [slides, endContent, hasIntro]);
 
+  // Let description cards collapse when the user leaves their slide.
+  useEffect(() => {
+    const root = scrollerRef.current;
+    if (!root) return;
+    root.dispatchEvent(
+      new CustomEvent("photo-active-change", {
+        detail: { activeIndex, dotsDimmed },
+      }),
+    );
+  }, [activeIndex, dotsDimmed]);
+
   const goTo = useCallback(
     (index: number) => {
       const el = slideRefs.current[index];

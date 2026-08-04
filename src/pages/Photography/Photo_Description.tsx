@@ -53,6 +53,38 @@ export default function Photo_Description({
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  // Auto-collapse when the scroller moves to another photo (or intro/footer).
+  useEffect(() => {
+    const scroller = findPhotoScroller(boxRef.current);
+    if (!scroller) return;
+
+    const onActiveChange = (event: Event) => {
+      if (!expanded) return;
+      const detail = (event as CustomEvent<{ activeIndex: number; dotsDimmed: boolean }>)
+        .detail;
+      const slide = boxRef.current?.closest(
+        "[data-slide-index]",
+      ) as HTMLElement | null;
+      if (!slide) return;
+
+      const myIndex = Number(slide.dataset.slideIndex);
+      const leftSlide =
+        detail?.dotsDimmed === true ||
+        (Number.isFinite(myIndex) && myIndex !== detail?.activeIndex);
+
+      if (leftSlide) {
+        // Quiet collapse — do not fight the user's scroll position.
+        scrollBeforeExpand.current = null;
+        setExpanded(false);
+      }
+    };
+
+    scroller.addEventListener("photo-active-change", onActiveChange);
+    return () => {
+      scroller.removeEventListener("photo-active-change", onActiveChange);
+    };
+  }, [expanded]);
+
   const openGallery = () => {
     if (!galleryTo) return;
 
