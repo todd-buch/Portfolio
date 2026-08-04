@@ -344,8 +344,13 @@
    */
   .photo-slide {
     --photo-mobile-pad-top: 6.5rem;
-    --photo-mobile-pad-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
-    --photo-mobile-chrome: 6.25rem;
+    /* Extra bottom room so the title bar never sits under the home indicator */
+    --photo-mobile-pad-bottom: max(1.85rem, env(safe-area-inset-bottom, 0px));
+    /*
+     * Collapsed title card + its top margin. Keep this ≥ real card height —
+     * tall portraits use the full image budget and leave no spacer slack.
+     */
+    --photo-mobile-chrome: 5.75rem;
     --photo-mobile-frame: calc(
       100svh - var(--photo-mobile-pad-top) - var(--photo-mobile-pad-bottom)
     );
@@ -367,7 +372,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: 0.85rem;
+    /* No flex gap — zero-height spacers still create gaps and overflow the frame */
+    gap: 0;
     width: 100%;
     flex: 1 1 auto;
     min-height: var(--photo-mobile-frame);
@@ -434,7 +440,8 @@
     max-height: none;
     align-self: stretch;
     margin-inline: auto;
-    margin-top: 0;
+    /* Sole spacing between image and card (replaces cluster gap) */
+    margin-top: 0.75rem;
   }
 
   .photo-slide-description > * {
@@ -448,8 +455,8 @@
 
 @media (max-width: 480px) {
   .photo-slide {
-    --photo-mobile-pad-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
-    --photo-mobile-chrome: 6rem;
+    --photo-mobile-pad-bottom: max(1.65rem, env(safe-area-inset-bottom, 0px));
+    --photo-mobile-chrome: 5.5rem;
     padding-left: 1rem;
     padding-right: 2rem;
   }
