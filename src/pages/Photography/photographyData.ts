@@ -34,12 +34,12 @@ export const photographyIntro = {
   bio: "Outside of Software Development, I enjoy capturing moments through photography. My interests include cars, motorsports, landscapes, and candid portraits. This page showcases a selection of my favorite shots.",
 };
 
-/* Higlights */
-import NTS1 from "./galleries/NASCAR-Truck-Series/01 - Poster.jpg";
-import NNH1 from "./galleries/NASCAR-NH/DSC06772.jpg";
-import CS1 from "./galleries/Car-Shows/01 - DSC02846.jpg";
-import LI1 from "./galleries/Long-Island/01 - DSC06229.jpg";
-import UConn1 from "./galleries/UConn/DSC00968_HDR.jpg";
+/* Highlights */
+import NTS1 from "./galleries/NASCAR-Truck-Series/01 - Poster.webp";
+import NNH1 from "./galleries/NASCAR-NH/DSC06772.webp";
+import CS1 from "./galleries/Car-Shows/01 - DSC02846.webp";
+import LI1 from "./galleries/Long-Island/01 - DSC06229.webp";
+import UConn1 from "./galleries/UConn/DSC00968_HDR.webp";
 
 export const featuredPhotos: FeaturedPhoto[] = [
   {

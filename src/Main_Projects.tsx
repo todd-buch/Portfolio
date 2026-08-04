@@ -104,12 +104,12 @@ export default function Main_Projects() {
             operations and managing staff scheduling, as well as resource
             allocation to ensure seamless service delivery for our clients. I
             also serve as the main point of contact for key clients, assist with
-            customer service when escalation is needed, and manage our project
+            customer service when escalation is needed, and manage our projects
             and timelines.
           </p>
           <p className="main-regular-text-block-body">
             In addition to managing studio operations and leading the team, I
-            developed automated workflows, reducing repetive administrative
+            developed automated workflows, reducing repetitive administrative
             tasks, which significantly increased operational efficiency and
             staff productivity. One major project I completed was automating
             bulk image resizing, adding watermarks, and creating print release
@@ -123,7 +123,7 @@ export default function Main_Projects() {
               </p>
               <p>
                 For the automated image resizing and watermarking, a simple
-                python script was made which is able to process images in batch,
+                Python script was made which is able to process images in batch,
                 and change the color of the watermark to ensure it remains
                 visible on the image regardless of the background color. This
                 saves time when preparing images to be sent to clients.

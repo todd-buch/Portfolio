@@ -38,3 +38,20 @@ galleries/
 - Prefer `01-`, `02-` prefixes if you care about order.
 - Filenames become default alt text (`my-shot.jpg` → “my shot”).
 - Empty folders are fine while scaffolding; the gallery page will say there are no images yet.
+
+## Optimize for the web
+
+Galleries ship **WebP/AVIF only** (see `loadGalleryImages.ts`).
+
+**Adding new photos**
+
+1. Drop source JPG/PNG into `galleries/<slug>/`.
+2. Run from repo root:
+
+   ```bash
+   ./scripts/optimize_images.sh
+   ```
+
+3. Remove the sources once the `.webp` files look good (or use `--remove-sources` on the script).
+
+Featured imports in `photographyData.ts` are manual — point them at the `.webp` path.

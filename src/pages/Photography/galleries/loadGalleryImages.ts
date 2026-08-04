@@ -1,14 +1,17 @@
 import type { PhotoAsset } from "../photographyData";
 
 /**
- * Auto-import every image under galleries/<slug>/* via Vite.
+ * Auto-import gallery delivery images under galleries/<slug>/*.
  * Drop files into the matching folder — no manual import list required.
  *
- * Supported: jpg, jpeg, png, webp, avif (any case).
+ * Delivery formats only (WebP / AVIF). Keep source JPG/PNG beside them for
+ * re-encoding via `./scripts/optimize_images.sh`; Vite will not bundle the
+ * sources because they are outside this glob.
+ *
  * Sort is alphabetical / natural on the filename.
  */
 const galleryImageModules = import.meta.glob(
-  "./*/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  "./*/*.{webp,avif,WEBP,AVIF}",
   {
     eager: true,
     import: "default",
@@ -28,7 +31,7 @@ function altFromFilename(filename: string): string {
     .trim();
 }
 
-/** All images in `galleries/<slug>/`, sorted by filename. */
+/** All delivery images in `galleries/<slug>/`, sorted by filename. */
 export function loadGalleryPhotos(slug: string): PhotoAsset[] {
   const prefix = `./${slug}/`;
 
