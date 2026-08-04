@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useCallback, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../Footer";
 import Photo_Description from "./Photo_Description";
 import PhotoScroller, { type PhotoSlide } from "./PhotoScroller";
 import {
   consumeFeaturedReturnId,
+  rememberFeaturedForReturn,
   type PhotographyLocationState,
 } from "./photoNav";
 import { featuredPhotos, photographyIntro } from "./photographyData";
@@ -20,6 +21,7 @@ function descriptionParagraphs(text: string) {
 
 export default function Photography() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [restoreIndex] = useState<number | undefined>(() => {
     const featuredId = consumeFeaturedReturnId(
@@ -30,23 +32,47 @@ export default function Photography() {
     return index >= 0 ? index : undefined;
   });
 
-  const slides: PhotoSlide[] = featuredPhotos.map((photo) => ({
-    id: photo.id,
-    imageSrc: photo.src,
-    imageAlt: photo.alt,
-    description: (
-      <Photo_Description
-        title={photo.title}
-        date={photo.date}
-        featuredId={photo.id}
-        galleryTo={
-          photo.gallerySlug ? `/photography/${photo.gallerySlug}` : undefined
-        }
-      >
-        {descriptionParagraphs(photo.description)}
-      </Photo_Description>
-    ),
-  }));
+  const openGalleryFor = useCallback(
+    (featuredId: string, gallerySlug: string) => {
+      rememberFeaturedForReturn(featuredId);
+      navigate(".", {
+        replace: true,
+        state: { restoreFeaturedId: featuredId } satisfies PhotographyLocationState,
+      });
+      navigate(`/photography/${gallerySlug}`, {
+        state: {
+          fromFeaturedId: featuredId,
+        } satisfies PhotographyLocationState,
+      });
+    },
+    [navigate],
+  );
+
+  const slides: PhotoSlide[] = featuredPhotos.map((photo) => {
+    const galleryTo = photo.gallerySlug
+      ? `/photography/${photo.gallerySlug}`
+      : undefined;
+
+    return {
+      id: photo.id,
+      imageSrc: photo.src,
+      imageAlt: photo.alt,
+      onImageClick:
+        photo.gallerySlug != null
+          ? () => openGalleryFor(photo.id, photo.gallerySlug!)
+          : undefined,
+      description: (
+        <Photo_Description
+          title={photo.title}
+          date={photo.date}
+          featuredId={photo.id}
+          galleryTo={galleryTo}
+        >
+          {descriptionParagraphs(photo.description)}
+        </Photo_Description>
+      ),
+    };
+  });
 
   const intro = (
     <>

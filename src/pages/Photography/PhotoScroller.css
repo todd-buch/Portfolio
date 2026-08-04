@@ -184,6 +184,23 @@
   background-color: transparent;
 }
 
+.photo-slide-image-wrap--clickable {
+  cursor: pointer;
+}
+
+.photo-slide-image-wrap--clickable:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.photo-slide-image-wrap--clickable:hover .photo-slide-image {
+  filter: brightness(1.03);
+}
+
+.photo-slide-image-wrap--clickable .photo-slide-image {
+  transition: filter 0.2s ease;
+}
+
 .photo-slide-image {
   display: block;
   width: auto;

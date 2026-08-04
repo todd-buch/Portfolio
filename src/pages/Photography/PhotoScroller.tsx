@@ -19,8 +19,9 @@ export type PhotoSlide = {
   imageSrc?: string;
   imageAlt: string;
   description: ReactNode;
+  /** When set, clicking/activating the image runs this (e.g. open gallery). */
+  onImageClick?: () => void;
 };
-
 interface PhotoScrollerProps {
   slides: PhotoSlide[];
   label?: string;
@@ -358,8 +359,30 @@ export default function PhotoScroller({
           >
             <div className="photo-slide-cluster">
               <div
-                className="photo-slide-image-wrap"
+                className={`photo-slide-image-wrap${
+                  slide.onImageClick
+                    ? " photo-slide-image-wrap--clickable"
+                    : ""
+                }`}
                 onContextMenu={blockImageSave}
+                onClick={slide.onImageClick}
+                onKeyDown={
+                  slide.onImageClick
+                    ? (e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          slide.onImageClick?.();
+                        }
+                      }
+                    : undefined
+                }
+                role={slide.onImageClick ? "button" : undefined}
+                tabIndex={slide.onImageClick ? 0 : undefined}
+                aria-label={
+                  slide.onImageClick
+                    ? `Open gallery for ${slide.imageAlt}`
+                    : undefined
+                }
               >
                 {slide.imageSrc ? (
                   <img
