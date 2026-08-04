@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Action_Button from "../../Reuseable-Components/Action_Button";
@@ -53,8 +54,9 @@ export default function Photo_Description({
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  // Auto-collapse only after scroll settles on another photo (or intro/footer).
-  // Instant close — animated shrink mid-scroll was landing between slides.
+  // Auto-collapse after scroll settles on another photo (or intro/footer).
+  // flushSync so the parent can adjust scroll before the next paint — otherwise
+  // a re-render restores --expanded for a frame (tall previous image flash).
   useEffect(() => {
     const scroller = findPhotoScroller(boxRef.current);
     if (!scroller) return;
@@ -76,11 +78,11 @@ export default function Photo_Description({
 
       if (!leftSlide) return;
 
-      // Scroller may have already applied collapsed classes for scroll stability.
       scrollBeforeExpand.current = null;
       boxRef.current?.classList.add("photo-description-box--instant");
-      setExpanded(false);
-      // Keep instant off-animation until after paint so we don't re-animate shut.
+      flushSync(() => {
+        setExpanded(false);
+      });
       window.setTimeout(() => {
         boxRef.current?.classList.remove("photo-description-box--instant");
       }, 50);

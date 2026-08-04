@@ -303,9 +303,10 @@ export default function PhotoScroller({
   }, [slides, endContent, hasIntro]);
 
   /*
-   * After scroll settles: if an open card is on a non-active slide, collapse
-   * it in the DOM first and snap in the same turn. A delayed snap after React
-   * reflow let the tall previous slide flash for a frame.
+   * After scroll settles: collapse open cards on non-active slides via
+   * flushSync (in Photo_Description), then snap with snap-scrolling disabled.
+   * Order matters — scrollTop before React commit re-expanded the card for a
+   * frame and flashed the previous tall image.
    */
   useEffect(() => {
     const root = scrollerRef.current;
@@ -322,7 +323,7 @@ export default function PhotoScroller({
       const expanded = Array.from(
         root.querySelectorAll(".photo-description-box--expanded"),
       );
-      const toCollapse = expanded.filter((box) => {
+      const needsCollapse = expanded.some((box) => {
         const slide = box.closest("[data-slide-index]") as HTMLElement | null;
         if (!slide) return false;
         const myIndex = Number(slide.dataset.slideIndex);
@@ -330,41 +331,36 @@ export default function PhotoScroller({
       });
 
       // Same-slide expand/scroll: leave the user where they are.
-      if (toCollapse.length === 0) return;
+      if (!needsCollapse) return;
 
       settleLock = true;
+      // Disable mandatory snap so height change can't re-snap to the old slide.
+      setProgrammaticScroll(true);
 
-      // Instant DOM collapse so layout updates before the next paint.
-      toCollapse.forEach((box) => {
-        box.classList.add(
-          "photo-description-box--instant",
-          "photo-description-box--collapsed",
-        );
-        box.classList.remove("photo-description-box--expanded");
-      });
-
-      // Force layout, then land on the active slide in this same turn.
-      void root.offsetHeight;
-      if (!dimmed) {
-        const el = slideRefs.current[idx];
-        if (el) {
-          root.scrollTo({ top: el.offsetTop, behavior: "instant" });
-        }
-      }
-
-      // Sync React state (no further scroll from this path).
+      // React state collapse first (listeners use flushSync).
       root.dispatchEvent(
         new CustomEvent("photo-active-change", {
           detail: { activeIndex: idx, dotsDimmed: dimmed },
         }),
       );
 
-      window.setTimeout(() => {
+      void root.offsetHeight;
+
+      if (!dimmed) {
+        const el = slideRefs.current[idx];
+        if (el) {
+          root.scrollTop = el.offsetTop;
+        }
+      }
+
+      requestAnimationFrame(() => {
+        setProgrammaticScroll(false);
         settleLock = false;
-      }, 200);
+      });
     };
 
     const onScroll = () => {
+      if (settleLock) return;
       if (settleTimer != null) clearTimeout(settleTimer);
       settleTimer = setTimeout(settle, 160);
     };
@@ -376,7 +372,7 @@ export default function PhotoScroller({
       root.removeEventListener("scroll", onScroll);
       root.removeEventListener("scrollend", settle);
     };
-  }, [slidesKey]);
+  }, [slidesKey, setProgrammaticScroll]);
 
   const goTo = useCallback(
     (index: number) => {
