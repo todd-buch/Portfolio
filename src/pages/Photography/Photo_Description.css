@@ -189,10 +189,6 @@
     margin-bottom: 0.25rem;
   }
 
-  /*
-   * Smooth open/close via grid rows (works even when the card sits below a
-   * short landscape image with empty space — no scroll "cover" for the jump).
-   */
   .photo-description-details {
     display: grid;
     grid-template-rows: 1fr;

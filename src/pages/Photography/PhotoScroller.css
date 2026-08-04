@@ -355,24 +355,9 @@
     max-width: min(34rem, 100%);
   }
 
-  /*
-   * Mobile frame (spacer model):
-   *   [spacer flex] — equal top/bottom spacers center the image
-   *   [image]
-   *   [spacer flex]
-   *   [description] — always at the bottom of the frame
-   *
-   * Expanding the card only changes card height; spacers absorb the
-   * difference so the card does not jump up under the image.
-   */
   .photo-slide {
     --photo-mobile-pad-top: 6.5rem;
-    /* Extra bottom room so the title bar never sits under the home indicator */
     --photo-mobile-pad-bottom: max(1.85rem, env(safe-area-inset-bottom, 0px));
-    /*
-     * Collapsed title card + its top margin. Keep this ≥ real card height —
-     * tall portraits use the full image budget and leave no spacer slack.
-     */
     --photo-mobile-chrome: 5.75rem;
     --photo-mobile-frame: calc(
       100svh - var(--photo-mobile-pad-top) - var(--photo-mobile-pad-bottom)
@@ -395,7 +380,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    /* No flex gap — zero-height spacers still create gaps and overflow the frame */
     gap: 0;
     width: 100%;
     flex: 1 1 auto;
@@ -405,7 +389,6 @@
     overflow: visible;
   }
 
-  /* Collapsed: lock to one viewport so the title bar cannot sit off-screen */
   .photo-slide-cluster:has(.photo-description-box--collapsed) {
     height: var(--photo-mobile-frame);
     min-height: var(--photo-mobile-frame);
@@ -413,7 +396,6 @@
     overflow: hidden;
   }
 
-  /* Expanded: grow past the frame; keep min-height so spacers still work */
   .photo-slide-cluster:has(.photo-description-box--expanded) {
     height: auto;
     min-height: var(--photo-mobile-frame);
@@ -463,7 +445,6 @@
     max-height: none;
     align-self: stretch;
     margin-inline: auto;
-    /* Sole spacing between image and card (replaces cluster gap) */
     margin-top: 0.75rem;
   }
 

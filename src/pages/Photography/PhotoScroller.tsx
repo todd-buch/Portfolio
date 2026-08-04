@@ -302,12 +302,6 @@ export default function PhotoScroller({
     };
   }, [slides, endContent, hasIntro]);
 
-  /*
-   * After scroll settles: collapse open cards on non-active slides via
-   * flushSync (in Photo_Description), then snap with snap-scrolling disabled.
-   * Order matters — scrollTop before React commit re-expanded the card for a
-   * frame and flashed the previous tall image.
-   */
   useEffect(() => {
     const root = scrollerRef.current;
     if (!root) return;

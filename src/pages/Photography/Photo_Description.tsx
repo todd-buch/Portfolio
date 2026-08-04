@@ -43,7 +43,6 @@ export default function Photo_Description({
   const hasDetails = hasDate || hasBody || Boolean(galleryTo);
 
   // Collapse again when leaving the mobile breakpoint so desktop never
-  // inherits a stuck "expanded" state after rotation / resize.
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 900px)");
     const onChange = () => {
@@ -57,8 +56,6 @@ export default function Photo_Description({
   }, []);
 
   // Auto-collapse after scroll settles on another photo (or intro/footer).
-  // flushSync so the parent can adjust scroll before the next paint — otherwise
-  // a re-render restores --expanded for a frame (tall previous image flash).
   useEffect(() => {
     const scroller = findPhotoScroller(boxRef.current);
     if (!scroller) return;
@@ -119,8 +116,6 @@ export default function Photo_Description({
     const slide = boxRef.current?.closest(".photo-slide") as HTMLElement | null;
 
     if (expanded) {
-      // Collapse: restore scroll FIRST (instant) so the next slide never
-      // flashes while the card height is animating closed.
       const saved = scrollBeforeExpand.current;
       scrollBeforeExpand.current = null;
       if (scroller) {
@@ -134,8 +129,6 @@ export default function Photo_Description({
       setExpanded(false);
       return;
     }
-
-    // Expand: remember framing, open card, then gently reveal overflow.
     scrollBeforeExpand.current = scroller?.scrollTop ?? null;
     setExpanded(true);
 
@@ -153,7 +146,6 @@ export default function Photo_Description({
       const overflowBottom = boxRect.bottom - (rootRect.bottom - bottomPad);
       if (overflowBottom <= 0) return;
 
-      // Ensure the top of the card does not scroll above the top header boundary
       const maxScrollToKeepTopVisible = Math.max(0, boxRect.top - (rootRect.top + topBoundary));
       const scrollAmount = Math.min(overflowBottom, maxScrollToKeepTopVisible);
 

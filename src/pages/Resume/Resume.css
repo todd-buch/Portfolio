@@ -149,7 +149,6 @@
     grid-template-columns: 1fr;
   }
 
-  /* Preserve intended type scale; overflow was causing soft layout squeeze */
   .resume-card-title {
     font-size: 2rem;
   }
