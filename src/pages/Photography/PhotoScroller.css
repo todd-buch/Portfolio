@@ -60,7 +60,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  max-width: 40rem;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   padding-bottom: 5rem;
 }
@@ -337,20 +338,16 @@
 
 @media (max-width: 900px) {
   /*
-   * Intro centering only — keep original type scale; nudge for side dots.
+   * Intro centering — match slide left/right padding so the text
+   * is centred between the left edge and the dot nav on the right.
    */
   .photo-intro {
-    padding: 7.5rem 2rem 2rem;
-    padding-left: calc(2rem + 0.45rem);
-    padding-right: 2rem;
+    padding: 7.5rem 2.25rem 2rem 1.25rem;
     box-sizing: border-box;
   }
 
   .photo-intro-center {
     width: 100%;
-    max-width: 40rem;
-    margin-inline: auto;
-    padding-bottom: 5rem;
     box-sizing: border-box;
   }
 
@@ -480,6 +477,11 @@
 }
 
 @media (max-width: 480px) {
+  .photo-intro {
+    padding-left: 1rem;
+    padding-right: 2rem;
+  }
+
   .photo-slide {
     --photo-mobile-pad-bottom: max(1.65rem, env(safe-area-inset-bottom, 0px));
     --photo-mobile-chrome: 5.5rem;

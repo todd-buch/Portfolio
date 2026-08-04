@@ -225,13 +225,13 @@
     font-size: clamp(1.2rem, 5.2vw, 1.55rem);
     line-height: 1.2;
   }
-}
 
-/* Programmatic collapse (scroll away) — no height animation that fights scroll */
-.photo-description-box--instant .photo-description-details,
-.photo-description-box--instant .photo-description-top,
-.photo-description-box--instant .photo-description-toggle-icon {
-  transition: none !important;
+  /* Programmatic collapse (scroll away) — no height animation that fights scroll */
+  .photo-description-box--instant .photo-description-details,
+  .photo-description-box--instant .photo-description-top,
+  .photo-description-box--instant .photo-description-toggle-icon {
+    transition: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -35,6 +35,8 @@ export default function Photo_Description({
   const scrollBeforeExpand = useRef<number | null>(null);
   const detailsId = useId();
   const [expanded, setExpanded] = useState(false);
+  const expandedRef = useRef(expanded);
+  expandedRef.current = expanded;
 
   const hasDate = date != null && date !== "";
   const hasBody = children != null && children !== "";
@@ -62,7 +64,7 @@ export default function Photo_Description({
     if (!scroller) return;
 
     const onActiveChange = (event: Event) => {
-      if (!expanded) return;
+      if (!expandedRef.current) return;
       const detail = (
         event as CustomEvent<{ activeIndex: number; dotsDimmed: boolean }>
       ).detail;
@@ -92,7 +94,7 @@ export default function Photo_Description({
     return () => {
       scroller.removeEventListener("photo-active-change", onActiveChange);
     };
-  }, [expanded]);
+  }, []);
 
   const openGallery = () => {
     if (!galleryTo) return;
@@ -144,16 +146,24 @@ export default function Photo_Description({
 
       const boxRect = box.getBoundingClientRect();
       const rootRect = root.getBoundingClientRect();
-      const pad = 16;
-      const overflowBottom = boxRect.bottom - (rootRect.bottom - pad);
+      const bottomPad = 16;
+      const isMobile = window.innerWidth <= 900;
+      const topBoundary = isMobile ? 104 : 128;
+
+      const overflowBottom = boxRect.bottom - (rootRect.bottom - bottomPad);
       if (overflowBottom <= 0) return;
 
-      const maxNudge = root.clientHeight * 0.35;
-      root.scrollBy({
-        top: Math.min(overflowBottom, maxNudge),
-        behavior: "smooth",
-      });
-    }, 360);
+      // Ensure the top of the card does not scroll above the top header boundary
+      const maxScrollToKeepTopVisible = Math.max(0, boxRect.top - (rootRect.top + topBoundary));
+      const scrollAmount = Math.min(overflowBottom, maxScrollToKeepTopVisible);
+
+      if (scrollAmount > 0) {
+        root.scrollBy({
+          top: scrollAmount,
+          behavior: "smooth",
+        });
+      }
+    }, 400);
   };
 
   const boxClass = [
