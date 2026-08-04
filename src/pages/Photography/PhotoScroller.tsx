@@ -303,9 +303,10 @@ export default function PhotoScroller({
   }, [slides, endContent, hasIntro]);
 
   /*
-   * After the user stops scrolling, collapse any open description that is not
-   * on the active slide, then snap to that slide's top. Doing this mid-scroll
-   * shrinks the previous slide and leaves you in the gap between photos.
+   * After the user stops scrolling, collapse open descriptions that are not
+   * on the active slide, then snap to that slide. Only snap when we actually
+   * collapsed something — otherwise expand's own scroll nudge gets undone and
+   * the open card is yanked off-screen (especially on tall photos).
    */
   useEffect(() => {
     const root = scrollerRef.current;
@@ -317,13 +318,29 @@ export default function PhotoScroller({
       const idx = activeIndexRef.current;
       const dimmed = dotsDimmedRef.current;
 
+      const expanded = root.querySelectorAll(
+        ".photo-description-box--expanded",
+      );
+      let needsCollapse = false;
+      expanded.forEach((box) => {
+        const slide = box.closest("[data-slide-index]") as HTMLElement | null;
+        if (!slide) return;
+        const myIndex = Number(slide.dataset.slideIndex);
+        if (dimmed || (Number.isFinite(myIndex) && myIndex !== idx)) {
+          needsCollapse = true;
+        }
+      });
+
+      // Same-slide expand/scroll: leave the user where they are.
+      if (!needsCollapse) return;
+
       root.dispatchEvent(
         new CustomEvent("photo-active-change", {
           detail: { activeIndex: idx, dotsDimmed: dimmed },
         }),
       );
 
-      // Wait for React to collapse + layout, then land on the active slide.
+      // After collapse layout, land on the active slide (not a gap).
       window.setTimeout(() => {
         if (dimmed) return;
         const el = slideRefs.current[idx];
