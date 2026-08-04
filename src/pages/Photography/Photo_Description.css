@@ -106,6 +106,13 @@
   flex: 1 1 auto;
 }
 
+.photo-description-details-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
 .photo-description-body {
   color: var(--text-primary);
   line-height: 1.65;
@@ -153,6 +160,7 @@
     flex-direction: row;
     align-items: flex-start;
     gap: 0.5rem;
+    transition: margin-bottom 0.38s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .photo-description-heading-row {
@@ -182,15 +190,29 @@
   }
 
   /*
-   * Mobile default: title + chevron only so the photo can use more vertical
-   * space and long copy is not clipped. Expand to reveal date/body/actions.
+   * Smooth open/close via grid rows (works even when the card sits below a
+   * short landscape image with empty space — no scroll "cover" for the jump).
    */
+  .photo-description-details {
+    display: grid;
+    grid-template-rows: 1fr;
+    flex: 0 0 auto;
+    min-height: 0;
+    transition: grid-template-rows 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .photo-description-details-inner {
+    overflow: hidden;
+    min-height: 0;
+    flex: none;
+  }
+
   .photo-description-box--collapsed .photo-description-top {
     margin-bottom: 0;
   }
 
   .photo-description-box--collapsed .photo-description-details {
-    display: none;
+    grid-template-rows: 0fr;
   }
 
   .photo-description-box--collapsed {
@@ -207,6 +229,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .photo-description-toggle-icon {
+    transition: none;
+  }
+
+  .photo-description-details {
     transition: none;
   }
 }
