@@ -53,15 +53,17 @@ export default function Photo_Description({
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  // Auto-collapse when the scroller moves to another photo (or intro/footer).
+  // Auto-collapse only after scroll settles on another photo (or intro/footer).
+  // Instant close — animated shrink mid-scroll was landing between slides.
   useEffect(() => {
     const scroller = findPhotoScroller(boxRef.current);
     if (!scroller) return;
 
     const onActiveChange = (event: Event) => {
       if (!expanded) return;
-      const detail = (event as CustomEvent<{ activeIndex: number; dotsDimmed: boolean }>)
-        .detail;
+      const detail = (
+        event as CustomEvent<{ activeIndex: number; dotsDimmed: boolean }>
+      ).detail;
       const slide = boxRef.current?.closest(
         "[data-slide-index]",
       ) as HTMLElement | null;
@@ -72,11 +74,15 @@ export default function Photo_Description({
         detail?.dotsDimmed === true ||
         (Number.isFinite(myIndex) && myIndex !== detail?.activeIndex);
 
-      if (leftSlide) {
-        // Quiet collapse — do not fight the user's scroll position.
-        scrollBeforeExpand.current = null;
-        setExpanded(false);
-      }
+      if (!leftSlide) return;
+
+      scrollBeforeExpand.current = null;
+      boxRef.current?.classList.add("photo-description-box--instant");
+      setExpanded(false);
+      // Drop the instant flag after layout so the next open can animate.
+      requestAnimationFrame(() => {
+        boxRef.current?.classList.remove("photo-description-box--instant");
+      });
     };
 
     scroller.addEventListener("photo-active-change", onActiveChange);

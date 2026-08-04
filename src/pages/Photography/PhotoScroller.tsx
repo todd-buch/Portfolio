@@ -75,6 +75,15 @@ export default function PhotoScroller({
     () => resolvedStart < 0 || slides.length === 0,
   );
 
+  const activeIndexRef = useRef(activeIndex);
+  const dotsDimmedRef = useRef(dotsDimmed);
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+  useEffect(() => {
+    dotsDimmedRef.current = dotsDimmed;
+  }, [dotsDimmed]);
+
   const slidesKey = slides.map((s) => s.id).join("|");
 
   const setProgrammaticScroll = useCallback((on: boolean) => {
@@ -293,16 +302,52 @@ export default function PhotoScroller({
     };
   }, [slides, endContent, hasIntro]);
 
-  // Let description cards collapse when the user leaves their slide.
+  /*
+   * After the user stops scrolling, collapse any open description that is not
+   * on the active slide, then snap to that slide's top. Doing this mid-scroll
+   * shrinks the previous slide and leaves you in the gap between photos.
+   */
   useEffect(() => {
     const root = scrollerRef.current;
     if (!root) return;
-    root.dispatchEvent(
-      new CustomEvent("photo-active-change", {
-        detail: { activeIndex, dotsDimmed },
-      }),
-    );
-  }, [activeIndex, dotsDimmed]);
+
+    let settleTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const settle = () => {
+      const idx = activeIndexRef.current;
+      const dimmed = dotsDimmedRef.current;
+
+      root.dispatchEvent(
+        new CustomEvent("photo-active-change", {
+          detail: { activeIndex: idx, dotsDimmed: dimmed },
+        }),
+      );
+
+      // Wait for React to collapse + layout, then land on the active slide.
+      window.setTimeout(() => {
+        if (dimmed) return;
+        const el = slideRefs.current[idx];
+        if (!el) return;
+        const target = el.offsetTop;
+        if (Math.abs(root.scrollTop - target) > 4) {
+          root.scrollTo({ top: target, behavior: "instant" });
+        }
+      }, 48);
+    };
+
+    const onScroll = () => {
+      if (settleTimer != null) clearTimeout(settleTimer);
+      settleTimer = setTimeout(settle, 160);
+    };
+
+    root.addEventListener("scroll", onScroll, { passive: true });
+    root.addEventListener("scrollend", settle);
+    return () => {
+      if (settleTimer != null) clearTimeout(settleTimer);
+      root.removeEventListener("scroll", onScroll);
+      root.removeEventListener("scrollend", settle);
+    };
+  }, [slidesKey]);
 
   const goTo = useCallback(
     (index: number) => {
