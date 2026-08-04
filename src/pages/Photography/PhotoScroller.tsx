@@ -303,53 +303,65 @@ export default function PhotoScroller({
   }, [slides, endContent, hasIntro]);
 
   /*
-   * After the user stops scrolling, collapse open descriptions that are not
-   * on the active slide, then snap to that slide. Only snap when we actually
-   * collapsed something — otherwise expand's own scroll nudge gets undone and
-   * the open card is yanked off-screen (especially on tall photos).
+   * After scroll settles: if an open card is on a non-active slide, collapse
+   * it in the DOM first and snap in the same turn. A delayed snap after React
+   * reflow let the tall previous slide flash for a frame.
    */
   useEffect(() => {
     const root = scrollerRef.current;
     if (!root) return;
 
     let settleTimer: ReturnType<typeof setTimeout> | null = null;
+    let settleLock = false;
 
     const settle = () => {
+      if (settleLock) return;
       const idx = activeIndexRef.current;
       const dimmed = dotsDimmedRef.current;
 
-      const expanded = root.querySelectorAll(
-        ".photo-description-box--expanded",
+      const expanded = Array.from(
+        root.querySelectorAll(".photo-description-box--expanded"),
       );
-      let needsCollapse = false;
-      expanded.forEach((box) => {
+      const toCollapse = expanded.filter((box) => {
         const slide = box.closest("[data-slide-index]") as HTMLElement | null;
-        if (!slide) return;
+        if (!slide) return false;
         const myIndex = Number(slide.dataset.slideIndex);
-        if (dimmed || (Number.isFinite(myIndex) && myIndex !== idx)) {
-          needsCollapse = true;
-        }
+        return dimmed || (Number.isFinite(myIndex) && myIndex !== idx);
       });
 
       // Same-slide expand/scroll: leave the user where they are.
-      if (!needsCollapse) return;
+      if (toCollapse.length === 0) return;
 
+      settleLock = true;
+
+      // Instant DOM collapse so layout updates before the next paint.
+      toCollapse.forEach((box) => {
+        box.classList.add(
+          "photo-description-box--instant",
+          "photo-description-box--collapsed",
+        );
+        box.classList.remove("photo-description-box--expanded");
+      });
+
+      // Force layout, then land on the active slide in this same turn.
+      void root.offsetHeight;
+      if (!dimmed) {
+        const el = slideRefs.current[idx];
+        if (el) {
+          root.scrollTo({ top: el.offsetTop, behavior: "instant" });
+        }
+      }
+
+      // Sync React state (no further scroll from this path).
       root.dispatchEvent(
         new CustomEvent("photo-active-change", {
           detail: { activeIndex: idx, dotsDimmed: dimmed },
         }),
       );
 
-      // After collapse layout, land on the active slide (not a gap).
       window.setTimeout(() => {
-        if (dimmed) return;
-        const el = slideRefs.current[idx];
-        if (!el) return;
-        const target = el.offsetTop;
-        if (Math.abs(root.scrollTop - target) > 4) {
-          root.scrollTo({ top: target, behavior: "instant" });
-        }
-      }, 48);
+        settleLock = false;
+      }, 200);
     };
 
     const onScroll = () => {

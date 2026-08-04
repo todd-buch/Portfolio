@@ -76,13 +76,14 @@ export default function Photo_Description({
 
       if (!leftSlide) return;
 
+      // Scroller may have already applied collapsed classes for scroll stability.
       scrollBeforeExpand.current = null;
       boxRef.current?.classList.add("photo-description-box--instant");
       setExpanded(false);
-      // Drop the instant flag after layout so the next open can animate.
-      requestAnimationFrame(() => {
+      // Keep instant off-animation until after paint so we don't re-animate shut.
+      window.setTimeout(() => {
         boxRef.current?.classList.remove("photo-description-box--instant");
-      });
+      }, 50);
     };
 
     scroller.addEventListener("photo-active-change", onActiveChange);
