@@ -367,7 +367,7 @@ export default function Resume() {
                     <p>
                       Integrated Amazon Connect for telephony orchestration and
                       call flow management. Set up an Amazon Connect phone
-                      number, and creating the incoming call flow.
+                      number, and created the incoming call flow.
                     </p>
                   </li>
                   <li>
