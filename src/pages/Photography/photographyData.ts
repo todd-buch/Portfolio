@@ -40,6 +40,7 @@ import NNH1 from "./galleries/NASCAR-NH/DSC06772.webp";
 import CS1 from "./galleries/Car-Shows/01 - DSC02846.webp";
 import LI1 from "./galleries/Long-Island/01 - DSC06229.webp";
 import UConn1 from "./galleries/UConn/DSC00968_HDR.webp";
+import FSAE1 from "./galleries/FSAE/01 - DSC07746.webp";
 
 export const featuredPhotos: FeaturedPhoto[] = [
   {
@@ -90,6 +91,16 @@ export const featuredPhotos: FeaturedPhoto[] = [
       "Photos from my trip to Long Island. Nissequogue River State Park - Site of a former Psychiatric Center and the Old Westbury Gardens.",
     gallerySlug: "Long-Island",
   },
+  {
+    id: "FSAE",
+    src: FSAE1,
+    alt: "Formula SAE",
+    title: "Formula SAE",
+    date: "December 2025",
+    description:
+      "The Formula SAE club at the University of Connecticut. Student-designed and built race cars.",
+    gallerySlug: "FSAE",
+  }
 ];
 
 /* Gallery */
@@ -116,6 +127,13 @@ export const galleryMeta: Record<string, GalleryMeta> = {
     description:
       "Photos from my trip to Long Island. Nissequogue River State Park - Site of a former Psychiatric Center and the Old Westbury Gardens.",
   },
+  "FSAE": {
+    slug: "FSAE",
+    title: "Formula SAE",
+    date: "December 2025",
+    description:
+      "The Formula SAE club at the University of Connecticut. Student-designed and built race cars.",
+  }
 };
 
 export function getGallery(slug: string | undefined): PhotoGallery | undefined {
