@@ -304,7 +304,7 @@ export default function Main_Projects() {
                   <Gallery_Image
                     src={fireprevention2}
                     alt="Fire Prevention at the Edge UI"
-                    caption="The UI running on the Raspberry PI, showing the detected hazards and a recommendation."
+                    caption="The UI running on the Raspberry Pi, showing the detected hazards and a recommendation."
                   />
                 </Project_Image_Gallery>
               </Tech_Dropdown>
@@ -432,7 +432,7 @@ export default function Main_Projects() {
                   <Gallery_Image
                     src={Blackjack2}
                     alt="Blackjack agent chart"
-                    caption="Agent performance without Random Agent - The graph shows the total unit return of each agent over hands played. In this graph, we can see that overtime, the learning agent outperforms the lookup agent."
+                    caption="Agent performance without Random Agent - The graph shows the total unit return of each agent over hands played. In this graph, we can see that over time, the learning agent outperforms the lookup agent."
                   />
                 </Project_Image_Gallery>
               </Tech_Dropdown>

@@ -115,3 +115,25 @@
 .resume-card-details > *:last-child {
   margin-bottom: 0;
 }
+
+@media (max-width: 640px) {
+  .resume-card {
+    padding: 1.15rem;
+    margin-top: 0.65rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .resume-card-title {
+    font-size: 1.5rem;
+  }
+
+  .resume-card-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .resume-card-date,
+  .resume-card-location,
+  .resume-card-details-toggle {
+    font-size: 0.95rem;
+  }
+}

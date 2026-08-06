@@ -376,6 +376,15 @@
     box-sizing: border-box;
   }
 
+  /*
+   * Gallery slides include an always-visible back control under the title.
+   * Reserve extra chrome so tall images don't clip that button when the
+   * collapsed card is pinned to the viewport frame (overflow: hidden).
+   */
+  .photo-slide:has(.photo-description-box--with-back) {
+    --photo-mobile-chrome: 7.75rem;
+  }
+
   .photo-slide-cluster {
     flex-direction: column;
     align-items: center;
@@ -468,6 +477,10 @@
     --photo-mobile-chrome: 5.5rem;
     padding-left: 1rem;
     padding-right: 2rem;
+  }
+
+  .photo-slide:has(.photo-description-box--with-back) {
+    --photo-mobile-chrome: 7.5rem;
   }
 }
 

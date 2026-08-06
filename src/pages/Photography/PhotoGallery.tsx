@@ -83,23 +83,21 @@ export default function PhotoGallery() {
     imageSrc: photo.src,
     imageAlt: photo.alt,
     description: (
-      <Photo_Description title={gallery.title} date={gallery.date}>
+      <Photo_Description
+        title={gallery.title}
+        date={gallery.date}
+        onBack={goToPhotography}
+        backLabel="All photography"
+      >
         {descriptionParagraphs(gallery.description)}
-        <div className="photo-gallery-back-wrap">
-          <button
-            type="button"
-            className="photo-gallery-back"
-            onClick={goToPhotography}
-          >
-            <ArrowLeft size={18} strokeWidth={2.25} />
-            All photography
-          </button>
-        </div>
       </Photo_Description>
     ),
   }));
 
-  const initialIndex = photos.length > 1 ? 1 : 0;
+  // Skip the featured/hero image only when arriving from a highlight card.
+  // Direct links and refreshes start on the first photo.
+  const initialIndex =
+    fromFeaturedId && photos.length > 1 ? 1 : 0;
 
   return (
     <main className="photography-page">

@@ -45,6 +45,19 @@ function blockImageSave(e: MouseEvent) {
   e.preventDefault();
 }
 
+/** Eager-load active slide and neighbors so snap scrolling stays smooth. */
+function shouldEagerLoadImage(
+  index: number,
+  activeIndex: number,
+  resolvedStart: number,
+) {
+  if (Math.abs(index - activeIndex) <= 1) return true;
+  if (resolvedStart >= 0 && Math.abs(index - resolvedStart) <= 1) return true;
+  // Prefetch the first couple of photos while the intro is showing.
+  if (resolvedStart < 0 && index <= 1) return true;
+  return false;
+}
+
 export default function PhotoScroller({
   slides,
   label = "Photo gallery",
@@ -471,6 +484,19 @@ export default function PhotoScroller({
                     alt={slide.imageAlt}
                     className="photo-slide-image"
                     draggable={false}
+                    loading={
+                      shouldEagerLoadImage(index, activeIndex, resolvedStart)
+                        ? "eager"
+                        : "lazy"
+                    }
+                    decoding="async"
+                    fetchPriority={
+                      index === activeIndex ||
+                      (resolvedStart >= 0 && index === resolvedStart) ||
+                      (resolvedStart < 0 && index === 0)
+                        ? "high"
+                        : "auto"
+                    }
                     onContextMenu={blockImageSave}
                     onDragStart={blockImageSave}
                   />
@@ -518,6 +544,7 @@ export default function PhotoScroller({
                 className={`photo-dot${isActive ? " photo-dot--active" : ""}`}
                 aria-label={`Go to photo ${index + 1}${isActive ? " (current)" : ""}`}
                 aria-current={isActive ? "true" : undefined}
+                tabIndex={dotsDimmed ? -1 : undefined}
                 onClick={() => goTo(index)}
               />
             );

@@ -4,8 +4,8 @@
   padding: 4rem 1rem;
   max-width: min(750px, 100%);
   margin: 0 auto;
-  align-items: left;
-  justify-content: left;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
   margin-top: 10rem;
   box-sizing: border-box;

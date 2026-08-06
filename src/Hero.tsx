@@ -12,8 +12,16 @@ import MiddleImg from "/src/assets/Todd-Middle.webp";
 
 import { ArrowDown, CircleSmall } from "lucide-react";
 
+function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 function Hero() {
   const [isMobile, setIsMobile] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(prefersReducedMotion);
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollAnim = useRef<AnimationPlaybackControls | null>(null);
 
@@ -23,6 +31,20 @@ function Hero() {
     update();
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      scrollAnim.current?.stop();
+    };
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -43,6 +65,8 @@ function Hero() {
     opacity === 0 ? "hidden" : "visible",
   );
 
+  const disableParallax = isMobile || reduceMotion;
+
   const scrollToBio = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const bio = document.getElementById("bio");
@@ -51,20 +75,23 @@ function Hero() {
     const rect = bio.getBoundingClientRect();
     const targetY =
       window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
+    const top = Math.max(0, targetY);
 
     scrollAnim.current?.stop();
-    scrollAnim.current = animate(window.scrollY, Math.max(0, targetY), {
+
+    if (reduceMotion || prefersReducedMotion()) {
+      window.scrollTo({ top, left: 0, behavior: "auto" });
+      return;
+    }
+
+    scrollAnim.current = animate(window.scrollY, top, {
       duration: 1.35,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (value) => {
         window.scrollTo({ top: value, left: 0, behavior: "instant" });
       },
       onComplete: () => {
-        window.scrollTo({
-          top: Math.max(0, targetY),
-          left: 0,
-          behavior: "instant",
-        });
+        window.scrollTo({ top, left: 0, behavior: "instant" });
       },
     });
   };
@@ -79,7 +106,7 @@ function Hero() {
       />
       <div className="hero-panel-l">
         <motion.div
-          style={isMobile ? undefined : { y: yLeft }}
+          style={disableParallax ? undefined : { y: yLeft }}
           className="hero-left-text"
         >
           <h1>Code + Creative</h1>
@@ -93,7 +120,7 @@ function Hero() {
 
       <motion.div
         style={
-          isMobile
+          disableParallax
             ? undefined
             : {
                 y: yMiddle,
@@ -107,7 +134,7 @@ function Hero() {
       </motion.div>
 
       <motion.div
-        style={isMobile ? undefined : { y: yRight }}
+        style={disableParallax ? undefined : { y: yRight }}
         className="hero-panel-r"
       >
         <div className="hero-right-text">

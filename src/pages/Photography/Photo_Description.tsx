@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { flushSync } from "react-dom";
-import { ChevronDown } from "lucide-react";
+import { ArrowLeft, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Action_Button from "../../Reuseable-Components/Action_Button";
 import {
@@ -16,6 +16,9 @@ interface Photo_Description_Props {
   galleryTo?: string;
   galleryLabel?: string;
   featuredId?: string;
+  /** Always-visible back control (outside the mobile details dropdown). */
+  onBack?: () => void;
+  backLabel?: string;
 }
 
 function findPhotoScroller(from: HTMLElement | null): HTMLElement | null {
@@ -29,6 +32,8 @@ export default function Photo_Description({
   galleryTo,
   galleryLabel = "View the gallery",
   featuredId,
+  onBack,
+  backLabel = "All photography",
 }: Photo_Description_Props) {
   const navigate = useNavigate();
   const boxRef = useRef<HTMLDivElement>(null);
@@ -42,7 +47,7 @@ export default function Photo_Description({
   const hasBody = children != null && children !== "";
   const hasDetails = hasDate || hasBody || Boolean(galleryTo);
 
-  // Collapse again when leaving the mobile breakpoint so desktop never
+  // Collapse again when leaving the mobile breakpoint so desktop never shows a collapsed card.
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 900px)");
     const onChange = () => {
@@ -163,7 +168,10 @@ export default function Photo_Description({
     expanded
       ? "photo-description-box--expanded"
       : "photo-description-box--collapsed",
-  ].join(" ");
+    onBack ? "photo-description-box--with-back" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div ref={boxRef} className={boxClass}>
@@ -223,6 +231,20 @@ export default function Photo_Description({
           )}
         </div>
       </div>
+
+      {/* Outside the collapsible block so gallery back is one tap on mobile */}
+      {onBack && (
+        <div className="photo-description-back-wrap">
+          <button
+            type="button"
+            className="photo-description-back"
+            onClick={onBack}
+          >
+            <ArrowLeft size={18} strokeWidth={2.25} aria-hidden />
+            {backLabel}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

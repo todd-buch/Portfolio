@@ -148,11 +148,36 @@
 @media (max-width: 640px) {
   .resume-container {
     margin-top: 88px;
-    padding: 1.25rem 1rem 4rem;
+    padding: 1.25rem 1rem 3rem;
+  }
+
+  .resume-section {
+    margin-bottom: 2rem;
+  }
+
+  .resume-section-text {
+    margin-bottom: 2rem;
   }
 
   .resume-section-text h1 {
-    margin-bottom: 0.2rem;
+    margin: 1.5rem 0 0.2rem;
+    font-size: 3rem;
+  }
+
+  .resume-container h2 {
+    font-size: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .resume-divider {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .resume-divider-small {
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
   }
 
   .resume-contact-meta {
@@ -171,20 +196,6 @@
     grid-template-columns: 1fr;
   }
 
-  .resume-card-title {
-    font-size: 2rem;
-  }
-
-  .resume-card-subtitle {
-    font-size: 1.25rem;
-  }
-
-  .resume-card-date,
-  .resume-card-location,
-  .resume-card-details-toggle {
-    font-size: 1rem;
-  }
-
   .resume-card .action-btn,
   .resume-card-details .action-btn {
     max-width: 100%;
@@ -194,6 +205,6 @@
   }
 
   .skill-category-title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
 }

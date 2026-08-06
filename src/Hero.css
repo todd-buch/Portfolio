@@ -27,7 +27,7 @@
   width: 50%;
   display: flex;
   margin: 1rem;
-  justify-content: left;
+  justify-content: flex-start;
   padding: 5%;
   box-sizing: border-box;
   position: relative;
