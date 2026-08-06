@@ -144,6 +144,38 @@
   padding: 0.75rem 2.5rem;
 }
 
+/* Always outside the mobile details dropdown (e.g. back to photography). */
+.photo-description-back-wrap {
+  margin-top: 1.5rem;
+  flex-shrink: 0;
+}
+
+.photo-description-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.photo-description-back:hover {
+  color: var(--accent);
+}
+
+.photo-description-back:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
 @media (max-width: 900px) {
   .photo-description-box {
     padding: 1.5rem 1.25rem;
@@ -214,6 +246,11 @@
   .photo-description-box--collapsed {
     padding-top: 1rem;
     padding-bottom: 1rem;
+  }
+
+  /* Keep gallery back visible when the details panel is collapsed */
+  .photo-description-box--collapsed .photo-description-back-wrap {
+    margin-top: 0.85rem;
   }
 
   /* Keep collapsed title row from growing too tall and overflowing the frame */
