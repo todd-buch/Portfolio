@@ -37,12 +37,7 @@ export default function Footer() {
           >
             <FaInstagram size={18} />
           </a>
-          <a
-            href="mailto:hello@toddbuch.com"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Mail"
-          >
+          <a href="mailto:hello@toddbuch.com" aria-label="Mail">
             <Mail size={18} />
           </a>
         </nav>

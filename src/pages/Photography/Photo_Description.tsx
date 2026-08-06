@@ -47,7 +47,7 @@ export default function Photo_Description({
   const hasBody = children != null && children !== "";
   const hasDetails = hasDate || hasBody || Boolean(galleryTo);
 
-  // Collapse again when leaving the mobile breakpoint so desktop never
+  // Collapse again when leaving the mobile breakpoint so desktop never shows a collapsed card.
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 900px)");
     const onChange = () => {

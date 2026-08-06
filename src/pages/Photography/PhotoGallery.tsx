@@ -94,7 +94,10 @@ export default function PhotoGallery() {
     ),
   }));
 
-  const initialIndex = photos.length > 1 ? 1 : 0;
+  // Skip the featured/hero image only when arriving from a highlight card.
+  // Direct links and refreshes start on the first photo.
+  const initialIndex =
+    fromFeaturedId && photos.length > 1 ? 1 : 0;
 
   return (
     <main className="photography-page">

@@ -8,7 +8,9 @@ import Footer from "./Footer";
 import Resume from "./pages/Resume/Resume";
 import Photography from "./pages/Photography/Photography";
 import PhotoGallery from "./pages/Photography/PhotoGallery";
+import NotFound from "./pages/NotFound";
 import { clearFeaturedReturnId } from "./pages/Photography/photoNav";
+import { getGallery } from "./pages/Photography/photographyData";
 
 /** React Router preserves scroll position across navigations; reset on route change. */
 function ScrollToTop() {
@@ -16,6 +18,37 @@ function ScrollToTop() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]);
+
+  return null;
+}
+
+/** Keep the browser tab title in sync with the active route. */
+function RouteDocumentTitle() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname === "/" || pathname === "") {
+      document.title = "Todd Buch";
+      return;
+    }
+    if (pathname.startsWith("/resume")) {
+      document.title = "Resume — Todd Buch";
+      return;
+    }
+    if (pathname.startsWith("/photography/")) {
+      const slug = pathname.split("/")[2];
+      const gallery = getGallery(slug);
+      document.title = gallery
+        ? `${gallery.title} — Photography | Todd Buch`
+        : "Gallery not found — Todd Buch";
+      return;
+    }
+    if (pathname.startsWith("/photography")) {
+      document.title = "Photography — Todd Buch";
+      return;
+    }
+    document.title = "Page not found — Todd Buch";
   }, [pathname]);
 
   return null;
@@ -62,6 +95,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <RouteDocumentTitle />
       <Sidebar isScrolled={showSolidNav} />
       <Routes>
         <Route
@@ -76,6 +110,7 @@ function App() {
         <Route path="/resume" element={<Resume />} />
         <Route path="/photography" element={<Photography />} />
         <Route path="/photography/:gallerySlug" element={<PhotoGallery />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {/* Photography embeds Footer after the last snap slide */}
       {!isPhotographyRoute && <Footer />}
