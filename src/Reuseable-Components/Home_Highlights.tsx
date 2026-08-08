@@ -9,24 +9,28 @@ export type HomeHighlight = {
   href: string;
 };
 
-/** Studio role, industry internship, flagship technical project. */
+/**
+ * Label = role / project name
+ * Detail = org or framing (mirrors "where / what context")
+ */
 const DEFAULT_HIGHLIGHTS: HomeHighlight[] = [
   {
     id: "studio",
     label: "Studio Manager",
-    detail: "Ops, clients & automation",
+    detail: "Charleen's Portrait Studio",
     href: "#role",
   },
   {
     id: "internship",
-    label: "The Hartford Intern",
-    detail: "Hybrid-cloud conversational AI",
+    label: "Software Engineering Intern",
+    detail: "The Hartford",
     href: "/resume",
   },
   {
     id: "fire-prevention",
-    label: "Fire Prevention",
-    detail: "Edge vision + sensors",
+    label: "Fire Prevention Project",
+    // Parallel to org lines: where it lived + what it is
+    detail: "UConn Capstone",
     href: "#project-fire-prevention",
   },
 ];
@@ -48,16 +52,6 @@ function scrollToHash(hash: string) {
     block: "start",
   });
 
-  // Open collapsible targets when deep-linking into them.
-  if (
-    el.classList.contains("collapsible-section") &&
-    !el.classList.contains("open")
-  ) {
-    const trigger = el.querySelector<HTMLButtonElement>(
-      ".collapsible-section-trigger",
-    );
-    trigger?.click();
-  }
   if (
     el.classList.contains("small-card--collapsible") &&
     !el.classList.contains("small-card--expanded")

@@ -9,7 +9,6 @@ import Project_Image_Gallery, {
   Gallery_Image,
 } from "./Reuseable-Components/Project_Image_Gallery";
 import Small_Card from "./Reuseable-Components/Small_Card";
-import Collapsible_Section from "./Reuseable-Components/Collapsible_Section";
 import Home_Highlights from "./Reuseable-Components/Home_Highlights";
 import Current from "./Reuseable-Components/Current";
 
@@ -558,12 +557,11 @@ export default function Main_Projects() {
             </Small_Card>
           </div>
         </div>
-        <Collapsible_Section
-          id="role"
-          title="Current Role"
-          subtitle="Studio Manager, Charleen's Portrait Studio"
-          defaultOpen={false}
-        >
+        <div id="role" className="main-regular-text-block">
+          <h2 className="main-regular-text-block-title">Current Role</h2>
+          <p className="main-regular-text-block-subtitle">
+            Studio Manager, Charleen&apos;s Portrait Studio
+          </p>
           <p className="main-regular-text-block-body">
             As the Studio Manager, my main roles include directing daily studio
             operations and managing staff scheduling, as well as resource
@@ -611,8 +609,9 @@ export default function Main_Projects() {
             </div>
           </Tech_Dropdown>
           <Info_Button text="View more info" link="/resume" />
-        </Collapsible_Section>
-        <Collapsible_Section id="about" title="About Me" defaultOpen={false}>
+        </div>
+        <div id="about" className="main-regular-text-block">
+          <h2 className="main-regular-text-block-title">About Me</h2>
           <p className="main-regular-text-block-body">
             My interest in how we experience the visual world started through
             photography and design. Moving into Computer Science allowed me to
@@ -620,17 +619,17 @@ export default function Main_Projects() {
             digital environments, I can now build them from the ground up.
           </p>
           <p className="main-regular-text-block-body">
-            I enjoy working with both UI/UX and full-stack development. I'm
+            I enjoy working with both UI/UX and full-stack development. I&apos;m
             working to combine intuitive, smart design with robust engineering,
             exploring how AI and cloud technologies can create more intelligent,
             seamless digital solutions.
           </p>
           <p className="main-regular-text-block-body">
-            When I’m not coding, I am usually capturing the world through car
-            photography or videography. I also enjoy exploring finance and
+            When I&apos;m not coding, I am usually capturing the world through
+            car photography or videography. I also enjoy exploring finance and
             markets, hiking, and am currently working on improving my golf game.
           </p>
-        </Collapsible_Section>
+        </div>
         <hr className="divider" />
         <div id="contact" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">

@@ -52,14 +52,6 @@ export default function Small_Card({
             )}
           </div>
 
-          <div
-            id={detailsId}
-            className="small-card-details"
-            hidden={!isExpanded}
-          >
-            <div className="small-card-content">{children}</div>
-          </div>
-
           <button
             type="button"
             className="small-card-toggle"
@@ -75,6 +67,13 @@ export default function Small_Card({
               aria-hidden
             />
           </button>
+
+          {/* Same grid 0fr → 1fr open animation as Tech_Dropdown */}
+          <div id={detailsId} className="small-card-details-wrapper">
+            <div className="small-card-details">
+              <div className="small-card-content">{children}</div>
+            </div>
+          </div>
         </>
       ) : (
         <div className="small-card-content">{children}</div>
