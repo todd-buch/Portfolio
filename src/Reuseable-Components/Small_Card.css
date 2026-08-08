@@ -55,6 +55,21 @@
   margin-bottom: 0;
 }
 
+/* Expanded details append under the brief; brief never unmounts. */
+.small-card-details {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.small-card-details[hidden] {
+  display: none;
+}
+
+.small-card-details .small-card-content > *:first-child {
+  margin-top: 0;
+}
+
 .small-card-toggle {
   display: inline-flex;
   align-items: center;

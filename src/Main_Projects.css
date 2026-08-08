@@ -15,8 +15,8 @@
 .bio {
   display: flex;
   flex-direction: column;
-  /* Use margin so scrollIntoView centers the content, not empty padding */
-  margin-bottom: 10rem;
+  /* Tighter bottom: highlights sit directly under the bio */
+  margin-bottom: 3rem;
 }
 .bio h1 {
   font-size: 6rem;
@@ -104,9 +104,11 @@
     text-align: center;
   }
 }
+/* Sit between collapsed sections and contact without overlapping headings.
+   (Old -4rem top margin assumed large always-open section bottoms.) */
 .divider {
-  margin-top: -4rem;
-  margin-bottom: 8rem;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
   border: none;
   border-top: 2px solid var(--text-secondary);
 }

@@ -1,4 +1,5 @@
 import type { MouseEvent } from "react";
+import { Link } from "react-router-dom";
 import "./Home_Highlights.css";
 
 export type HomeHighlight = {
@@ -8,24 +9,25 @@ export type HomeHighlight = {
   href: string;
 };
 
+/** Studio role, industry internship, flagship technical project. */
 const DEFAULT_HIGHLIGHTS: HomeHighlight[] = [
+  {
+    id: "studio",
+    label: "Studio Manager",
+    detail: "Ops, clients & automation",
+    href: "#role",
+  },
+  {
+    id: "internship",
+    label: "The Hartford Intern",
+    detail: "Hybrid-cloud conversational AI",
+    href: "/resume",
+  },
   {
     id: "fire-prevention",
     label: "Fire Prevention",
     detail: "Edge vision + sensors",
     href: "#project-fire-prevention",
-  },
-  {
-    id: "blackjack",
-    label: "Blackjack Agent",
-    detail: "RL vs. the house edge",
-    href: "#project-blackjack",
-  },
-  {
-    id: "studio",
-    label: "Studio automation",
-    detail: "~20 min → ~2 min tasks",
-    href: "#role",
   },
 ];
 
@@ -46,8 +48,11 @@ function scrollToHash(hash: string) {
     block: "start",
   });
 
-  // Nudge collapsible sections / cards open when deep-linking into them.
-  if (el.classList.contains("collapsible-section") && !el.classList.contains("open")) {
+  // Open collapsible targets when deep-linking into them.
+  if (
+    el.classList.contains("collapsible-section") &&
+    !el.classList.contains("open")
+  ) {
     const trigger = el.querySelector<HTMLButtonElement>(
       ".collapsible-section-trigger",
     );
@@ -65,31 +70,43 @@ function scrollToHash(hash: string) {
 export default function Home_Highlights({
   items = DEFAULT_HIGHLIGHTS,
 }: HomeHighlightsProps) {
-  const onClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+  const onHashClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     scrollToHash(href);
-    // Keep the URL hash in sync for shareable deep links.
-    if (href.startsWith("#")) {
-      window.history.replaceState(null, "", href);
-    }
+    window.history.replaceState(null, "", href);
   };
 
   return (
     <nav className="home-highlights" aria-label="Highlights">
       <p className="home-highlights-label">Highlights</p>
       <ul className="home-highlights-list">
-        {items.map((item) => (
-          <li key={item.id}>
-            <a
-              className="home-highlights-card"
-              href={item.href}
-              onClick={(e) => onClick(e, item.href)}
-            >
+        {items.map((item) => {
+          const isHash = item.href.startsWith("#");
+          const body = (
+            <>
               <span className="home-highlights-card-label">{item.label}</span>
               <span className="home-highlights-card-detail">{item.detail}</span>
-            </a>
-          </li>
-        ))}
+            </>
+          );
+
+          return (
+            <li key={item.id}>
+              {isHash ? (
+                <a
+                  className="home-highlights-card"
+                  href={item.href}
+                  onClick={(e) => onHashClick(e, item.href)}
+                >
+                  {body}
+                </a>
+              ) : (
+                <Link className="home-highlights-card" to={item.href}>
+                  {body}
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

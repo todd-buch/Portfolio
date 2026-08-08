@@ -6,11 +6,11 @@ interface SmallCardProps {
   title: string;
   date: ReactNode;
   /**
-   * One-line pitch shown when the card is collapsed. When set, `children`
-   * are hidden until the reader expands the card.
+   * Pitch always shown. When set, `children` append below after expand
+   * (the brief stays visible).
    */
   summary?: ReactNode;
-  /** Optional chips/pills visible in the collapsed state only. */
+  /** Optional chips/pills under the summary (always visible when set). */
   preview?: ReactNode;
   /** Optional stable id for deep links (highlight strip, etc.). */
   id?: string;
@@ -39,46 +39,45 @@ export default function Small_Card({
         <p className="small-card-date">{date}</p>
       </div>
 
-      {isCollapsible && (
-        <div
-          className="small-card-summary"
-          hidden={isExpanded}
-        >
-          {typeof summary === "string" || typeof summary === "number" ? (
-            <p>{summary}</p>
-          ) : (
-            summary
-          )}
-          {preview != null && (
-            <div className="small-card-preview">{preview}</div>
-          )}
-        </div>
-      )}
+      {isCollapsible ? (
+        <>
+          <div className="small-card-summary">
+            {typeof summary === "string" || typeof summary === "number" ? (
+              <p>{summary}</p>
+            ) : (
+              summary
+            )}
+            {preview != null && (
+              <div className="small-card-preview">{preview}</div>
+            )}
+          </div>
 
-      <div
-        id={isCollapsible ? detailsId : undefined}
-        className="small-card-content"
-        hidden={isCollapsible && !isExpanded}
-      >
-        {children}
-      </div>
+          <div
+            id={detailsId}
+            className="small-card-details"
+            hidden={!isExpanded}
+          >
+            <div className="small-card-content">{children}</div>
+          </div>
 
-      {isCollapsible && (
-        <button
-          type="button"
-          className="small-card-toggle"
-          onClick={() => setIsExpanded((open) => !open)}
-          aria-expanded={isExpanded}
-          aria-controls={detailsId}
-        >
-          {isExpanded ? "Show less" : "Read more"}
-          <ChevronDown
-            className="small-card-toggle-icon"
-            size={18}
-            strokeWidth={2.25}
-            aria-hidden
-          />
-        </button>
+          <button
+            type="button"
+            className="small-card-toggle"
+            onClick={() => setIsExpanded((open) => !open)}
+            aria-expanded={isExpanded}
+            aria-controls={detailsId}
+          >
+            {isExpanded ? "Show less" : "Read more"}
+            <ChevronDown
+              className="small-card-toggle-icon"
+              size={18}
+              strokeWidth={2.25}
+              aria-hidden
+            />
+          </button>
+        </>
+      ) : (
+        <div className="small-card-content">{children}</div>
       )}
     </div>
   );

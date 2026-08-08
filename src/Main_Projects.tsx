@@ -84,9 +84,9 @@ export default function Main_Projects() {
             at the core of what I do.
           </p>
         </div>
+        <Home_Highlights />
         <div id="projects" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">Projects</h2>
-          <Home_Highlights />
           <div className="projects-section-block">
             <Small_Card
               id="project-quant-engine"
