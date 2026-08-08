@@ -22,7 +22,7 @@ const DEFAULT_HIGHLIGHTS: HomeHighlight[] = [
   },
   {
     id: "internship",
-    label: "Software Engineering Intern",
+    label: "Software Intern",
     detail: "The Hartford",
     href: "/resume",
   },
