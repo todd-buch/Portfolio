@@ -82,80 +82,7 @@ export default function Main_Projects() {
             at the core of what I do.
           </p>
         </div>
-        <div id="about" className="main-regular-text-block">
-          <h2 className="main-regular-text-block-title">About Me</h2>
-          <p className="main-regular-text-block-body">
-            My interest in how we experience the visual world started through
-            photography and design. Moving into Computer Science allowed me to
-            take that fascination a step further: instead of just capturing
-            digital environments, I can now build them from the ground up.
-          </p>
-          <p className="main-regular-text-block-body">
-            I enjoy working with both UI/UX and full-stack development. I'm
-            working to combine intuitive, smart design with robust engineering,
-            exploring how AI and cloud technologies can create more intelligent,
-            seamless digital solutions.
-          </p>
-          <p className="main-regular-text-block-body">
-            When I’m not coding, I am usually capturing the world through car
-            photography or videography. I also enjoy exploring finance and
-            markets, hiking, and am currently working on improving my golf game.
-          </p>
-        </div>
-        <div id="role" className="main-regular-text-block">
-          <h2 className="main-regular-text-block-title">Current Role</h2>
-          <p className="main-regular-text-block-subtitle">
-            Studio Manager, Charleen's Portrait Studio
-          </p>
-          <p className="main-regular-text-block-body">
-            As the Studio Manager, my main roles include directing daily studio
-            operations and managing staff scheduling, as well as resource
-            allocation to ensure seamless service delivery for our clients. I
-            also serve as the main point of contact for key clients, assist with
-            customer service when escalation is needed, and manage our projects
-            and timelines.
-          </p>
-          <p className="main-regular-text-block-body">
-            In addition to managing studio operations and leading the team, I
-            developed automated workflows, reducing repetitive administrative
-            tasks, which significantly increased operational efficiency and
-            staff productivity. One major project I completed was automating
-            bulk image resizing, adding watermarks, and creating print release
-            contracts for clients.
-          </p>
-          <Tech_Dropdown title="View the stack used in this role">
-            <div className="current-role-dropdown">
-              <p>
-                Used specialized photography & videography software, and used
-                Python for automation scripts.
-              </p>
-              <p>
-                For the automated image resizing and watermarking, a simple
-                Python script was made which is able to process images in batch,
-                and change the color of the watermark to ensure it remains
-                visible on the image regardless of the background color. This
-                saves time when preparing images to be sent to clients.
-              </p>
-              <div className="current-role-dropdown-stack">
-                <Tech_Pill name="Python" icon={<SiPython color="default" />} />
-                <Tech_Pill
-                  name="Photoshop"
-                  icon={<DiPhotoshop color="default" />}
-                />
-                <Tech_Pill
-                  name="DaVinci Resolve"
-                  icon={<SiDavinciresolve color="default" />}
-                />
-                <Tech_Pill
-                  name="Google Gemini"
-                  icon={<SiGooglegemini color="default" />}
-                />
-              </div>
-            </div>
-          </Tech_Dropdown>
-          <Info_Button text="View more info" link="/resume" />
-        </div>
-        <div id="projects" className="main-regular-text-block">
+<div id="projects" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">Projects</h2>
           <div className="projects-section-block">
             <Small_Card
@@ -555,7 +482,80 @@ export default function Main_Projects() {
             </Small_Card>
           </div>
         </div>
-        <hr className="divider" />
+<div id="role" className="main-regular-text-block">
+          <h2 className="main-regular-text-block-title">Current Role</h2>
+          <p className="main-regular-text-block-subtitle">
+            Studio Manager, Charleen's Portrait Studio
+          </p>
+          <p className="main-regular-text-block-body">
+            As the Studio Manager, my main roles include directing daily studio
+            operations and managing staff scheduling, as well as resource
+            allocation to ensure seamless service delivery for our clients. I
+            also serve as the main point of contact for key clients, assist with
+            customer service when escalation is needed, and manage our projects
+            and timelines.
+          </p>
+          <p className="main-regular-text-block-body">
+            In addition to managing studio operations and leading the team, I
+            developed automated workflows, reducing repetitive administrative
+            tasks, which significantly increased operational efficiency and
+            staff productivity. One major project I completed was automating
+            bulk image resizing, adding watermarks, and creating print release
+            contracts for clients.
+          </p>
+          <Tech_Dropdown title="View the stack used in this role">
+            <div className="current-role-dropdown">
+              <p>
+                Used specialized photography & videography software, and used
+                Python for automation scripts.
+              </p>
+              <p>
+                For the automated image resizing and watermarking, a simple
+                Python script was made which is able to process images in batch,
+                and change the color of the watermark to ensure it remains
+                visible on the image regardless of the background color. This
+                saves time when preparing images to be sent to clients.
+              </p>
+              <div className="current-role-dropdown-stack">
+                <Tech_Pill name="Python" icon={<SiPython color="default" />} />
+                <Tech_Pill
+                  name="Photoshop"
+                  icon={<DiPhotoshop color="default" />}
+                />
+                <Tech_Pill
+                  name="DaVinci Resolve"
+                  icon={<SiDavinciresolve color="default" />}
+                />
+                <Tech_Pill
+                  name="Google Gemini"
+                  icon={<SiGooglegemini color="default" />}
+                />
+              </div>
+            </div>
+          </Tech_Dropdown>
+          <Info_Button text="View more info" link="/resume" />
+        </div>
+        <div id="about" className="main-regular-text-block">
+          <h2 className="main-regular-text-block-title">About Me</h2>
+          <p className="main-regular-text-block-body">
+            My interest in how we experience the visual world started through
+            photography and design. Moving into Computer Science allowed me to
+            take that fascination a step further: instead of just capturing
+            digital environments, I can now build them from the ground up.
+          </p>
+          <p className="main-regular-text-block-body">
+            I enjoy working with both UI/UX and full-stack development. I'm
+            working to combine intuitive, smart design with robust engineering,
+            exploring how AI and cloud technologies can create more intelligent,
+            seamless digital solutions.
+          </p>
+          <p className="main-regular-text-block-body">
+            When I’m not coding, I am usually capturing the world through car
+            photography or videography. I also enjoy exploring finance and
+            markets, hiking, and am currently working on improving my golf game.
+          </p>
+        </div>
+                <hr className="divider" />
         <div id="contact" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">
             Got an Idea? Let's Talk.

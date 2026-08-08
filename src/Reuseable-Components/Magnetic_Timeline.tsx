@@ -13,7 +13,7 @@ interface Vertex {
 
 const PAD = 24;
 
-const SECTION_IDS = ["bio", "about", "role", "projects", "contact"] as const;
+const SECTION_IDS = ["bio", "projects", "role", "about", "contact"] as const;
 
 function buildPathD(verts: Vertex[]): string {
   if (verts.length === 0) return "";
