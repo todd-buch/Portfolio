@@ -18,22 +18,78 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 .small-card-title {
   font-size: 1rem;
   font-weight: 500;
   color: var(--text-primary);
+  margin: 0;
 }
 .small-card-date {
-    font-size: 1rem;
-    font-style: italic;
-    color: var(--text-primary);
-  }
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-primary);
+  margin: 0;
+}
 .small-card-content {
   font-size: 1rem;
   color: var(--text-secondary);
 }
 
+.small-card-summary {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.small-card-summary > p {
+  margin: 0;
+}
+
+.small-card-preview {
+  margin-top: 1rem;
+}
+
+.small-card-preview .tech-pill-group {
+  margin-bottom: 0;
+}
+
+.small-card-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 1.25rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.small-card-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.small-card-toggle-icon {
+  transition: transform 0.25s ease;
+}
+
+.small-card--expanded .small-card-toggle-icon {
+  transform: rotate(180deg);
+}
+
 .small-card:hover {
   border-color: var(--text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .small-card-toggle-icon {
+    transition: none;
+  }
 }

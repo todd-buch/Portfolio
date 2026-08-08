@@ -93,6 +93,27 @@ export default function Main_Projects() {
                   July 2026 — <Current />
                 </>
               }
+              summary="Full-stack portfolio analytics and backtesting — an open-source alternative to premium finance tools. Work in progress."
+              preview={
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Next.js"
+                    icon={<SiNextdotjs color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Spring Boot"
+                    icon={<SiSpringboot color="default" />}
+                  />
+                  <Tech_Pill
+                    name="FastAPI"
+                    icon={<SiFastapi color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Docker"
+                    icon={<SiDocker color="default" />}
+                  />
+                </div>
+              }
             >
               <p>
                 Quant Engine is a full-stack stock portfolio analytics and
@@ -208,6 +229,24 @@ export default function Main_Projects() {
             <Small_Card
               title="Fire Prevention at the Edge"
               date="August 2025 — May 2026"
+              summary="Edge safety appliance combining vision AI, environmental sensors, and a local LLM for real-time warehouse hazard recommendations."
+              preview={
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="YOLOv8 Nano"
+                    icon={<SiYolo color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Raspberry Pi 5"
+                    icon={<SiRaspberrypi color="default" />}
+                  />
+                  <Tech_Pill name="Flask" icon={<SiFlask color="default" />} />
+                  <Tech_Pill
+                    name="Llama 3.2:1B"
+                    icon={<SiOllama color="default" />}
+                  />
+                </div>
+              }
             >
               <p>
                 Fire Prevention at the Edge is an edge computing safety
@@ -339,7 +378,22 @@ export default function Main_Projects() {
                 </div>
               </Tech_Dropdown>
             </Small_Card>
-            <Small_Card title="Blackjack Agent" date="March 2026 — April 2026">
+            <Small_Card
+              title="Blackjack Agent"
+              date="March 2026 — April 2026"
+              summary="Simulation framework comparing random, rule-based, and Q-learning agents — and whether a skilled player can beat the house."
+              preview={
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Python"
+                    icon={<SiPython color="default" />}
+                  />
+                  <Tech_Pill name="Tabular Q-Learning" />
+                  <Tech_Pill name="Hi-Lo Card Counting" />
+                  <Tech_Pill name="Matplotlib" icon={<ChartColumn />} />
+                </div>
+              }
+            >
               <p>
                 Blackjack Agent is an AI-driven simulation and analysis
                 framework that models, evaluates, and optimizes player decisions
@@ -436,6 +490,21 @@ export default function Main_Projects() {
                 <>
                   July 2026 — <Current />
                 </>
+              }
+              summary="This site — projects, experience, photography, and an expanded resume beyond the one-pager."
+              preview={
+                <div className="tech-pill-group">
+                  <Tech_Pill name="React" icon={<SiReact color="default" />} />
+                  <Tech_Pill
+                    name="TypeScript"
+                    icon={<SiTypescript color="default" />}
+                  />
+                  <Tech_Pill name="Vite" icon={<SiVite color="default" />} />
+                  <Tech_Pill
+                    name="Framer Motion"
+                    icon={<SiFramer color="default" />}
+                  />
+                </div>
               }
             >
               <p>
