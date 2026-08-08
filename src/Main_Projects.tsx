@@ -10,6 +10,7 @@ import Project_Image_Gallery, {
 } from "./Reuseable-Components/Project_Image_Gallery";
 import Small_Card from "./Reuseable-Components/Small_Card";
 import Collapsible_Section from "./Reuseable-Components/Collapsible_Section";
+import Home_Highlights from "./Reuseable-Components/Home_Highlights";
 import Current from "./Reuseable-Components/Current";
 
 import fireprevention1 from "./assets/projects/fire-prevention/fireprevention1.png"
@@ -85,8 +86,10 @@ export default function Main_Projects() {
         </div>
         <div id="projects" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">Projects</h2>
+          <Home_Highlights />
           <div className="projects-section-block">
             <Small_Card
+              id="project-quant-engine"
               title="Quant-Engine"
               date={
                 <>
@@ -227,6 +230,7 @@ export default function Main_Projects() {
               <p>Work in progress</p>
             </Small_Card>
             <Small_Card
+              id="project-fire-prevention"
               title="Fire Prevention at the Edge"
               date="August 2025 — May 2026"
               summary="Edge safety appliance combining vision AI, environmental sensors, and a local LLM for real-time warehouse hazard recommendations."
@@ -379,6 +383,7 @@ export default function Main_Projects() {
               </Tech_Dropdown>
             </Small_Card>
             <Small_Card
+              id="project-blackjack"
               title="Blackjack Agent"
               date="March 2026 — April 2026"
               summary="Simulation framework comparing random, rule-based, and Q-learning agents — and whether a skilled player can beat the house."
@@ -485,6 +490,7 @@ export default function Main_Projects() {
               </Tech_Dropdown>
             </Small_Card>
             <Small_Card
+              id="project-portfolio"
               title="Portfolio Website"
               date={
                 <>
