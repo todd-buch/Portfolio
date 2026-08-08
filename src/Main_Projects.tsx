@@ -95,7 +95,7 @@ export default function Main_Projects() {
                   July 2026 — <Current />
                 </>
               }
-              summary="Full-stack portfolio analytics and backtesting — an open-source alternative to premium finance tools. Work in progress."
+              summary="Full-stack portfolio analytics and backtesting; an open-source alternative to premium finance tools. Work in progress."
               preview={
                 <div className="tech-pill-group">
                   <Tech_Pill
@@ -119,7 +119,7 @@ export default function Main_Projects() {
             >
               <p>
                 Quant Engine is a full-stack stock portfolio analytics and
-                backtesting platform — an open-source alternative to premium
+                backtesting platform, built by a team of 5. It is an open-source alternative to premium
                 financial tools. It helps investors analyze holdings, run
                 historical simulations, and build rule-based trading strategies
                 through an intuitive web interface.
@@ -232,7 +232,7 @@ export default function Main_Projects() {
               id="project-fire-prevention"
               title="Fire Prevention at the Edge"
               date="August 2025 — May 2026"
-              summary="Edge safety appliance combining vision AI, environmental sensors, and a local LLM for real-time warehouse hazard recommendations."
+              summary="Edge fire hazard detection device that combines vision AI, environmental sensors, and a local LLM for real-time warehouse hazard recommendations."
               preview={
                 <div className="tech-pill-group">
                   <Tech_Pill
@@ -385,7 +385,7 @@ export default function Main_Projects() {
               id="project-blackjack"
               title="Blackjack Agent"
               date="March 2026 — April 2026"
-              summary="Simulation framework comparing random, rule-based, and Q-learning agents — and whether a skilled player can beat the house."
+              summary="Learning agent for Blackjack, and an analysis of idea game-play over many games."
               preview={
                 <div className="tech-pill-group">
                   <Tech_Pill
@@ -496,7 +496,7 @@ export default function Main_Projects() {
                   July 2026 — <Current />
                 </>
               }
-              summary="This site — projects, experience, photography, and an expanded resume beyond the one-pager."
+              summary="This site!"
               preview={
                 <div className="tech-pill-group">
                   <Tech_Pill name="React" icon={<SiReact color="default" />} />
@@ -513,7 +513,7 @@ export default function Main_Projects() {
               }
             >
               <p>
-                This site! A personal portfolio for projects, experience,
+                A personal portfolio for projects, experience,
                 photography, and an expanded version of my resume with all the
                 stuff that couldn't fit on my actual resume.
               </p>
