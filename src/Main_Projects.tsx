@@ -9,6 +9,7 @@ import Project_Image_Gallery, {
   Gallery_Image,
 } from "./Reuseable-Components/Project_Image_Gallery";
 import Small_Card from "./Reuseable-Components/Small_Card";
+import Collapsible_Section from "./Reuseable-Components/Collapsible_Section";
 import Current from "./Reuseable-Components/Current";
 
 import fireprevention1 from "./assets/projects/fire-prevention/fireprevention1.png"
@@ -82,7 +83,7 @@ export default function Main_Projects() {
             at the core of what I do.
           </p>
         </div>
-<div id="projects" className="main-regular-text-block">
+        <div id="projects" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">Projects</h2>
           <div className="projects-section-block">
             <Small_Card
@@ -482,11 +483,12 @@ export default function Main_Projects() {
             </Small_Card>
           </div>
         </div>
-<div id="role" className="main-regular-text-block">
-          <h2 className="main-regular-text-block-title">Current Role</h2>
-          <p className="main-regular-text-block-subtitle">
-            Studio Manager, Charleen's Portrait Studio
-          </p>
+        <Collapsible_Section
+          id="role"
+          title="Current Role"
+          subtitle="Studio Manager, Charleen's Portrait Studio"
+          defaultOpen={false}
+        >
           <p className="main-regular-text-block-body">
             As the Studio Manager, my main roles include directing daily studio
             operations and managing staff scheduling, as well as resource
@@ -534,9 +536,8 @@ export default function Main_Projects() {
             </div>
           </Tech_Dropdown>
           <Info_Button text="View more info" link="/resume" />
-        </div>
-        <div id="about" className="main-regular-text-block">
-          <h2 className="main-regular-text-block-title">About Me</h2>
+        </Collapsible_Section>
+        <Collapsible_Section id="about" title="About Me" defaultOpen={false}>
           <p className="main-regular-text-block-body">
             My interest in how we experience the visual world started through
             photography and design. Moving into Computer Science allowed me to
@@ -554,8 +555,8 @@ export default function Main_Projects() {
             photography or videography. I also enjoy exploring finance and
             markets, hiking, and am currently working on improving my golf game.
           </p>
-        </div>
-                <hr className="divider" />
+        </Collapsible_Section>
+        <hr className="divider" />
         <div id="contact" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">
             Got an Idea? Let's Talk.
