@@ -1,6 +1,6 @@
-/* Sits under the bio, before Projects */
+/* Sits under the bio, before Projects — match .main-regular-text-block */
 .home-highlights {
-  margin: 0 0 6rem;
+  margin: 0 0 10rem;
 }
 
 .home-highlights-label {
