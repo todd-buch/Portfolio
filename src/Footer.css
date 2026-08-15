@@ -33,6 +33,13 @@
   color: var(--text-secondary);
 }
 
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
 .footer-social {
   display: flex;
   align-items: center;

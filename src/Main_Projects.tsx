@@ -9,6 +9,7 @@ import Project_Image_Gallery, {
   Gallery_Image,
 } from "./Reuseable-Components/Project_Image_Gallery";
 import Small_Card from "./Reuseable-Components/Small_Card";
+import Home_Highlights from "./Reuseable-Components/Home_Highlights";
 import Current from "./Reuseable-Components/Current";
 
 import fireprevention1 from "./assets/projects/fire-prevention/fireprevention1.png"
@@ -82,93 +83,43 @@ export default function Main_Projects() {
             at the core of what I do.
           </p>
         </div>
-        <div id="about" className="main-regular-text-block">
-          <h2 className="main-regular-text-block-title">About Me</h2>
-          <p className="main-regular-text-block-body">
-            My interest in how we experience the visual world started through
-            photography and design. Moving into Computer Science allowed me to
-            take that fascination a step further: instead of just capturing
-            digital environments, I can now build them from the ground up.
-          </p>
-          <p className="main-regular-text-block-body">
-            I enjoy working with both UI/UX and full-stack development. I'm
-            working to combine intuitive, smart design with robust engineering,
-            exploring how AI and cloud technologies can create more intelligent,
-            seamless digital solutions.
-          </p>
-          <p className="main-regular-text-block-body">
-            When I’m not coding, I am usually capturing the world through car
-            photography or videography. I also enjoy exploring finance and
-            markets, hiking, and am currently working on improving my golf game.
-          </p>
-        </div>
-        <div id="role" className="main-regular-text-block">
-          <h2 className="main-regular-text-block-title">Current Role</h2>
-          <p className="main-regular-text-block-subtitle">
-            Studio Manager, Charleen's Portrait Studio
-          </p>
-          <p className="main-regular-text-block-body">
-            As the Studio Manager, my main roles include directing daily studio
-            operations and managing staff scheduling, as well as resource
-            allocation to ensure seamless service delivery for our clients. I
-            also serve as the main point of contact for key clients, assist with
-            customer service when escalation is needed, and manage our projects
-            and timelines.
-          </p>
-          <p className="main-regular-text-block-body">
-            In addition to managing studio operations and leading the team, I
-            developed automated workflows, reducing repetitive administrative
-            tasks, which significantly increased operational efficiency and
-            staff productivity. One major project I completed was automating
-            bulk image resizing, adding watermarks, and creating print release
-            contracts for clients.
-          </p>
-          <Tech_Dropdown title="View the stack used in this role">
-            <div className="current-role-dropdown">
-              <p>
-                Used specialized photography & videography software, and used
-                Python for automation scripts.
-              </p>
-              <p>
-                For the automated image resizing and watermarking, a simple
-                Python script was made which is able to process images in batch,
-                and change the color of the watermark to ensure it remains
-                visible on the image regardless of the background color. This
-                saves time when preparing images to be sent to clients.
-              </p>
-              <div className="current-role-dropdown-stack">
-                <Tech_Pill name="Python" icon={<SiPython color="default" />} />
-                <Tech_Pill
-                  name="Photoshop"
-                  icon={<DiPhotoshop color="default" />}
-                />
-                <Tech_Pill
-                  name="DaVinci Resolve"
-                  icon={<SiDavinciresolve color="default" />}
-                />
-                <Tech_Pill
-                  name="Google Gemini"
-                  icon={<SiGooglegemini color="default" />}
-                />
-              </div>
-            </div>
-          </Tech_Dropdown>
-          <Info_Button text="View more info" link="/resume" />
-        </div>
+        <Home_Highlights />
         <div id="projects" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">Projects</h2>
           <div className="projects-section-block">
             <Small_Card
+              id="project-quant-engine"
               title="Quant-Engine"
               date={
                 <>
                   July 2026 — <Current />
                 </>
               }
+              summary="Full-stack portfolio analytics and backtesting; an open-source alternative to premium finance tools. Work in progress."
+              preview={
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Next.js"
+                    icon={<SiNextdotjs color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Spring Boot"
+                    icon={<SiSpringboot color="default" />}
+                  />
+                  <Tech_Pill
+                    name="FastAPI"
+                    icon={<SiFastapi color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Docker"
+                    icon={<SiDocker color="default" />}
+                  />
+                </div>
+              }
             >
               <p>
                 Quant Engine is a full-stack stock portfolio analytics and
-                backtesting platform — an open-source alternative to premium
+                backtesting platform, built by a team of 5. It is an open-source alternative to premium
                 financial tools. It helps investors analyze holdings, run
                 historical simulations, and build rule-based trading strategies
                 through an intuitive web interface.
@@ -278,8 +229,27 @@ export default function Main_Projects() {
               <p>Work in progress</p>
             </Small_Card>
             <Small_Card
+              id="project-fire-prevention"
               title="Fire Prevention at the Edge"
               date="August 2025 — May 2026"
+              summary="Edge fire hazard detection device that combines vision AI, environmental sensors, and a local LLM for real-time warehouse hazard recommendations."
+              preview={
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="YOLOv8 Nano"
+                    icon={<SiYolo color="default" />}
+                  />
+                  <Tech_Pill
+                    name="Raspberry Pi 5"
+                    icon={<SiRaspberrypi color="default" />}
+                  />
+                  <Tech_Pill name="Flask" icon={<SiFlask color="default" />} />
+                  <Tech_Pill
+                    name="Llama 3.2:1B"
+                    icon={<SiOllama color="default" />}
+                  />
+                </div>
+              }
             >
               <p>
                 Fire Prevention at the Edge is an edge computing safety
@@ -411,7 +381,23 @@ export default function Main_Projects() {
                 </div>
               </Tech_Dropdown>
             </Small_Card>
-            <Small_Card title="Blackjack Agent" date="March 2026 — April 2026">
+            <Small_Card
+              id="project-blackjack"
+              title="Blackjack Agent"
+              date="March 2026 — April 2026"
+              summary="Learning agent for Blackjack, and an analysis of idea game-play over many games."
+              preview={
+                <div className="tech-pill-group">
+                  <Tech_Pill
+                    name="Python"
+                    icon={<SiPython color="default" />}
+                  />
+                  <Tech_Pill name="Tabular Q-Learning" />
+                  <Tech_Pill name="Hi-Lo Card Counting" />
+                  <Tech_Pill name="Matplotlib" icon={<ChartColumn />} />
+                </div>
+              }
+            >
               <p>
                 Blackjack Agent is an AI-driven simulation and analysis
                 framework that models, evaluates, and optimizes player decisions
@@ -503,15 +489,31 @@ export default function Main_Projects() {
               </Tech_Dropdown>
             </Small_Card>
             <Small_Card
+              id="project-portfolio"
               title="Portfolio Website"
               date={
                 <>
                   July 2026 — <Current />
                 </>
               }
+              summary="This site!"
+              preview={
+                <div className="tech-pill-group">
+                  <Tech_Pill name="React" icon={<SiReact color="default" />} />
+                  <Tech_Pill
+                    name="TypeScript"
+                    icon={<SiTypescript color="default" />}
+                  />
+                  <Tech_Pill name="Vite" icon={<SiVite color="default" />} />
+                  <Tech_Pill
+                    name="Framer Motion"
+                    icon={<SiFramer color="default" />}
+                  />
+                </div>
+              }
             >
               <p>
-                This site! A personal portfolio for projects, experience,
+                A personal portfolio for projects, experience,
                 photography, and an expanded version of my resume with all the
                 stuff that couldn't fit on my actual resume.
               </p>
@@ -554,6 +556,79 @@ export default function Main_Projects() {
               />
             </Small_Card>
           </div>
+        </div>
+        <div id="role" className="main-regular-text-block">
+          <h2 className="main-regular-text-block-title">Current Role</h2>
+          <p className="main-regular-text-block-subtitle">
+            Studio Manager, Charleen&apos;s Portrait Studio
+          </p>
+          <p className="main-regular-text-block-body">
+            As the Studio Manager, my main roles include directing daily studio
+            operations and managing staff scheduling, as well as resource
+            allocation to ensure seamless service delivery for our clients. I
+            also serve as the main point of contact for key clients, assist with
+            customer service when escalation is needed, and manage our projects
+            and timelines.
+          </p>
+          <p className="main-regular-text-block-body">
+            In addition to managing studio operations and leading the team, I
+            developed automated workflows, reducing repetitive administrative
+            tasks, which significantly increased operational efficiency and
+            staff productivity. One major project I completed was automating
+            bulk image resizing, adding watermarks, and creating print release
+            contracts for clients.
+          </p>
+          <Tech_Dropdown title="View the stack used in this role">
+            <div className="current-role-dropdown">
+              <p>
+                Used specialized photography & videography software, and used
+                Python for automation scripts.
+              </p>
+              <p>
+                For the automated image resizing and watermarking, a simple
+                Python script was made which is able to process images in batch,
+                and change the color of the watermark to ensure it remains
+                visible on the image regardless of the background color. This
+                saves time when preparing images to be sent to clients.
+              </p>
+              <div className="current-role-dropdown-stack">
+                <Tech_Pill name="Python" icon={<SiPython color="default" />} />
+                <Tech_Pill
+                  name="Photoshop"
+                  icon={<DiPhotoshop color="default" />}
+                />
+                <Tech_Pill
+                  name="DaVinci Resolve"
+                  icon={<SiDavinciresolve color="default" />}
+                />
+                <Tech_Pill
+                  name="Google Gemini"
+                  icon={<SiGooglegemini color="default" />}
+                />
+              </div>
+            </div>
+          </Tech_Dropdown>
+          <Info_Button text="View more info" link="/resume" />
+        </div>
+        <div id="about" className="main-regular-text-block">
+          <h2 className="main-regular-text-block-title">About Me</h2>
+          <p className="main-regular-text-block-body">
+            My interest in how we experience the visual world started through
+            photography and design. Moving into Computer Science allowed me to
+            take that fascination a step further: instead of just capturing
+            digital environments, I can now build them from the ground up.
+          </p>
+          <p className="main-regular-text-block-body">
+            I enjoy working with both UI/UX and full-stack development. I&apos;m
+            working to combine intuitive, smart design with robust engineering,
+            exploring how AI and cloud technologies can create more intelligent,
+            seamless digital solutions.
+          </p>
+          <p className="main-regular-text-block-body">
+            When I&apos;m not coding, I am usually capturing the world through
+            car photography or videography. I also enjoy exploring finance and
+            markets, hiking, and am currently working on improving my golf game.
+          </p>
         </div>
         <hr className="divider" />
         <div id="contact" className="main-regular-text-block">
