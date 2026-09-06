@@ -79,7 +79,7 @@
   background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 
-/* White chrome when floating over the dark home hero */
+/* White chrome when floating over the home hero */
 .top-sidebar.over-hero .sidebar-menu-toggle {
   color: #ffffff;
 }
