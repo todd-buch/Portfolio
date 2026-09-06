@@ -350,7 +350,7 @@ export default function Main_Projects() {
               id="project-blackjack"
               title="Blackjack Agent"
               date="March 2026 — April 2026"
-              summary="Learning agent for Blackjack, and an analysis of idea game-play over many games."
+              summary="Learning agent for Blackjack, and an analysis of ideal gameplay over many games."
               preview={
                 <div className="tech-pill-group">
                   <Tech_Pill
