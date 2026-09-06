@@ -543,7 +543,7 @@ export default function Main_Projects() {
         <div id="about" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">About Me</h2>
           <p className="main-regular-text-block-body">
-            I've pretty much always had an interest in photography. I would practice on whatever there was the practice on - nature, animals, people, really anything. I also knew I enjoyed coding pretty early on, starting with making watch faces on the Samsung app store.
+            I've pretty much always had an interest in photography. I would practice on whatever there was to practice on - nature, animals, people, really anything. I also knew I enjoyed coding pretty early on, starting with making watch faces on the Samsung app store.
           </p>
           <p className="main-regular-text-block-body">
             I enjoy working with both UI/UX and full-stack development. I'm learning more about cloud computing and working to gain more leadership skills & experience.
