@@ -77,10 +77,7 @@ export default function Main_Projects() {
             <span>Studio Manager</span>
           </p>
           <p>
-            As a software development student with a foundation in photography
-            and design, I build software and digital media that balance
-            technical knowledge with visual impact. Creativity & curiosity are
-            at the core of what I do.
+            I'm a software development student (senior @ UConn) with experience in photography and design. I build software and enjoy photography & videography as well.
           </p>
         </div>
         <Home_Highlights />
@@ -118,21 +115,11 @@ export default function Main_Projects() {
               }
             >
               <p>
-                Quant Engine is a full-stack stock portfolio analytics and
-                backtesting platform, built by a team of 5. It is an open-source alternative to premium
-                financial tools. It helps investors analyze holdings, run
-                historical simulations, and build rule-based trading strategies
-                through an intuitive web interface.
+                Quant Engine is a full-stack stock portfolio analytics and backtesting platform, being built by a team of 5. It is an open-source alternative to premium financial tools. It helps investors analyze holdings, run historical simulations, and build rule-based trading strategies through a web interface.
               </p>
               <Tech_Dropdown title="View the stack behind it">
                 <p>
-                  The app covers three core areas: AI-powered portfolio analysis
-                  from CSV or manual inputs (with automated summary reports), a
-                  high-performance backtesting engine that surfaces risk-return
-                  metrics like Sharpe/Sortino and max drawdown, and an
-                  interactive strategy builder for testing rules such as
-                  momentum or buy-the-dip against past market data. Services are
-                  containerized with Docker as a multi-service stack.
+                  The app covers three core areas: AI-powered portfolio analysis from CSV or manual inputs (with automated summary reports), a backtesting engine that shows risk/return metrics like Sharpe/Sortino and max drawdown, and an interactive strategy builder for testing rules such as momentum or buy-the-dip against past market data.
                 </p>
                 <p>
                   <b>Frontend:</b>
@@ -232,7 +219,7 @@ export default function Main_Projects() {
               id="project-fire-prevention"
               title="Fire Prevention at the Edge"
               date="August 2025 — May 2026"
-              summary="Edge fire hazard detection device that combines vision AI, environmental sensors, and a local LLM for real-time warehouse hazard recommendations."
+              summary="Edge fire hazard detection device that combines vision AI, environmental sensors, and a local LLM for live warehouse hazard recommendations/visualizations."
               preview={
                 <div className="tech-pill-group">
                   <Tech_Pill
@@ -252,17 +239,7 @@ export default function Main_Projects() {
               }
             >
               <p>
-                Fire Prevention at the Edge is an edge computing safety
-                appliance created by a team of 4 UConn students for their final
-                capstone project. I served as project manager while our team
-                architected, designed, and developed the full-stack system end
-                to end. It is designed to detect potential hazards before they
-                ignite. By combining real-time visual feeds with local
-                environmental sensors (CO₂, temperature, humidity, and thermal
-                mapping), the system uses a deterministic classifier to evaluate
-                risk severity. Finally, an entirely local LLM analyzes the data
-                to provide actionable, real-time safety recommendations to
-                warehouse personnel.
+                Fire Prevention at the Edge is an 'at the edge' computing safety appliance created by a team of 4 UConn students for their final capstone project. I served as project manager while our team architected, designed, and developed the full-stack system end to end. It is designed to detect potential hazards before they ignite. We combined real-time visual feeds with local environmental sensors (CO₂, temperature, humidity, and thermal mapping), and the system uses a deterministic classifier to evaluate risk severity. Finally, an entirely local LLM analyzes the data to provide safety recommendations to warehouse personnel as events occur.
               </p>
               <Tech_Dropdown title="View images">
                 <Project_Image_Gallery>
@@ -280,11 +257,7 @@ export default function Main_Projects() {
               </Tech_Dropdown>
               <Tech_Dropdown title="View the stack behind it">
                 <p>
-                  Cameras run vision models trained to flag fire-related
-                  hazards, while environmental sensors surface other risky
-                  conditions. Those signals are fused and passed to an on-device
-                  text model that turns raw detections into clear, specific
-                  alerts for warehouse staff.
+                  Cameras run vision models trained to flag fire hazards, while environmental sensors display other risky conditions. Those signals are combined and passed to an on-device text model that turns raw detections into clear, specific alerts for warehouse staff. It all runs 'at the edge' (on-device).
                 </p>
                 <p>
                   <b>What the vision model detects:</b> battery condition (okay,
@@ -293,15 +266,7 @@ export default function Main_Projects() {
                   normal/damaged outlets, sparking outlets).
                 </p>
                 <p>
-                  Building it was an end-to-end pipeline: we first generated
-                  synthetic images for the dataset (Grok, Gemini, and the OpenAI
-                  API), annotated them in CVAT, then trained and fine-tuned a
-                  YOLOv8 Nano model and validated its detections. In parallel we
-                  built a full web interface with live camera streaming and
-                  bounding boxes drawn in real time, then assembled a Raspberry
-                  Pi device with the Hailo AI HAT+, cameras, and environmental
-                  sensors so the model, backend, and local LLM could run
-                  together on the edge appliance.
+                  Building it was an end-to-end pipeline: we first generated synthetic images for the dataset (Grok, Gemini, and the OpenAI API), annotated them in CVAT, then trained and fine-tuned a YOLOv8 Nano model and validated its detections. In parallel we built a full web interface with live camera streaming and bounding boxes drawn in real time, then assembled a Raspberry Pi 5 with the Hailo AI HAT+, cameras, and environmental sensors so the model, backend, and local LLM could run together on the edge appliance.
                 </p>
                 <p>
                   <b>Hardware — Compute:</b>
@@ -399,14 +364,7 @@ export default function Main_Projects() {
               }
             >
               <p>
-                Blackjack Agent is an AI-driven simulation and analysis
-                framework that models, evaluates, and optimizes player decisions
-                in Blackjack. We asked whether a skilled player can gain a
-                mathematical advantage over the house (the short answer is,
-                sadly, no). It compares three strategies: a random baseline, a
-                rule-based reflex agent that follows standard strategy charts,
-                and a model-free reinforcement learning agent that optimizes
-                both play and bet sizing under casino-like conditions.
+                Blackjack Agent is a simulation and analysis command line app that models, evaluates, and optimizes player decisions in Blackjack. We simulated whether a skilled player can gain a mathematical advantage over the house (the short answer is, sadly, no). It compares three strategies: a random baseline, a rule-based reflex agent that follows standard strategy charts, and a model-free reinforcement learning agent that optimizes both play and bet sizing under similar conditions to a casino.
               </p>
               <Tech_Dropdown title="View images">
                 <Project_Image_Gallery>
@@ -424,13 +382,7 @@ export default function Main_Projects() {
               </Tech_Dropdown>
               <Tech_Dropdown title="View the stack behind it">
                 <p>
-                  The system is built around a custom terminal Blackjack engine,
-                  a training environment, and a comparative evaluation suite.
-                  The engine models multi-deck shoes (auto-reshuffling when
-                  fewer than 25% of cards remain) and a dealer that hits soft 16
-                  and stands on all 17s. A reflex agent hard-codes optimal
-                  tables for hard totals, soft totals, and pair splits. The
-                  learning agent uses tabular Q-learning with state{" "}
+                  The system is built around a custom terminal Blackjack engine, a training environment, and a comparative evaluation suite. The engine models multi-deck shoes (auto-reshuffling when fewer than 25% of cards remain) and a dealer that hits soft 16 and stands on all 17s. A reflex agent hard-codes the 'optimal' tables for hard totals, soft totals, and pair splits. The learning agent uses tabular Q-learning with state{" "}
                   <i>
                     (player total, dealer upcard, usable ace, binned true count)
                   </i>
@@ -439,14 +391,7 @@ export default function Main_Projects() {
                   units), and ε-greedy exploration.
                 </p>
                 <p>
-                  Training ran for 5,000,000 episodes with Q-tables persisted
-                  via pickle. Across a 100,000-hand benchmark, the Q-learning
-                  agent reduced average loss to 0.045 units/hand — beating basic
-                  strategy (0.055) and random play (2.0), while still showing
-                  that card counting can shrink losses without fully overcoming
-                  the house edge. A recursive probability module also computes
-                  exact win probabilities and expected value for stand vs. hit
-                  from the remaining shoe distribution.
+                  Training ran for 5,000,000 episodes with Q-tables persisted via pickle. Across a 100,000-hand benchmark, the Q-learning agent reduced average loss to 0.045 units/hand. It beat basic strategy (0.055) and random play (2.0), while still showing that card counting can shrink losses without fully overcoming the house edge. A recursive probability module also computes exact win probabilities and expected value for stand vs. hit from the remaining shoe distribution.
                 </p>
                 <p>
                   <b>Language:</b>
@@ -563,33 +508,18 @@ export default function Main_Projects() {
             Studio Manager, Charleen&apos;s Portrait Studio
           </p>
           <p className="main-regular-text-block-body">
-            As the Studio Manager, my main roles include directing daily studio
-            operations and managing staff scheduling, as well as resource
-            allocation to ensure seamless service delivery for our clients. I
-            also serve as the main point of contact for key clients, assist with
-            customer service when escalation is needed, and manage our projects
-            and timelines.
+            As the Studio Manager, my main roles include managing daily studio operations and staff scheduling, as well as planning & allocations to ensure smooth service delivery for our clients. I also serve as the main point of contact for some key clients, assist with customer service when needed, and manage our projects and timelines.
           </p>
           <p className="main-regular-text-block-body">
-            In addition to managing studio operations and leading the team, I
-            developed automated workflows, reducing repetitive administrative
-            tasks, which significantly increased operational efficiency and
-            staff productivity. One major project I completed was automating
-            bulk image resizing, adding watermarks, and creating print release
-            contracts for clients.
+            In addition to managing studio operations and leading the team, I developed automated workflows, reducing repetitive administrative tasks, which significantly increased efficiency and productivity. One major project I completed was automating bulk image resizing, adding watermarks, and creating print release contracts for clients. This is now used daily by the team for delivering digital media for clients.
           </p>
           <Tech_Dropdown title="View the stack used in this role">
             <div className="current-role-dropdown">
               <p>
-                Used specialized photography & videography software, and used
-                Python for automation scripts.
+                Used specialized photography & videography software, and used Python for automation scripts.
               </p>
               <p>
-                For the automated image resizing and watermarking, a simple
-                Python script was made which is able to process images in batch,
-                and change the color of the watermark to ensure it remains
-                visible on the image regardless of the background color. This
-                saves time when preparing images to be sent to clients.
+                For the automated image resizing and watermarking, a simple Python script was made which is able to process images in batch, and change the color of the watermark to ensure it remains visible on the image regardless of the background color. This saves time when preparing images to be sent to clients.
               </p>
               <div className="current-role-dropdown-stack">
                 <Tech_Pill name="Python" icon={<SiPython color="default" />} />
@@ -613,16 +543,10 @@ export default function Main_Projects() {
         <div id="about" className="main-regular-text-block">
           <h2 className="main-regular-text-block-title">About Me</h2>
           <p className="main-regular-text-block-body">
-            My interest in how we experience the visual world started through
-            photography and design. Moving into Computer Science allowed me to
-            take that fascination a step further: instead of just capturing
-            digital environments, I can now build them from the ground up.
+            I've pretty much always had an interest in photography. I would practice on whatever there was to practice on - nature, animals, people, really anything. I also knew I enjoyed coding pretty early on, starting with making watch faces on the Samsung app store.
           </p>
           <p className="main-regular-text-block-body">
-            I enjoy working with both UI/UX and full-stack development. I&apos;m
-            working to combine intuitive, smart design with robust engineering,
-            exploring how AI and cloud technologies can create more intelligent,
-            seamless digital solutions.
+            I enjoy working with both UI/UX and full-stack development. I'm learning more about cloud computing and working to gain more leadership skills & experience.
           </p>
           <p className="main-regular-text-block-body">
             When I&apos;m not coding, I am usually capturing the world through
@@ -636,8 +560,7 @@ export default function Main_Projects() {
             Got an Idea? Let's Talk.
           </h2>
           <p className="main-regular-text-block-body">
-            Have a project in mind, looking to get images of your cool car, or
-            just want to chat? Drop me a message!
+            Have a project in mind, looking to get images of your cool car, or just want to chat? Let's Talk.
           </p>
           <Action_Button
             text="Get in touch"
