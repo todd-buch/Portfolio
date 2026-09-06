@@ -31,7 +31,7 @@ export type PhotoGallery = GalleryMeta & {
 
 export const photographyIntro = {
   title: "Photography",
-  bio: "Outside of Software Development, I enjoy capturing moments through photography. My interests include cars, motorsports, landscapes, and candid portraits. This page showcases a selection of my favorite shots.",
+  bio: "While yes, I'm a developer, I also enjoy the world through photography. My interests include cars, motorsports, landscapes, and candid portraits. This page showcases a selection of my favorite shots.",
 };
 
 /* Highlights */

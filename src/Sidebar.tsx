@@ -4,8 +4,7 @@ import "./Sidebar.css";
 import sideLogoWht from "/src/assets/LogoWHT.webp";
 import sideLogoBlk from "/src/assets/LogoBLK.webp";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa6";
-import { Menu, Moon, Sun, X } from "lucide-react";
-import { useTheme } from "./useTheme";
+import { Menu, X } from "lucide-react";
 
 interface SidebarProps {
   isScrolled: boolean;
@@ -109,7 +108,6 @@ function useIsPrimaryBgLight() {
 export default function Sidebar({ isScrolled }: SidebarProps) {
   const location = useLocation();
   const isPrimaryBgLight = useIsPrimaryBgLight();
-  const { isDark, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isHome = location.pathname === "/" || location.pathname === "";
@@ -228,21 +226,6 @@ export default function Sidebar({ isScrolled }: SidebarProps) {
             >
               <FaInstagram size={22} />
             </a>
-            <button
-              type="button"
-              className="nav-item nav-social theme-toggle"
-              onClick={toggleTheme}
-              aria-label={
-                isDark ? "Switch to light mode" : "Switch to dark mode"
-              }
-              title={isDark ? "Light mode" : "Dark mode"}
-            >
-              {isDark ? (
-                <Sun size={22} strokeWidth={2.25} />
-              ) : (
-                <Moon size={22} strokeWidth={2.25} />
-              )}
-            </button>
           </div>
         </nav>
 

@@ -18,22 +18,117 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 .small-card-title {
   font-size: 1rem;
   font-weight: 500;
   color: var(--text-primary);
+  margin: 0;
 }
 .small-card-date {
-    font-size: 1rem;
-    font-style: italic;
-    color: var(--text-primary);
-  }
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-primary);
+  margin: 0;
+}
 .small-card-content {
   font-size: 1rem;
   color: var(--text-secondary);
 }
 
+.small-card-summary {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.small-card-summary > p {
+  margin: 0;
+}
+
+.small-card-preview {
+  margin-top: 1rem;
+}
+
+.small-card-preview .tech-pill-group {
+  margin-bottom: 0;
+}
+
+.small-card-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 1.25rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.small-card-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.small-card-toggle-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--accent);
+}
+
+.small-card--expanded .small-card-toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* Match Tech_Dropdown open/close motion */
+.small-card-details-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.small-card--expanded .small-card-details-wrapper {
+  grid-template-rows: 1fr;
+}
+
+.small-card-details {
+  min-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 1px solid transparent;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    margin-top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-top-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.small-card--expanded .small-card-details {
+  opacity: 1;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top-color: var(--border-color);
+}
+
+.small-card-details .small-card-content > *:first-child {
+  margin-top: 0;
+}
+
 .small-card:hover {
   border-color: var(--text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .small-card-toggle-icon,
+  .small-card-details-wrapper,
+  .small-card-details {
+    transition: none;
+  }
 }
