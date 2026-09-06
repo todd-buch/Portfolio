@@ -1,5 +1,5 @@
 import "./Hero.css";
-import HeroBack from "/src/assets/HeroBack.webp";
+import HeroBack from "/src/assets/HeroBackBlue.webp";
 
 function Hero() {
   return (
