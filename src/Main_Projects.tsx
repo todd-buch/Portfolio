@@ -77,7 +77,7 @@ export default function Main_Projects() {
             <span>Studio Manager</span>
           </p>
           <p>
-            I'm a software development student (senior @ UConn) with experience in photography and design. I build software and enjoy photograpy & videography as well.
+            I'm a software development student (senior @ UConn) with experience in photography and design. I build software and enjoy photography & videography as well.
           </p>
         </div>
         <Home_Highlights />
