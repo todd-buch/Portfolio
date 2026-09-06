@@ -7,7 +7,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
-  margin-top: 10rem;
+  margin-top: 4rem;
   box-sizing: border-box;
   /* Timeline SVG hangs 24px above/below; don't clip its stroke caps */
   overflow: visible;
@@ -78,7 +78,7 @@
 @media (max-width: 640px) {
   .projects {
     padding: 3rem 1rem;
-    margin-top: 6rem;
+    margin-top: 3rem;
   }
 
   .projects-traits {

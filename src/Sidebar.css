@@ -79,7 +79,7 @@
   background-color: color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 
-/* Only force white chrome when floating over the dark home hero */
+/* White chrome when floating over the home hero */
 .top-sidebar.over-hero .sidebar-menu-toggle {
   color: #ffffff;
 }
@@ -87,6 +87,15 @@
 .top-sidebar.over-hero .sidebar-menu-toggle:hover {
   color: #ffffff;
   background-color: color-mix(in srgb, #ffffff 14%, transparent);
+}
+
+.top-sidebar.over-hero .nav-item {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.top-sidebar.over-hero .nav-item:hover,
+.top-sidebar.over-hero .nav-item.active {
+  color: #ffffff;
 }
 
 /* Theme toggle sits in .nav-socials; reset button defaults only */
