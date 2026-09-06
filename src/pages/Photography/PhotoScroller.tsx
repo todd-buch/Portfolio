@@ -31,7 +31,7 @@ interface PhotoScrollerProps {
   initialIndex?: number;
 }
 
-/** Ease-out curve shared with the hero “scroll to bio” motion. */
+/** Ease-out curve for programmatic snap scrolling. */
 const SCROLL_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 function prefersReducedMotion() {
